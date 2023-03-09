@@ -8,6 +8,7 @@ import { ToastContainer, Zoom, toast} from 'react-toastify';
 import fireDb from '../NFTFolder/firebase'
 import launchpadDetails from '../components/DashboardNew/snippets/launchpad.json'
 import {DataContext} from "../App";
+import { createevent } from "../firebaseuploadconfig";
 const axios = require('axios');
 
 const CreateClub = () => {  
@@ -19,9 +20,13 @@ const CreateClub = () => {
     const handleHideLoad = () => setLoader(false);              
     const[Name,setName]=useState("");    
     const[Address,setAddress]=useState("");
+    const[description,setDescription] = useState("");
     const[Email,setEmail]=useState("");
     const[BoardName1,setBoardName1]=useState("");
-    const[BoardName2,setBoardName2]=useState("");    
+    const[BoardName2,setBoardName2]=useState("");  
+    const[startingDate,setStartingDate] = useState("");  
+    const[endingDate,setEndingingDate] = useState("");  
+    const[rewards,setRewards] = useState("");
     const [getState,setStates] = useState("");  
     const [getZone,setZone] = useState("");          
     const [Imgname,setImgname] = useState("")
@@ -114,7 +119,8 @@ const CreateClub = () => {
       },
       'base64'
       );
-      reader.readAsArrayBuffer(file)      
+      reader.readAsArrayBuffer(file)   
+      console.log("uploaded")   
     }catch (err) {
     }
     };
@@ -130,37 +136,34 @@ const CreateClub = () => {
           toast.dismiss()
           toast.warning(`Please enter Club-Name`,{autoClose: 5000});            
           handleHideLoad()                     
-        }        
-        else if(BoardName1 === ""){          
-          toast.dismiss()
-          toast.warning(`Please enter BOD-1`,{autoClose: 5000});            
-          handleHideLoad()                     
-        }        
-        else if(BoardName2 === ""){          
-          toast.dismiss()
-          toast.warning(`Please enter BOD-2`,{autoClose: 5000});            
-          handleHideLoad()                     
-        }        
-        else if(Address === ""){
-          toast.dismiss()
-          toast.warning(`Please enter Location`,{autoClose: 5000});            
-          handleHideLoad()                                         
         }
+        else if(description === ""){          
+          toast.dismiss()
+          toast.warning(`Please enter Description`,{autoClose: 5000});            
+          handleHideLoad()                     
+        } 
+        else if(startingDate === ""){          
+          toast.dismiss()
+          toast.warning(`Please enter startingDate`,{autoClose: 5000});            
+          handleHideLoad()                     
+        }        
+        else if(endingDate === ""){          
+          toast.dismiss()
+          toast.warning(`Please enter endingDate`,{autoClose: 5000});            
+          handleHideLoad()                     
+        }        
+        
         else if(Email === ""){
           toast.dismiss()
           toast.warning(`Please enter Email`,{autoClose: 5000});            
           handleHideLoad()                                                   
         }        
-        else if(getZone === ""){
+        else if(rewards === ""){
           toast.dismiss()
-          toast.warning(`Please Select Zone`,{autoClose: 5000});            
+          toast.warning(`Please enter rewards`,{autoClose: 5000});            
           handleHideLoad()                                                                                 
         }
-        else if(getState === ""){
-          toast.dismiss()
-          toast.warning(`Please Select State`,{autoClose: 5000});            
-          handleHideLoad()                                                                                 
-        }        
+              
         else if(Img === ""){
           toast.dismiss()
           toast.warning(`Please Upload Image`,{autoClose: 5000});            
@@ -170,7 +173,9 @@ const CreateClub = () => {
           toast.warning(`Please Enter Valid E-mail`,{autoClose:5000})            
           handleHideLoad()            
         } 
-        else if(showTestLoading === false){     
+        else 
+        // if(showTestLoading === false)
+        {     
           console.log("CurreentE",CurrentExit)          
           toast.dismiss()               
             handleShowLoad()     
@@ -196,50 +201,63 @@ const CreateClub = () => {
             // const CryptoJS = require("crypto-js");              
             // let encrypted = CryptoJS.AES.encrypt(PasswordEny,PasswordEny).toString();
             console.log("EnyPassword");
-            //asset optin end here
-              //fireDb.auth().signInAnonymously().then((response)=>{      
-                let ref2=fireDb.database().ref(`organizationclub/${localStorage.getItem('EAWalletAddress')}`);            
-                const db = ref2.push().key;                                                
-                ref2.child(db).set({
-                  "dbkey":db,
-                  "createdDate": today,
-                  "Name": Name,                  
-                  "Location": Address,                  
-                  "Email": Email,                  
-                  "BOD1": BoardName1,                  
-                  "BOD2": BoardName2,                  
-                  "State": getState,                
-                  "Zone": getZone,                    
-                  "algoAddress": localStorage.getItem("EAWalletAddress"),                  
-                  "selfiePath": Img,            
-                  "kycStatus": "create",
-                  "reviewedBy": "pending",
-                  "approvedBy": "",
-                  "submittedDate": today,
-                  "reviewedDate": "",
-                  "approvedDate": "",
-                  "identity":Img,                              
-                  "base64Image":Img,
-                  "assetId": "",                  
-                  "ipfslink":"",
-                  "encrypted":"",
-                  "Password":"",
-                  "PasswordKey":"",
-                  "pinataUpload":"realipfsurl",
-                  "pinataNFTupload":"addnfturl",                                
-                })
-                  .then(async()=>{                    
-                            toast.success("Register Club successful",{autoClose: 5000});                 
+         let k =   await createevent(Name,description,startingDate,endingDate,rewards,Email,Img,today);
+         console.log("k",k)
+         if(k === 1){
+          toast.success(" Event Created successful",{autoClose: 5000});                 
                             handleHideLoad() 
                             await sleep(5000)
-                            history.push('/createteam')                          
-                            })                                                            
-        }       
-        else{
+                            history.push('/created_events') 
+         }
+         else{
           toast.dismiss()
           toast.warning(`Your Profile Already Create`,{autoClose: 5000});            
           handleHideLoad()                                                                                                                                                 
-          }                             
+          }
+            //asset optin end here
+              //fireDb.auth().signInAnonymously().then((response)=>{      
+                // let ref2=fireDb.database().ref(`organizationclub/${localStorage.getItem('EAWalletAddress')}`);            
+                // const db = ref2.push().key;                                                
+                // ref2.child(db).set({
+                //   "dbkey":db,
+                //   "createdDate": today,
+                //   "Name": Name,                  
+                //   "Location": Address,                  
+                //   "Email": Email,                  
+                //   "BOD1": BoardName1,                  
+                //   "BOD2": BoardName2,                  
+                //   "State": getState,                
+                //   "Zone": getZone,                    
+                //   "algoAddress": localStorage.getItem("EAWalletAddress"),                  
+                //   "selfiePath": Img,            
+                //   "kycStatus": "create",
+                //   "reviewedBy": "pending",
+                //   "approvedBy": "",
+                //   "submittedDate": today,
+                //   "reviewedDate": "",
+                //   "approvedDate": "",
+                //   "identity":Img,                              
+                //   "base64Image":Img,
+                //   "assetId": "",                  
+                //   "ipfslink":"",
+                //   "encrypted":"",
+                //   "Password":"",
+                //   "PasswordKey":"",
+                //   "pinataUpload":"realipfsurl",
+                //   "pinataNFTupload":"addnfturl",                                
+                // })
+                //   .then(async()=>{                    
+                //             toast.success("Register Club successful",{autoClose: 5000});                 
+                //             handleHideLoad() 
+                //             await sleep(5000)
+                //             history.push('/createteam')                          
+                //             })                                                            
+        }       
+        // else{
+        //   toast.dismiss()
+        //   toast.warning(`Your Profile Already Create`,{autoClose: 5000});            
+        //   handleHideLoad()                                                                                                                                                 
+        //   }                             
     }                 
     const handleChange = (event) => {
       setZone(event.target.value);
@@ -283,132 +301,49 @@ return(
         <Container fluid>              
         <Row className="justify-content-center">
         <Col lg="7" md="10" sm="12">
-        <div className="note mb-60 d-flex justify-content-center">                    
+         <center><h2>Create an Event</h2></center> 
+        {/* <div className="note mb-60 d-flex justify-content-center">                    
           <p><strong>Note:</strong> This is a TestNet version. Kindly refrain from uploading your original documents here.</p>
-        </div>
-        {CurrentExit === "" || CurrentExit === null || CurrentExit === undefined ? (        
+        </div> */}
+        {/* {CurrentExit === "" || CurrentExit === null || CurrentExit === undefined ? (         */}
           <Container fluid="md">                                              
           <form>
                 <Row>
                   <Col xs={6} className="mb-3">
-                    <label htmlFor="name">Club-Name:</label>
-                    <input placeholder="Enter Club Name" type="text" className="form-control form-control-field border-0" id="name" onChange={event => setName( event.target.value)}/>                
+                    <label htmlFor="name">Event-Name:</label>
+                    <input placeholder="Enter Event Name" type="text" className="form-control form-control-field border-0" id="name" onChange={event => setName( event.target.value)}/>                
                   </Col>              
                   <Col xs={6} className="mb-3">
-                    <label htmlFor="address">Location:</label>
-                    <input placeholder="Enter Location" type="text" className="form-control form-control-field border-0" id="address" onChange={event => setAddress( event.target.value)}/>                
+                    <label htmlFor="address">Description:</label>
+                    <input placeholder="Enter Description" type="text" className="form-control form-control-field border-0" id="description" onChange={event => setDescription( event.target.value)}/>                
                   </Col>
                   <Col xs={6} className="mb-3">
                     <label htmlFor="email">Email:</label>
                     <input placeholder="Email" type="email" className="form-control form-control-field border-0" id="email" onChange={event => setEmail( event.target.value)}/>                
                   </Col>              
                   <Col xs={6} className="mb-3">
-                    <label htmlFor="citizenship">Board of Direct-1:</label>
-                    <input placeholder="Enter Board of Direct-1:" type="text"  id="citizenship" className="form-control form-control-field border-0" onChange={event => setBoardName1( event.target.value)}/>                
+                    <label htmlFor="citizenship">Starting Date:</label>
+                    <input placeholder="Enter Board of Direct-1:" type="date"  id="startdate" className="form-control form-control-field border-0" onChange={event => setStartingDate( event.target.value)}/>                
                   </Col>              
                   <Col xs={6} className="mb-3">
-                    <label htmlFor="citizenship">Board of Direct-2:</label>
-                    <input placeholder="Enter Board of Direct-2:" type="text"  id="citizenship" className="form-control form-control-field border-0" onChange={event => setBoardName2( event.target.value)}/>                
-                  </Col>              
+                    <label htmlFor="citizenship">Ending Date:</label>
+                    <input placeholder="Enter Board of Direct-2:" type="date"  id="enddate" className="form-control form-control-field border-0" onChange={event => setEndingingDate( event.target.value)}/>                
+                  </Col>  
                   <Col xs={6} className="mb-3">
-                        <label htmlFor="top">Select State:</label>
-                        {/* <input placeholder="type of proof" type="text"  id="top" className="form-control form-control-field border-0" onChange={event => setTypeOfProof( event.target.value)}/>                 */}
-                        <select className="form-select border-0 p-0 bg-transparent noarrow" style={{color:'#808080'}} value={getState} onChange={handleChange2}>          
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "WEST">WEST</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "EAST">EAST</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "SOUTH">SOUTH</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "NORTH">NORTH</option>                                      
-                        </select>
-                  </Col>
-                  <Col xs={6} className="mb-3">
-                        <label htmlFor="top">Select Zone:</label>                    
-                        <select className="form-select border-0 p-0 bg-transparent noarrow" style={{color:'#808080'}} value={getZone} onChange={handleChange}>          
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "WEST">WEST</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "EAST">EAST</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "SOUTH">SOUTH</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "NORTH">NORTH</option>                                      
-                        </select>
-                  </Col>             
+                    <label htmlFor="rewards">Rewards:</label>
+                    <input placeholder="Rewards" type="text" className="form-control form-control-field border-0" id="rewards" onChange={event => setRewards( event.target.value)}/>                
+                  </Col>            
+               
+                            
                   <Col xs={12} md={6} className="mb-3">
-                    <label htmlFor="fileid">Select Logo:</label>
+                    <label htmlFor="fileid">Upload Image:</label>
                     <input type="file" name="tfile" id="fileid" onChange = {captureFile} className="form-control form-control-field border-0"/>                
                   </Col>                            
                 </Row>            
-               <ButtonLoad loading={loader} className='w-100 mb-3' onClick={()=>{UploadDb()}}>UPLOADS</ButtonLoad>                           
+               <ButtonLoad loading={loader} className='w-100 mb-3' onClick={()=>{UploadDb()}}>CREATE</ButtonLoad>                           
               </form>              
           </Container>
-        ):(
-        <>
-            {CurrentExit[0] === null || CurrentExit[0] === "" || CurrentExit[0] === undefined ? (
-              <Container fluid="md">                  
-              <form>
-                <Row>
-                  <Col xs={6} className="mb-3">
-                    <label htmlFor="name">Club-Name:</label>
-                    <input placeholder="Enter Club Name" type="text" className="form-control form-control-field border-0" id="name" onChange={event => setName( event.target.value)}/>                
-                  </Col>              
-                  <Col xs={6} className="mb-3">
-                    <label htmlFor="address">Location:</label>
-                    <input placeholder="Enter Location" type="text" className="form-control form-control-field border-0" id="address" onChange={event => setAddress( event.target.value)}/>                
-                  </Col>
-                  <Col xs={6} className="mb-3">
-                    <label htmlFor="email">Email:</label>
-                    <input placeholder="Email" type="email" className="form-control form-control-field border-0" id="email" onChange={event => setEmail( event.target.value)}/>                
-                  </Col>              
-                  <Col xs={6} className="mb-3">
-                    <label htmlFor="citizenship">Board of Direct-1:</label>
-                    <input placeholder="Enter Board of Direct-1:" type="text"  id="citizenship" className="form-control form-control-field border-0" onChange={event => setBoardName1( event.target.value)}/>                
-                  </Col>              
-                  <Col xs={6} className="mb-3">
-                    <label htmlFor="citizenship">Board of Direct-2:</label>
-                    <input placeholder="Enter Board of Direct-2:" type="text"  id="citizenship" className="form-control form-control-field border-0" onChange={event => setBoardName2( event.target.value)}/>                
-                  </Col>              
-                  <Col xs={6} className="mb-3">
-                        <label htmlFor="top">Select State:</label>
-                        {/* <input placeholder="type of proof" type="text"  id="top" className="form-control form-control-field border-0" onChange={event => setTypeOfProof( event.target.value)}/>                 */}
-                        <select className="form-select border-0 p-0 bg-transparent noarrow" style={{color:'#808080'}} value={getState} onChange={handleChange2}>          
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "WEST">WEST</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "EAST">EAST</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "SOUTH">SOUTH</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "NORTH">NORTH</option>                                      
-                        </select>
-                  </Col>
-                  <Col xs={6} className="mb-3">
-                        <label htmlFor="top">Select Zone:</label>                    
-                        <select className="form-select border-0 p-0 bg-transparent noarrow" style={{color:'#808080'}} value={getZone} onChange={handleChange}>          
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "WEST">WEST</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "EAST">EAST</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "SOUTH">SOUTH</option>                  
-                        <option className="form-select border-0 p-0 bg-transparent noarrow" value= "NORTH">NORTH</option>                                      
-                        </select>
-                  </Col>                               
-                  <Col xs={12} md={6} className="mb-3">
-                    <label htmlFor="fileid">Select Logo:</label>
-                    <input type="file" name="tfile" id="fileid" onChange = {captureFile} className="form-control form-control-field border-0"/>                
-                  </Col>                            
-                </Row>            
-               <ButtonLoad loading={loader} className='w-100 mb-3' onClick={()=>{UploadDb()}}>UPLOADS</ButtonLoad>                           
-              </form>              
-              </Container>
-            ):(
-              <Container fluid>           
-              <Row className="justify-content-center">
-                  <Col xl="8" lg="8" md="10" sm="12">
-                      <div className="card-bond">
-                          <div className="p-3 card-bond-inner">
-                            <center>
-                          <h4 className="mb-3">Club Details uploaded successfully</h4>                                                                                                        
-                          <p className="mb-3">Click Below Button,Go to Upload Team-Details</p>   
-                          <Link to="/createteam" ><Button variant="blue" className="text-white" >Create Team</Button></Link>
-                            </center>
-                          </div>
-                      </div>
-                  </Col>
-              </Row>
-              </Container>            
-            )}
-        </>
-        )}
+       
         </Col>
         </Row>
         </Container>        

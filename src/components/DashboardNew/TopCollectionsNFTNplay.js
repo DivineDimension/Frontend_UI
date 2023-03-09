@@ -8,7 +8,8 @@ import GNFTArtTab from './GNFTArtTab';
 import GNFTPetTab from './GNFTPetTab';
 import GNFTPhotographyTab from './GNFTPhotographyTab';
 import GNFTSportsTab from './GNFTSportsTab';
-import GNFTExploreTab from './GNFTExploreTab';
+import ImageExploreTab from './imageExploreTab';
+import { getApprovedImages } from '../../firebaseuploadconfig';
 
 const TopCollectionsNFTN = () => {
     useEffect(() => {
@@ -17,7 +18,7 @@ const TopCollectionsNFTN = () => {
     const[pageSize,setPageSize]=useState(12);     
     const [searchText, setSearchText] = React.useState('');    
     const[getrecent,setrecent]=useState("View All");            
-    const[getImgreffalgoCount,setgetImgreffalgoCount]=useState([]);    
+    const[approvedImages,setApprovedImages]=useState([]);    
     const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);    
     const[getImgreffalgosaleSports,setgetImgreffalgosaleSports]=useState([]);    
     const[getImgreffalgosalePet,setgetImgreffalgosalePet]=useState([]);    
@@ -25,7 +26,13 @@ const TopCollectionsNFTN = () => {
     const[getImgreffalgosalePhotography,setgetImgreffalgosalePhotography]=useState([]);
     const[getImgreffalgosaleTradingCards,setgetImgreffalgosaleTradingCards]=useState([]);    
 
+    useEffect(()=>{getapprovedimages()},[])
 
+    const getapprovedimages = async() =>{
+        let getimages = await getApprovedImages();
+        console.log("approved images",getimages)
+        setApprovedImages(getimages);
+    }
    
      
 
@@ -87,6 +94,14 @@ const TopCollectionsNFTN = () => {
                             </Dropdown>
                             </div>
                             <Row>
+                                {approvedImages ? (<>
+                                {approvedImages.map((i)=>{
+                                    return(
+                                        <ImageExploreTab x={i}/>
+                                    )
+                                })}
+                                </>):(<>
+                                </>)}
                             {/* {getImgreffalgosale === null || getImgreffalgosale === "" || getImgreffalgosale === undefined || getImgreffalgosale[0] === null || getImgreffalgosale[0] === "" || getImgreffalgosale[0] === undefined || filterdata()[0] === null || filterdata()[0] === "" || filterdata()[0] === undefined ? (
                                 <>
                                 {filterdata2static1().map((x, index) => {  
