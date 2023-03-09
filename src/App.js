@@ -21,6 +21,8 @@ import TopCollectionsNFTNplay from './components/DashboardNew/TopCollectionsNFTN
 import TopCollectionsNFTNmap from './components/DashboardNew/TopCollectionsNFTNmap';
 import TopCollectionsNFTNavatarimages from './components/DashboardNew/TopCollectionsNFTNavatarimages';
 import TopCollectionsNFTNlandimages from './components/DashboardNew/TopCollectionsNFTNlandimages';
+import CreatedEvents from './components/DashboardNew/CreatedEvents';
+import CreatedEventsApprovalpage from './components/DashboardNew/CreatedEventsApprovalpage';
 import pool from './components/DashboardNew/poolNew';
 // dashboard
 //import HotCollectionsApp from './components/DashboardNew/HotCollections'
@@ -270,7 +272,12 @@ function App() {
         <Route path="/land">
           <TopCollectionsNFTNlandimages />
         </Route> 
-        
+        <Route path="/created_events">
+          <CreatedEvents />
+        </Route>
+        <Route path="/approval_page">
+          <CreatedEventsApprovalpage />
+        </Route> 
         <Route path="/">
           <HomePage />                    
         </Route>  

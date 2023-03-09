@@ -21,6 +21,8 @@ import community from '../../assets/images/community.jpg';
 import create from '../../assets/images/create.jpg';
 import avatar from '../../assets/images/avatar.jpg';
 import assets from '../../assets/images/assets.png';
+import createlog from '../../assets/images/createicon.png';
+import eventslogo from '../../assets/images/eventslogo.png';
 //import HotCollections from '../../assets/images/icons/hot-collections.png';
 import Kyc from '../../assets/images/icons/kyc.png';
 //import Lend from '../../assets/images/icons/lend.png';
@@ -154,7 +156,12 @@ const Sidebar = ({activeClass, handleLink}) => {
                         </Dropdown.Toggle>
                     )} 
                     {device > 1199 && activeClass ? null : (
-                        <Dropdown.Menu show={location === "/play"   ? true : false} as="ul" className={`list-unstyled position-relative mb-0 p-0 ${location === "/play"  ? 'd-block' : ''}`} style={{minWidth: 'auto'}}>                                
+                        <Dropdown.Menu show={location === "/play" ||location === "/createclub" || location ==="/created_events"|| location ==="/approval_page"  ? true : false} as="ul" className={`list-unstyled position-relative mb-0 p-0 ${location === "/play" ||location === "/createclub" || location ==="/created_events" || location ==="/approval_page"? 'd-block' : ''}`} style={{minWidth: 'auto'}}>                                
+                       <li><Link to="/createclub" activeClassName='active'> <img src={createlog} alt="HotNFT" /> Create Event</Link></li> 
+                       <li><Link to="/play" activeClassName='active'> <img src={GenesisMarket} alt="HotNFT" />Play Events</Link></li> 
+                       <li><Link to="/created_events" activeClassName='active'> <img src={eventslogo} alt="HotNFT" />Created Events</Link></li> 
+                       <li><Link to="/approval_page" activeClassName='active'> <img src={GenesisMarket} alt="HotNFT" />Approval Page</Link></li> 
+                       
                       </Dropdown.Menu>
                     )}                        
                   
