@@ -69,6 +69,11 @@ import TopCollectionsERC1155 from "./components/DashboardNew/TopCollectionsERC11
 import NFTDetailsERC1155 from "./components/DashboardNew/NFTDetailsERC1155";
 import PoolNew from "./components/DashboardNew/poolNew";
 
+//Login, signup pages
+import Login from "./components/DashboardNew/UserAuth/Login";
+import LoginOTP from "./components/DashboardNew/UserAuth/LoginOtp";
+import SignUp from "./components/DashboardNew/UserAuth/Signup";
+
 export const DataContext = createContext();
 function App() {    
 
@@ -136,6 +141,16 @@ function App() {
     <DataContext.Provider value={EAWalletbalances}>
     <Router>
       <Switch> 
+        {/* Login/Signup */}
+        <Route path="/login">
+          <Login />                    
+        </Route> 
+        <Route path="/sign-up">
+          <SignUp />                    
+        </Route>
+        <Route path="/login-otp">
+          <LoginOTP />                    
+        </Route>
         {/* Stabecoin Start */} 
         <Route path="/dashboard">
           <DashboardApp />
@@ -278,9 +293,12 @@ function App() {
         <Route path="/approval_page">
           <CreatedEventsApprovalpage />
         </Route> 
-        <Route path="/">
+        <Route path="/home">
           <HomePage />                    
         </Route>  
+        <Route path="/">
+          <Login />                    
+        </Route>
 
         
 
