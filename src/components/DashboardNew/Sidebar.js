@@ -205,7 +205,7 @@ const Sidebar = ({activeClass, handleLink}) => {
                             Trending Collections</Link></li> 
                     <li><Link to="/top-nftcollection" activeClassName='active'> <img src={GenesisMarket} alt="HotNFT" /> NFT Collections</Link></li> 
                             <li><Link to="/genesis-market" activeClassName='active'><img src={GenesisMarket} alt="market" /> Royalty NFTs</Link></li>                                                                
-                            <li><Link to="/top-auctioncollection" activeClassName='active'><img src={GenesisMarket} alt="auctioncollection" /> Auction-NFT's</Link></li>
+                            {/* <li><Link to="/top-auctioncollection" activeClassName='active'><img src={GenesisMarket} alt="auctioncollection" /> Auction-NFT's</Link></li> */}
                             </Dropdown.Menu>
                     )}                             
                   
