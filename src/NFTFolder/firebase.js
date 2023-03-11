@@ -1,37 +1,38 @@
-// import firebase from "firebase";
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAO4wbrKi0PAhuBJFqyDqbUBaPBDpp6WxU",
-//   authDomain: "elebase-a74f1.firebaseapp.com",
-//   databaseURL: "https://elebase-a74f1-default-rtdb.firebaseio.com",
-//   projectId: "elebase-a74f1",
-//   storageBucket: "elebase-a74f1.appspot.com",
-//   messagingSenderId: "997660922195",
-//   appId: "1:997660922195:web:d8f59a7601468e6b56d1a6",
-//   measurementId: "G-5K30X0BXKQ"
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+//import { signInWithPopup } from "firebase/auth";
+//import { GoogleAuthProvider } from "firebase/compat/auth";
+const firebaseConfig = {
+  apiKey: "AIzaSyB4LSrL-mWi_J6LGyv3QnvC4JBA4Rjskf8",
+  authDomain: "minter-a28a6.firebaseapp.com",
+  databaseURL: "https://minter-a28a6-default-rtdb.firebaseio.com",
+  projectId: "minter-a28a6",
+  storageBucket: "minter-a28a6.appspot.com",
+  messagingSenderId: "428227132921",
+  appId: "1:428227132921:web:a4acdf4913ee5b601b1128",
+  measurementId: "G-JFXC6RB91L"
+};// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+//const firebases=firebase.initializeApp(firebaseConfig);
+//const provider = new firebase.auth.GoogleAuthProvider()
+// export const signInWithGoogle = () => {
+//         signInWithPopup(auth, provider)
+//           .then((result) => {
+//             const name = result.user.displayName;
+//             const email = result.user.email;
+//             const profilePic = result.user.photoURL;      
+//             localStorage.setItem("name", name);
+//             localStorage.setItem("email", email);
+//             localStorage.setItem("profilePic", profilePic);
+//           })
+//           .catch((error) => {
+//             console.log(error);
+//           });
 // };
 
-// const fireDb = firebase.initializeApp(firebaseConfig);
-// export default fireDb;  
-
-// import firebase from "firebase";
-// import { initializeApp } from "firebase/database";
-// import { getAnalytics } from "firebase/analytics";
-
-import firebase from "firebase";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAws76eFwxqhseRnYa5kvy4d8-rU7c5HC4",
-  authDomain: "aptosnft-4290b.firebaseapp.com",
-  databaseURL: "https://aptosnft-4290b-default-rtdb.firebaseio.com",
-  projectId: "aptosnft-4290b",
-  storageBucket: "aptosnft-4290b.appspot.com",
-  messagingSenderId: "392501360912",
-  appId: "1:392501360912:web:ea609db1dd671c70468d95",
-  measurementId: "G-YVMSJWEC2P"
-};
-
-// Initialize Firebase
-//const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
-const fireDb = firebase.initializeApp(firebaseConfig);
-export default fireDb;  
+export const auth = firebase.auth()
+// firebase.initializeApp(firebaseConfig);
+  
+// export default firebase
+export default firebase

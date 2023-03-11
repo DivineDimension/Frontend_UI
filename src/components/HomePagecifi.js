@@ -1,5 +1,6 @@
 import React from 'react';
 import {Container, Row, Col, Button} from 'react-bootstrap';
+import { Link,useHistory,Redirect, useLocation } from "react-router-dom";
 
 import Layout from './Layout';
 // components
@@ -21,6 +22,11 @@ import BannerImage from '../assets/images/divinemainlogo.png';
 
 
 function HomePage() {
+    const location = useLocation();
+    
+    if(localStorage.getItem('Login') === false || localStorage.getItem('Login') === null || localStorage.getItem('Login') === undefined || localStorage.getItem('Login') === "" || localStorage.getItem('Login') === "false"){            
+        return <Redirect to="/login" state={{ from: location }}/>;
+   } else  {  
     return (
         <Layout>
             <div className="page-banner text-white" style={{paddingTop: '0px'}}>
@@ -64,6 +70,7 @@ function HomePage() {
             {/* <Platform /> */}
         </Layout>
     );
+   }
 }
 
 export default HomePage;

@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/nft.scss'
 import './scss/main.scss';
 import './scss/dashboard.scss';
+import './scss/cbdc.scss';
 
 ReactDOM.render(
   <React.StrictMode>
