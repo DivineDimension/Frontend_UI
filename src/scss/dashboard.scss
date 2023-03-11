@@ -435,6 +435,10 @@ body{
         z-index: 12;
         left: 32px;
         top: 20px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: cadetblue;
 
         @include maxDevice(1199px){
             top: 0;
@@ -543,6 +547,11 @@ body{
     padding-top: 175px;
     // min-height: calc(100vh - 86px);
     min-height: 100vh;
+    background-image: url('../assets/images/patternimage2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 
     @include minDevice(1200px){
         &.ps-dash{
