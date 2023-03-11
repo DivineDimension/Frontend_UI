@@ -1,6 +1,6 @@
 import { Col, Form, Row,Alert } from "react-bootstrap";
 // import Logo from '../../../assets/images/cbdc/Logo.png'
-import LoginBg from '../../../assets/images/p06.jpg'
+import LoginBg from '../../../assets/images/cbdc/p06.jpg'
 import { Link,useHistory} from "react-router-dom";
 import React,{ useState,useRef } from "react";
 import { auth } from "../../../NFTFolder/firebase"
@@ -130,8 +130,8 @@ function HomePage() {
                         {/* <img src={Logo} height="75px" width="75px" alt="logo" /><br/> */}
                         <div className="form-middle pt-5 pt-md-0 m-auto">
                             <div style={{color: "white"}} className="mb-2 text-uppercase">
-                                <h2>Get started</h2>
-                            </div>
+                                <h2></h2>
+                            </div><br/><br/><br/><br/>
                             {error && <Alert variant="danger">{error}</Alert>}
                             {/* <Row>
                                 <Col sm={6}>

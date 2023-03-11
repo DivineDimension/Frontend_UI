@@ -1,5 +1,5 @@
 import { Col, Form, Row ,Alert } from "react-bootstrap";
-import LoginBg from '../../../assets/images/p06.jpg'
+import LoginBg from '../../../assets/images/cbdc/p06.jpg'
 import { Link,useHistory,Redirect, useLocation } from "react-router-dom";
 import React,{ useState,useRef, useEffect } from "react";
 //import { auth } from "../../../NFTFolder/firebase"
@@ -179,7 +179,7 @@ const LoginOtp=()=> {
                             {/* <img src={Logo} height="75px" width="75px" alt="logo" /> */}
                             <div className="form-middle pt-5 pt-md-0 m-auto">
                                 <div className="mb-2 text-uppercase" style={{color: "white"}}>
-                                    <h2>Log in with mobile number</h2>
+                                    <h2></h2>
                                 </div>
                                 {error && <Alert variant="danger">{error}</Alert>}
                                 {error2 && <Alert variant="success">{error2}</Alert>}
@@ -253,7 +253,7 @@ const LoginOtp=()=> {
                             {/* <img src={Logo} height="75px" width="75px" alt="logo" /> */}
                             <div className="form-middle pt-5 pt-md-0 m-auto">
                                 <div className="mb-2 text-uppercase" style={{color: "white"}}>
-                                    <h2>Log in with mobile number</h2>
+                                    <h2></h2>
                                 </div>
                                 {error && <Alert variant="danger">{error}</Alert>}
                                 {error2 && <Alert variant="success">{error2}</Alert>}
