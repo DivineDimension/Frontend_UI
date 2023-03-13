@@ -23,6 +23,13 @@ import avatar from '../../assets/images/avatar.jpg';
 import assets from '../../assets/images/assets.png';
 import createlog from '../../assets/images/createicon.png';
 import eventslogo from '../../assets/images/eventslogo.png';
+import setting from '../../assets/images/setting.png';
+import settings from '../../assets/images/settings.png';
+import play from '../../assets/images/play.png';
+import todolist from '../../assets/images/to-do-list.png';
+import createlist from '../../assets/images/create-list.png';
+import calendar from '../../assets/images/calendar.png';
+import pin from '../../assets/images/pin.png';
 //import HotCollections from '../../assets/images/icons/hot-collections.png';
 import Kyc from '../../assets/images/icons/kyc.png';
 //import Lend from '../../assets/images/icons/lend.png';
@@ -31,8 +38,11 @@ import NftMarketplace from '../../assets/images/icons/nft-marketplace.png';
 import Particiapte from '../../assets/images/icons/particiapte.png';
 //import RiskFreeLending from '../../assets/images/icons/risk-free-lending.png';
 //import Saas from '../../assets/images/icons/saas.png';
-import StablecoinHub from '../../assets/images/icons/stablecoin-hub.png';
-import StableSwap from '../../assets/images/icons/stable-swap.png';
+import avatarimg from '../../assets/images/avatar.png';
+import profile from '../../assets/images/profile.png';
+import stake from '../../assets/images/stake.png';
+import inventory from '../../assets/images/inventory.png';
+import refund from '../../assets/images/refund.png';
 import ZeroFeeExchange from '../../assets/images/icons/zero-fee-exchange.png';
 
 const Sidebar = ({activeClass, handleLink}) => {
@@ -116,6 +126,21 @@ const Sidebar = ({activeClass, handleLink}) => {
                     )}
                 </Dropdown>
             </li>  */}
+             <li>
+                <Dropdown>
+                    {device > 1199 && activeClass ? (
+                        <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
+                            <img src={setting} alt="CBDC Hub" />
+                        </Dropdown.Toggle>
+                    ) : (                            
+                        <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
+                            
+                            <Link to="/approval_page"><img src={setting} alt="CBDC Hub"  ></img>Admin Page</Link>
+                             
+                        </Dropdown.Toggle>
+                    )} 
+                    </Dropdown>
+                    </li>
             <li>
                 <Dropdown>                     
                         {device > 1199 && activeClass ? (
@@ -125,19 +150,19 @@ const Sidebar = ({activeClass, handleLink}) => {
                             ) : (
                                 <Dropdown.Toggle variant='transparent' className={`noarrow ${location === "/createteam" ? 'active' : '' }`} id="dropdown-basic">
                                     {/* <svg width="24" height="24" className='ms-0' fill='currentColor' viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g id="sprout" transform="translate(-49.874 -14.287)"><path id="Path_5" data-name="Path 5" d="M123.9,42.355V35.841c3.63-.24,10.153-1.326,14.655-5.828,6.4-6.4,5.9-16.892,5.874-17.335a2.556,2.556,0,0,0-2.411-2.411c-.443-.025-10.936-.526-17.335,5.874a16.521,16.521,0,0,0-1.816,2.165,23.98,23.98,0,0,0-5.993-11.27C109.231-.609,96.652-.008,96.121.022A2.556,2.556,0,0,0,93.71,2.433c-.029.532-.631,13.11,7.013,20.754,5.6,5.6,13.847,6.775,18.067,6.991V42.355a22.731,22.731,0,0,1,5.112,0Z" transform="translate(-20.875 22)"></path><path id="Path_6" data-name="Path 6" d="M130.26,344.721a16.633,16.633,0,0,0-5.217.837,23.327,23.327,0,0,0-42.912,0,16.66,16.66,0,0,0-21.874,15.82v6.669a3.32,3.32,0,0,0,3.32,3.32H143.6a3.32,3.32,0,0,0,3.32-3.32v-6.669a16.676,16.676,0,0,0-16.657-16.657Z" transform="translate(-3.116 -264.181)"></path></g></svg>Avatar  */}
-                                <img src={avatar} />Avatar
+                                <img src={avatarimg} />Avatar
                                 </Dropdown.Toggle>
                             )}                    
                     {device > 1199 && activeClass ? null : (
                         <Dropdown.Menu show={location === "/createteam" || location === "/my-NFT" || location === "/createclub" || location === "/upcoming" || location ===  "/viewtoken" || location ==="/create-artists" ? true : false} as="ul" className={`list-unstyled position-relative mb-0 p-0 ${location === "/createteam" || location === "/createorg" || location === "/createclub" || location === "/createtoken" || location === "/viewtoken" ? 'd-block' : ''}`} style={{minWidth: 'auto'}}>                                
                             {/* <li><Link to="/createorg"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.49967 15H9.16634V16.6667H10.833V15H12.4997V16.6667H13.333C13.7932 16.6667 14.1663 17.0398 14.1663 17.5C14.1663 17.9602 13.7932 18.3333 13.333 18.3333H6.66634C6.2061 18.3333 5.83301 17.9602 5.83301 17.5C5.83301 17.0398 6.2061 16.6667 6.66634 16.6667H7.49967V15Z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M3.33366 5L3.33366 11.6667C3.33366 12.5871 4.07985 13.3333 5.00033 13.3333L15.0003 13.3333C15.9208 13.3333 16.667 12.5871 16.667 11.6667L16.667 5C16.667 4.07953 15.9208 3.33333 15.0003 3.33333L5.00033 3.33333C4.07985 3.33333 3.33366 4.07953 3.33366 5ZM1.66699 11.6667C1.66699 13.5076 3.15938 15 5.00033 15L15.0003 15C16.8413 15 18.3337 13.5076 18.3337 11.6667L18.3337 5C18.3337 3.15905 16.8413 1.66667 15.0003 1.66667L5.00033 1.66667C3.15938 1.66667 1.66699 3.15905 1.66699 5L1.66699 11.6667Z" fill="currentColor"></path><path d="M5.83333 5C5.3731 5 5 5.3731 5 5.83333C5 6.29357 5.3731 6.66667 5.83333 6.66667H11.6667C12.1269 6.66667 12.5 6.29357 12.5 5.83333C12.5 5.3731 12.1269 5 11.6667 5H5.83333Z" fill="currentColor"></path><path d="M5.83333 8.33333C5.3731 8.33333 5 8.70643 5 9.16667C5 9.6269 5.3731 10 5.83333 10H7.5C7.96024 10 8.33333 9.6269 8.33333 9.16667C8.33333 8.70643 7.96024 8.33333 7.5 8.33333H5.83333Z" fill="currentColor"></path></svg> Create-Organization </Link></li> */}
-                            <li><Link to="/my-NFT"><img src={MyNFT} alt="Kyc" /> Profile </Link></li>
-                            <li><Link to="/upcoming"><img src={GenerateDid} alt="GenerateDid" /> Staking</Link></li>
+                            <li><Link to="/my-NFT"><img src={profile} alt="Kyc" /> Profile </Link></li>
+                            <li><Link to="/upcoming"><img src={stake} alt="GenerateDid" /> Staking</Link></li>
                             <li><Link to="/upcoming"><img src={Particiapte} alt="Particiapte" /> Badges</Link></li>
-                            <li><Link to="/viewtoken"><img src={Auction} alt="Auction" />Inventory</Link></li>
-                            <li><Link to="/viewtoken"><img src={Auction} alt="Auction" />Claim</Link></li>
+                            <li><Link to="/viewtoken"><img src={inventory} alt="Auction" />Inventory</Link></li>
+                            <li><Link to="/viewtoken"><img src={refund} alt="Auction" />Claim</Link></li>
                             <li><Link to="/avatar"><img src={avatar} alt="Auction" />Avatar</Link></li>
-                            <li><Link to="/create-artists"><img src={Auction} alt="Auction" />Settings</Link></li>
+                            <li><Link to="/create-artists"><img src={settings} alt="Auction" />Settings</Link></li>
                         </Dropdown.Menu>
                     )}
                 </Dropdown>
@@ -146,21 +171,21 @@ const Sidebar = ({activeClass, handleLink}) => {
                 <Dropdown>
                     {device > 1199 && activeClass ? (
                         <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
-                            <img src={game} alt="CBDC Hub" />
+                            <img src={play} alt="CBDC Hub" />
                         </Dropdown.Toggle>
                     ) : (                            
                         <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
                             
-                            <Link to="/play"><img src={game} alt="CBDC Hub"  ></img>Play</Link>
+                            <Link to="/play"><img src={play} alt="CBDC Hub"  ></img>Play</Link>
                              
                         </Dropdown.Toggle>
                     )} 
                     {device > 1199 && activeClass ? null : (
                         <Dropdown.Menu show={location === "/play" ||location === "/createclub" || location ==="/created_events"|| location ==="/approval_page"  ? true : false} as="ul" className={`list-unstyled position-relative mb-0 p-0 ${location === "/play" ||location === "/createclub" || location ==="/created_events" || location ==="/approval_page"? 'd-block' : ''}`} style={{minWidth: 'auto'}}>                                
-                       <li><Link to="/createclub" activeClassName='active'> <img src={createlog} alt="HotNFT" /> Create Event</Link></li> 
-                       <li><Link to="/play" activeClassName='active'> <img src={GenesisMarket} alt="HotNFT" />Play Events</Link></li> 
-                       <li><Link to="/created_events" activeClassName='active'> <img src={eventslogo} alt="HotNFT" />Created Events</Link></li> 
-                       <li><Link to="/approval_page" activeClassName='active'> <img src={GenesisMarket} alt="HotNFT" />Approval Page</Link></li> 
+                       <li><Link to="/createclub" activeClassName='active'> <img src={createlist} alt="HotNFT" /> Create Event</Link></li> 
+                       <li><Link to="/play" activeClassName='active'> <img src={calendar} alt="HotNFT" />Play Events</Link></li> 
+                       <li><Link to="/created_events" activeClassName='active'> <img src={todolist} alt="HotNFT" />Created Events</Link></li> 
+                       {/* <li><Link to="/approval_page" activeClassName='active'> <img src={GenesisMarket} alt="HotNFT" />Approval Page</Link></li>  */}
                        
                       </Dropdown.Menu>
                     )}                        
@@ -171,12 +196,12 @@ const Sidebar = ({activeClass, handleLink}) => {
                 <Dropdown>
                     {device > 1199 && activeClass ? (
                         <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
-                            <img src={map} alt="CBDC Hub" />
+                            <img src={pin} alt="CBDC Hub" />
                         </Dropdown.Toggle>
                     ) : (                            
                         <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
                             
-                            <Link to="/map"><img src={map} alt="CBDC Hub"  ></img>Map</Link>
+                            <Link to="/map"><img src={pin} alt="CBDC Hub"  ></img>Map</Link>
                              
                         </Dropdown.Toggle>
                     )} 
