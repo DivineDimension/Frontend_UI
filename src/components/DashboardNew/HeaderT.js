@@ -16,6 +16,8 @@ import { ToastContainer, Zoom, toast} from 'react-toastify';
 // import { uservisit } from '../../firedbstore';
 import axios from 'axios';
 import {DataContext} from "../../App";
+import pontem from '../../assets/images/pontem.jpg';
+import petra from '../../assets/images/petra.jpg';
 //import { async } from 'q';
 //import { AppId,escrowProgram } from "../swapConfig";
 
@@ -105,24 +107,91 @@ const Header = (props) => {
             }
     };
 
-    const connectWalletphantom = async () => {
-        localStorage.setItem("walletName", "myAlgoWallet");
+
+    const getpetraWallet = () => {
+        const isPetraInstalled = window.aptos
+        if ('petra' in window) {
+            return window.petra;
+        } else {
+            window.open('https://petra.app/', `_blank`);
+        }
+    }
+
+    // const wallet = getAptosWallet();
+    const connectWalletpetra = async () => {
+        localStorage.setItem("EAWalletName", "EPetraWallet");
             try {
-                handleCopy();
-    
-                let settings = {
-                    shouldSelectOneAccount: true,
-                    openManager: true
-                }
-                  
-                  
-                //await countAsset();
-              window.location.reload();
-              setShowButton(false);
-            } catch (err) {
-              console.error(err);
-            }
+                handleCopy();                                    
+                const isPetraWalletInstalled = window.petra    
+                console.log("Is",isPetraWalletInstalled)
+                const get = getpetraWallet();
+                console.log("get",get)
+                let response1 = await window.petra.connect();
+                localStorage.setItem("EAWalletAddress",response1.address)
+                console.log(response1); // { address: string, address: string }
+                await ReadBalance();
+                window.location.reload(false);
+
+          } catch (error) {
+            console.log(err);
+            // { code: 4001, message: "User rejected the request."}
+        }
     };
+
+    const disconnect = async () => {
+        const wallet = getpetraWallet();
+        await wallet.disconnect();
+        localStorage.setItem("EAWalletAddress", "");
+    }
+   
+
+    
+    // const connectWalletphantom = async () => {
+    //     localStorage.setItem("walletName", "myAlgoWallet");
+    //         try {
+    //             handleCopy();
+    
+    //             let settings = {
+    //                 shouldSelectOneAccount: true,
+    //                 openManager: true
+    //             }
+                  
+                  
+    //             //await countAsset();
+    //           window.location.reload();
+    //           setShowButton(false);
+    //         } catch (err) {
+    //           console.error(err);
+    //         }
+    // };
+    
+    const getpontemWallet = () => {
+        const isPontemInstalled = window.aptos
+        if ('pontem' in window) {
+            return window.pontem;
+        } else {
+            window.open("https://chrome.google.com/webstore/detail/pontem-aptos-wallet/phkbamefinggmakgklpkljjmgibohnba", "_blank");
+        }
+    } 
+    const connectwalletpontem =async()=>{
+        localStorage.setItem("EAWalletName", "EPontemWallet");
+        try {
+            handleCopy();                                    
+            const isPontemWalletInstalled = window.isPontemWalletInstalled    
+            console.log("Is",isPontemWalletInstalled)
+            const get = getpontemWallet();
+            console.log("get",get)
+            let response2 = await window.pontem.connect();
+            localStorage.setItem("EAWalletAddress",response2.address)
+            console.log(response2); // { address: string, address: string }
+            await ReadBalance();
+            window.location.reload(false);
+
+      } catch (error) {
+        console.log(error);
+        // { code: 4001, message: "User rejected the request."}
+    }
+};
 
     // const connectWalletmetamask = async ()=>{
     //     if (typeof window.ethereum === 'undefined') {
@@ -269,22 +338,22 @@ const Header = (props) => {
     }
 
 
-    const connectWalletpetra = async () => {
-        localStorage.setItem("walletName", "myAlgoWallet");
-            try {
-                handleCopy();
+    // const connectWalletpetra = async () => {
+    //     localStorage.setItem("walletName", "myAlgoWallet");
+    //         try {
+    //             handleCopy();
     
-                let settings = {
-                    shouldSelectOneAccount: true,
-                    openManager: true
-                }
+    //             let settings = {
+    //                 shouldSelectOneAccount: true,
+    //                 openManager: true
+    //             }
                   
-              window.location.reload();
-              setShowButton(false);
-            } catch (err) {
-              console.error(err);
-            }
-    };
+    //           window.location.reload();
+    //           setShowButton(false);
+    //         } catch (err) {
+    //           console.error(err);
+    //         }
+    // };
 
 
 
@@ -308,16 +377,47 @@ const Header = (props) => {
         
      
     
-      const Disconnect = async() => {
-        await window.martian.disconnect();        
-        //await 
-        localStorage.setItem("EAWalletAddress","");
-        localStorage.setItem("EAWalletName", "");
-        localStorage.setItem("EAWalletBalance", "");
-        handleCopy();
-        window.location.reload();
-        setShowButton(true)
-      }
+    //   const Disconnect = async() => {
+    //     await window.martian.disconnect();        
+    //     //await 
+    //     localStorage.setItem("EAWalletAddress","");
+    //     localStorage.setItem("EAWalletName", "");
+    //     localStorage.setItem("EAWalletBalance", "");
+    //     handleCopy();
+    //     window.location.reload();
+    //     setShowButton(true)
+    //   }
+
+      const Disconnect = async () => {
+        console.log("closed")
+     
+        try{
+            const wallet = getProvider();
+            await wallet.disconnect();
+        }catch(error){
+            
+        }
+        try{
+
+            await window.petra.disconnect();
+        }catch(error){
+            
+        }
+        try{
+            await window.pontem.disconnect();
+            console.log("Disconnected successfully")
+        }catch(error){
+            
+        }
+        
+              localStorage.setItem("EAWalletAddress","");
+      localStorage.setItem("EAWalletName", "");
+    localStorage.setItem("EAWalletBalance", "");
+    handleCopy();
+      window.location.reload();
+         setShowButton(true)
+        
+    }
 
     //   const connectPeraWallet = async () => {
     //     localStorage.setItem("walletName", "PeraWallet");
@@ -583,7 +683,14 @@ const[storereem,setstoreredeem] = useState([]);
                                 )}   
                                                                              
                                 </>
-                            )}                    
+
+                                
+                            )
+                            
+                            
+                            }      
+                        
+
                             &nbsp;&nbsp;
                             {/* <a href="https://cificricket.vercel.app/">
                                <Button className='btn btn-blue d-sm-block d-none'>
@@ -606,7 +713,9 @@ const[storereem,setstoreredeem] = useState([]);
                             <Button className='btn btn-blue d-sm-block d-none'>{parseFloat(localStorage.getItem("EAWalletBalance")).toFixed(5)} Matic</Button>
                         )}                                                
                         </>
-                    )}                    
+                    )}     
+
+                    
                     &nbsp;&nbsp;
                     <Button className='btn btn-blue d-sm-none' onClick={walletCheck}>
                     <svg width="20" height="20" className='m-0' viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z"></path></svg>
@@ -709,7 +818,23 @@ const[storereem,setstoreredeem] = useState([]);
                         <span className='text-white'>Martian-Wallet</span>
                         <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
                     </Button>
+                  
+                   
                 </Modal.Body>
+                <Modal.Body>
+                <Button variant='gray' className='d-flex p-3 justify-content-between w-100 align-items-center' onClick={connectWalletpetra}>
+                        <span className='text-white'>Petra-Wallet</span>
+                        <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
+                    </Button>
+                </Modal.Body>
+
+                <Modal.Body>
+                <Button variant='gray' className='d-flex p-3 justify-content-between w-100 align-items-center' onClick={connectwalletpontem}>
+                        <span className='text-white'>Pontem-Wallet</span>
+                        <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
+                    </Button>
+                </Modal.Body>
+               
             </Modal>
 
             {/* <Modal show={connectedShow} className="modal-dashboard" centered onHide={handleConnectedClose}>
@@ -731,7 +856,14 @@ const[storereem,setstoreredeem] = useState([]);
                     <Modal.Title>Account</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <h6 className='mb-2 me-auto'>Connected with Martian Wallet</h6>
+                <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("wallet") === "Petra" ? (<>
+                                            <img src={petra} alt="ConnectPop_icon" />
+                                        </>): localStorage.getItem("wallet") === "Martian" ? (<>
+                                            <img src={MyAlgoLogo} alt="ConnectPop_icon" />
+                                        </>):(<>
+                                            <img src={pontem} alt="ConnectPop_icon" />
+                                        </>)
+                                        } Wallet</h6>
                     <div className="d-flex flex-wrap mb-3 align-items-center">                                                
                         <Button variant="primary" className='btn-xs mb-2 ms-1' onClick={Disconnect}>Disconnect</Button>
                         {/* <Button variant="primary" className='btn-xs mb-2 ms-1' onClick={connectWallet}>Change Account</Button>                     */}
