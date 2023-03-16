@@ -21,6 +21,8 @@ import petra from '../../assets/images/petra.jpg';
 //import { async } from 'q';
 //import { AppId,escrowProgram } from "../swapConfig";
 
+
+
 const Header = (props) => {
     const EAWalletbalances = useContext(DataContext);
     console.log("BalanceEE",EAWalletbalances)
