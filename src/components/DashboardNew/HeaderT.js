@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useContext } from 'react';
-import { Button, Dropdown, Modal } from 'react-bootstrap';
+import { Button, Dropdown, Modal, Tab, Tabs } from 'react-bootstrap';
 import {
     NavLink as Link
   } from "react-router-dom";
@@ -26,7 +26,7 @@ const Header = (props) => {
     const [walletconnectget, setwalletconnect] = useState();
     console.log("walletConnect",walletconnectget)
     const [connectedShow, setConnectedShow] = useState(false);
-    const [sidebar, setSidebar] = useState(false);
+    const [sidebar, setSidebar] = useState(true);
     const [connector, setConnector] = useState("");
     const [connected, setConnected] = useState(false);
     const [currentAccount, setCurrentAccount] = useState();
@@ -51,6 +51,8 @@ const Header = (props) => {
     const [showConnectPera, setShowConnectPera] = useState(false);
     const handleShowConnectPera = () => setShowConnectPera(true);
     const handleCloseConnectPera = () => setShowConnectPera(false);
+
+    const [key, setKey] = useState('first');
 
     const [themeState, setThemeState] = useState(false);
 
@@ -534,7 +536,7 @@ const[storereem,setstoreredeem] = useState([]);
         <>
             <div className='header-navigation d-flex align-items-center'>
             <ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/>
-                <Button variant="transparent" className='btn text-white p-0 d-none d-xl-block me-2' onClick={handleSidebar}>
+                {/* <Button variant="transparent" className='btn text-white p-0 d-none d-xl-block me-2' onClick={handleSidebar}>
                     {sidebar ? 
                     <svg viewBox="0 0 24 24" width="32px" color="textSubtle" xmlns="http://www.w3.org/2000/svg" class="sc-bdfBwQ gBefXE"><path d="M4 18H20C20.55 18 21 17.55 21 17C21 16.45 20.55 16 20 16H4C3.45 16 3 16.45 3 17C3 17.55 3.45 18 4 18ZM4 13H20C20.55 13 21 12.55 21 12C21 11.45 20.55 11 20 11H4C3.45 11 3 11.45 3 12C3 12.55 3.45 13 4 13ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7Z"></path></svg>
                     
@@ -543,7 +545,7 @@ const[storereem,setstoreredeem] = useState([]);
                     <svg viewBox="0 0 24 24" className='m-0' width="32" fill='currentColor' height="32" xmlns="http://www.w3.org/2000/svg"><path d="M4 18H15C15.55 18 16 17.55 16 17C16 16.45 15.55 16 15 16H4C3.45 16 3 16.45 3 17C3 17.55 3.45 18 4 18ZM4 13H12C12.55 13 13 12.55 13 12C13 11.45 12.55 11 12 11H4C3.45 11 3 11.45 3 12C3 12.55 3.45 13 4 13ZM3 7C3 7.55 3.45 8 4 8H15C15.55 8 16 7.55 16 7C16 6.45 15.55 6 15 6H4C3.45 6 3 6.45 3 7ZM20.3 14.88L17.42 12L20.3 9.12C20.69 8.73 20.69 8.1 20.3 7.71C19.91 7.32 19.28 7.32 18.89 7.71L15.3 11.3C14.91 11.69 14.91 12.32 15.3 12.71L18.89 16.3C19.28 16.69 19.91 16.69 20.3 16.3C20.68 15.91 20.69 15.27 20.3 14.88Z"></path></svg>
                     }
 
-                </Button>
+                </Button> */}
                 <Link to="/" className="header-logo"><img src={Logo} alt="Logo" /></Link>
 
                 <div className="header-navigation-control ms-auto d-flex align-items-center">
@@ -676,7 +678,7 @@ const[storereem,setstoreredeem] = useState([]);
                 <Modal.Header closeButton>
                     <Modal.Title>Connect to a wallet</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className='mt-0'>
                     {/* <Button variant='gray' className='d-flex p-3 mb-20 justify-content-between w-100 align-items-center' onClick={connectPeraWallet}>
                         <span className='text-white'>Pera Wallet</span>
                         <img src={PeraWalletLogo} alt="Pera Wallet" />
@@ -705,10 +707,32 @@ const[storereem,setstoreredeem] = useState([]);
                         <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
                     </Button> */}
 
-                <Button variant='gray' className='d-flex p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
-                        <span className='text-white'>Martian-Wallet</span>
-                        <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
-                    </Button>
+                    <Tabs
+                        id="controlled-tab-example"
+                        activeKey={key}
+                        onSelect={(k) => setKey(k)}
+                        >
+                        <Tab eventKey="first" title="Aptos">
+                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
+                                <span className='text-white'>Martian-Wallet</span>
+                                <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
+                            </Button>
+                        </Tab>
+                        <Tab eventKey="second" title="Ethereum">
+                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
+                                <span className='text-white'>Martian-Wallet</span>
+                                <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
+                            </Button>
+                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
+                                <span className='text-white'>Martian-Wallet</span>
+                                <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
+                            </Button>
+                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
+                                <span className='text-white'>Martian-Wallet</span>
+                                <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
+                            </Button>
+                        </Tab>
+                    </Tabs>
                 </Modal.Body>
             </Modal>
 
