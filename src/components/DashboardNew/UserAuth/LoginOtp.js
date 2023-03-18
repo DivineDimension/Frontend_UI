@@ -177,25 +177,25 @@ const LoginOtp=()=> {
                     <Col md={12} style={{backgroundImage: `url(${LoginBg})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
                         <div className="cbdc-login px-sm-4 px-3 mx-auto d-flex flex-column">
                             {/* <img src={Logo} height="75px" width="75px" alt="logo" /> */}
-                            <div className="form-middle pt-5 pt-md-0 m-auto">
-                                <div className="mb-2 text-uppercase" style={{color: "white"}}>
+                            <div className="card bg-dark border-0 form-middle text-secondary pt-4 m-auto">
+                                {/* <div className="mb-2 text-uppercase" style={{color: "white"}}>
                                     <h2></h2>
-                                </div>
+                                </div> */}
                                 {error && <Alert variant="danger">{error}</Alert>}
                                 {error2 && <Alert variant="success">{error2}</Alert>}
                                 {Otpt ? (
                                     <div className="mb-3">
-                                        <label style={{color: "white"}}>OTP</label>
+                                        <label>OTP</label>
                                         <input type="text" className='form-control form-control-field border-0' value={OtpCode} placeholder='Enter OTP' onChange={event => enterOtp( event.target.value)}/>
-                                        <br></br>
-                                        <button type='submit' className='btn-dark mb-4 btn w-100' onClick={()=>{OtpCheck()}}>Log In</button>                                    
+                                        <br />
+                                        <button type='submit' className='btn-secondary mb-4 btn w-100' onClick={()=>{OtpCheck()}}>Log In</button>                                    
                                     </div>                                                                    
                                 ):(
                                     <div className="mb-3">
-                                        <label style={{color: "white"}}>Mobile number</label>
+                                        <label>Mobile number</label>
                                         <input type="text" className='form-control form-control-field border-0' value={MobileNumber} placeholder='Enter your mobile number' onChange={event => setMobileNumber( event.target.value)}/>
-                                        <br></br>
-                                        <button type='submit' className='mb-4 btn btn-white w-100' onClick={()=>{login()}}>Send OTP</button>
+                                        <br />
+                                        <button type='submit' className='mb-4 btn btn-primary w-100' onClick={()=>{login()}}>Send OTP</button>
                                     </div>
                                 )}
                                 
@@ -227,8 +227,8 @@ const LoginOtp=()=> {
                                     <button type='submit' className='btn-dark mb-4 btn w-100' onClick={()=>{login()}}>Send OTP</button>
                                 )} */}
                                 {/* <button type='submit' className='btn-dark mb-4 btn w-100' onClick={()=>{login()}}>Log In</button> */}
-                                <p style={{color: "white"}} className="text-center">Or</p>                                
-                                <p style={{color: "white"}} className="text-center">Don’t have an account? <Link to="/signup-cbdc" style={{color: "white"}}><strong style={{textDecorationLine: 'underline', textDecorationLineColor: 'white'}}>Sign up with mail</strong></Link></p>
+                                <p className="text-center">Or</p>                                
+                                <p className="text-center">Don’t have an account? <Link to="/signup-cbdc" style={{color: "white"}}><strong style={{textDecorationLine: 'underline', textDecorationLineColor: 'white'}}>Sign up with mail</strong></Link></p>
                             </div>
                         </div>
                     </Col>
