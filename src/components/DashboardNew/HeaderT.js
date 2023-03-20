@@ -83,6 +83,8 @@ const Header = (props) => {
 
     const handleCopy = () =>{setCopyButton(false)};
     const handleCopied = () =>{setCopyButton(true)};
+
+
     const getProvider = () => {
         if ("martian" in window) {
           return(window.martian);
@@ -135,7 +137,7 @@ const Header = (props) => {
                 window.location.reload(false);
 
           } catch (error) {
-            console.log(err);
+            console.log(error);
             // { code: 4001, message: "User rejected the request."}
         }
     };
@@ -167,10 +169,10 @@ const Header = (props) => {
     //         }
     // };
     
-    const getpontemWallet = () => {
+    const getpontemWallet = async() => {
         const isPontemInstalled = window.aptos
         if ('pontem' in window) {
-            return window.pontem;
+            return(window.pontem);
         } else {
             window.open("https://chrome.google.com/webstore/detail/pontem-aptos-wallet/phkbamefinggmakgklpkljjmgibohnba", "_blank");
         }
@@ -179,7 +181,7 @@ const Header = (props) => {
         localStorage.setItem("EAWalletName", "EPontemWallet");
         try {
             handleCopy();                                    
-            const isPontemWalletInstalled = window.isPontemWalletInstalled    
+            const isPontemWalletInstalled = window.pontem    
             console.log("Is",isPontemWalletInstalled)
             const get = getpontemWallet();
             console.log("get",get)
