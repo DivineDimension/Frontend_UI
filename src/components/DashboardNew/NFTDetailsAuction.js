@@ -16,6 +16,7 @@ import {abiauction} from './Auctionnftcontract';
 import web3 from './web3';
 import axios from 'axios';
 import {DataContext} from "../../App";
+import { swappet } from './config';
 const NFTDetailsAuction = (props) => {
     const EAWalletbalances = useContext(DataContext);    
     //let caddressnew = "0x069918e79642121dcd5e88565efdd16b1ba9421dfcfed66eff3a1c400efcfc3d"
@@ -321,13 +322,16 @@ const NFTDetailsAuction = (props) => {
           ]
         }
                   
-        const txn_request2CS =  await window.martian.generateTransaction(address, payloadclaim,options)
-        console.log("Req",txn_request2CS)
-        const signed_txn2CS = await  window.martian.signTransaction(txn_request2CS)
-        console.log("signedTx",signed_txn2CS)
-        const res2CS = await window.martian.submitTransaction(signed_txn2CS)        
-        console.log("TransferV",res2CS)              
-        let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash+"?network=testnet";
+        // const txn_request2CS =  await window.martian.generateTransaction(address, payloadclaim,options)
+        // console.log("Req",txn_request2CS)
+        // const signed_txn2CS = await  window.martian.signTransaction(txn_request2CS)
+        // console.log("signedTx",signed_txn2CS)
+        // const res2CS = await window.martian.submitTransaction(signed_txn2CS)        
+        // console.log("TransferV",res2CS)      
+        let transaction2Hash = await swappet(payloadclaim)
+        console.log("transactionHash", transaction2Hash); 
+        //   let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;        
+        let id = "https://explorer.aptoslabs.com/txn/"+transaction2Hash+"?network=testnet";
         toast.success(toastDiv(id));                 
         // toast.success(`Asset Bidding ${response.txId}`,{autoClose: 8000});                                      
         toast.success(`NFT Bidding Successfully`,{autoClose: 8000});            
@@ -514,13 +518,16 @@ const NFTDetailsAuction = (props) => {
                 ]
               }        
               
-              const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
-              console.log("Req",txn_request2)
-              const signed_txn2 = await  window.martian.signTransaction(txn_request2)
-              console.log("signedTx",signed_txn2)
-              const res2 = await window.martian.submitTransaction(signed_txn2)        
-              console.log("TransferV",res2)  
-              let id = "https://explorer.aptoslabs.com/txn/"+res2.hash;
+            //   const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
+            //   console.log("Req",txn_request2)
+            //   const signed_txn2 = await  window.martian.signTransaction(txn_request2)
+            //   console.log("signedTx",signed_txn2)
+            //   const res2 = await window.martian.submitTransaction(signed_txn2)        
+            //   console.log("TransferV",res2)  
+            //   let id = "https://explorer.aptoslabs.com/txn/"+res2.hash;
+            let transactionHash = await swappet(payloadclaim)
+            console.log("transactionHash", transactionHash); 
+              let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;
               toast.success(toastDiv(id));      
               // toast.success(`Asset Buying ${res2.hash}`,{autoClose: 8000});              
               await sleep(10000)      
