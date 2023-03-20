@@ -1,5 +1,6 @@
 import { useState,useEffect,React } from "react";
 import { Button, Col, FormControl, InputGroup, Modal, OverlayTrigger, Row, Stack, Tooltip } from "react-bootstrap";
+import { swappet } from "../config";
 
 import WalletConnect from "@walletconnect/client";
 // import QRCodeModal from "algorand-walletconnect-qrcode-modal";
@@ -169,18 +170,23 @@ function PoolChild() {
          };
        try {
            // const pendingTransaction = await (window).aptos.signAndSubmitTransaction(transaction);
-           let pendingTransaction = await swappet(transaction)
-           console.log("pendingTransaction", pendingTransaction);
-           const client = new AptosClient('https://fullnode.testnet.aptoslabs.com');
-           client.waitForTransaction(pendingTransaction);
-           await successmsg(pendingTransaction);
-           setnotregister(false)
+           let transactionHash = await swappet(transaction)
+           console.log("transactionHash", transactionHash); 
+             let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;
+             toast.success(toastDiv(id)); 
+        //    let pendingTransaction = await swappet(transaction)
+        //    console.log("pendingTransaction", pendingTransaction);
+        //    const client = new AptosClient('https://fullnode.testnet.aptoslabs.com');
+        //    client.waitForTransaction(pendingTransaction);
+        //    await successmsg(pendingTransaction);
+        //    setnotregister(false)
         //    await asset();
-       } catch (error) {
-           toast.error(`${error}`); 
-           console.log("err",error)
-           setLoader(false)
-       }
+     }
+       catch (err) {        
+        console.error(err);
+        toast.warning(`you are facing error `,{autoClose:5000})
+        //done2()          
+    }   
    }
 
    const successmsg = async(hash)=>{
@@ -211,37 +217,37 @@ const resettstate = async() =>{
     setamount("");
 }
 
-const swappet = async (Payload)=>{
-//     if(localStorage.getItem("wallet")==="Petra"){
+// const swappet = async (Payload)=>{
+// //     if(localStorage.getItem("wallet")==="Petra"){
       
-//         const pendingTransaction = await (window).aptos.signAndSubmitTransaction(Payload);
-//         return pendingTransaction.hash
+// //         const pendingTransaction = await (window).aptos.signAndSubmitTransaction(Payload);
+// //         return pendingTransaction.hash
+// //     }
+// //    else if (localStorage.getItem("wallet") === "Martian"){
+//     const response = await window.martian.connect();
+//     const sender = response.address;
+//     const options = {
+//         max_gas_amount: "100000"
 //     }
-//    else if (localStorage.getItem("wallet") === "Martian"){
-    const response = await window.martian.connect();
-    const sender = response.address;
-    const options = {
-        max_gas_amount: "100000"
-    }
-    const transactionRequest = await window.martian.generateTransaction(sender, Payload, options);
-      const txnHash = await window.martian.signAndSubmitTransaction(transactionRequest);
-      return txnHash
-//    }
-//    else{
-//     let g = Math.floor(new Date().getTime()/1000.0)
-//     console.log("time",g+1000)
-//     const otherOptions = {
-//       max_gas_amount: '601012',
-//       gas_unit_price: '100',
-//       expiration_timestamp_secs: g+100,
-//       // sequence_number: '15'
-//     }
-//      let txnHash = await window.pontem.signAndSubmit(Payload, otherOptions);
-//      console.log("hash",txnHash.result.hash)
-//      return txnHash.result.hash;
+//     const transactionRequest = await window.martian.generateTransaction(sender, Payload, options);
+//       const txnHash = await window.martian.signAndSubmitTransaction(transactionRequest);
+//       return txnHash
+// //    }
+// //    else{
+// //     let g = Math.floor(new Date().getTime()/1000.0)
+// //     console.log("time",g+1000)
+// //     const otherOptions = {
+// //       max_gas_amount: '601012',
+// //       gas_unit_price: '100',
+// //       expiration_timestamp_secs: g+100,
+// //       // sequence_number: '15'
+// //     }
+// //      let txnHash = await window.pontem.signAndSubmit(Payload, otherOptions);
+// //      console.log("hash",txnHash.result.hash)
+// //      return txnHash.result.hash;
         
-//    }
-}
+// //    }
+// }
 
 const clickevent = async(givename) =>{
     setfunctname(givename);
