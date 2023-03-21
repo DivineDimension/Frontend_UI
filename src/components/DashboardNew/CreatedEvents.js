@@ -16,6 +16,7 @@ import mus from '../../assets/images/mus.png';
 import chr from '../../assets/images/chr.png';
 import hin from '../../assets/images/hin.png';
 import { getCreatedEvents } from '../../firebaseuploadconfig';
+import { Link } from 'react-router-dom';
 
 
 const TopCollectionsNFTN = () => {
@@ -51,6 +52,11 @@ const TopCollectionsNFTN = () => {
     return (    
 
         <Layout>
+            <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+                <Link to="/play">Play Events</Link>
+                <Link to="/createclub">Create Event</Link>
+                <Link className="active" to="/created_events">Created Events</Link>  
+            </div>
             <Container>
             <ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/>        
                 <div className='nft-tabs'>

@@ -519,6 +519,15 @@ const MyNFT = () => {
       
     return (
         <Layout>
+            <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+                <Link className='active' to="/my-NFT">Profile</Link>
+                <Link to="/upcoming">Staking</Link>
+                <Link to="/upcoming">Badges</Link>
+                <Link to="/viewtoken">Inventory</Link>
+                <Link to="/viewtoken">Claim</Link>
+                <Link to="/avatar">Avatar</Link>
+                <Link to="/create-artists">Settings</Link>
+            </div>
             <Container>
             <ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/>            
                 <Card className='card-dash mb-4 d-block border-0'>                    

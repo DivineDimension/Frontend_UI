@@ -282,6 +282,11 @@ const CreateClub = () => {
 
 return(
     <Layout>
+      <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+          <Link to="/play">Play Events</Link>
+          <Link className="active" to="/createclub">Create Event</Link>
+          <Link to="/created_events">Created Events</Link>  
+      </div>
       <ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/>
       {localStorage.getItem('EAWalletAddress') === null || localStorage.getItem('EAWalletAddress') === undefined || localStorage.getItem('EAWalletAddress') === "" ? (
         <Container fluid>           

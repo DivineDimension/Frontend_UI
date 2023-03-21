@@ -75,6 +75,15 @@ const View = () => {
 
     return (
         <Layout>
+            <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+                <Link to="/my-NFT">Profile</Link>
+                <Link className='active' to="/upcoming">Staking</Link>
+                <Link className='active' to="/upcoming">Badges</Link>
+                <Link to="/viewtoken">Inventory</Link>
+                <Link to="/viewtoken">Claim</Link>
+                <Link to="/avatar">Avatar</Link>
+                <Link to="/create-artists">Settings</Link>
+            </div>
         <div className="justify-content-center">  
         <Container fluid>                                
         <Tabs defaultActiveKey="Activity" id="uncontrolled-tab-example" className='dashboard-tabs'>                       
