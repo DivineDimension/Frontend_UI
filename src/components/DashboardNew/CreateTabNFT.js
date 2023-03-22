@@ -10,6 +10,7 @@ import web3 from './web3';
 import {abi} from './Normalnftcontract';
 //import node from './nodeapi.json';
 import {DataContext} from "../../App";
+import { swappet } from './config';
 const CreateTabNFT =({x})=>{        
     let history=useHistory();
     const EAWalletbalances = useContext(DataContext);        
@@ -81,11 +82,11 @@ const CreateTabNFT =({x})=>{
         }else if(localStorage.getItem('EAWalletAddress') === b.ownerAddress){   
             handleShowLoad()                             
             toast.info("Updating The Sale of NFT",{autoClose:5000}); 
-            const response = await window.martian.connect();
-            const address = response.address;
-            const options = {
-              max_gas_amount: "10000"
-            }
+            // const response = await window.martian.connect();
+            // const address = response.address;
+            // const options = {
+            //   max_gas_amount: "10000"
+            // }
       
             //let pricecalculation = ((parseFloat(valuess.NFTPrice)/1.5)*100) 
       
@@ -103,12 +104,17 @@ const CreateTabNFT =({x})=>{
                   1
                 ]
               }    
-            const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
-            console.log("Req",txn_request2)
-            const signed_txn2 = await  window.martian.signTransaction(txn_request2)
-            console.log("signedTx",signed_txn2)
-            const res2 = await window.martian.submitTransaction(signed_txn2)        
-            console.log("TransferV",res2)         
+            // const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
+            // console.log("Req",txn_request2)
+            // const signed_txn2 = await  window.martian.signTransaction(txn_request2)
+            // console.log("signedTx",signed_txn2)
+            // const res2 = await window.martian.submitTransaction(signed_txn2)        
+            // console.log("TransferV",res2)     
+            
+            let transactionHash = await swappet(payloadclaim)
+            console.log("transactionHash", transactionHash); 
+              let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;   
+              toast.success(toastDiv(id)); 
             await sleep(12000)                
             // let getaaaa=new web3.eth.Contract(abi,b.EscrowAddress);
             // const accounts = await  web3.eth.getAccounts();
@@ -199,17 +205,25 @@ const CreateTabNFT =({x})=>{
           ]
         }
   
-        const txn_request2CS =  await window.martian.generateTransaction(address, payloadclaim,options)
-        console.log("Req",txn_request2CS)
-        const signed_txn2CS = await  window.martian.signTransaction(txn_request2CS)
-        console.log("signedTx",signed_txn2CS)
-        const res2CS = await window.martian.submitTransaction(signed_txn2CS)        
-        console.log("TransferV",res2CS)      
+        // const txn_request2CS =  await window.martian.generateTransaction(address, payloadclaim,options)
+        // console.log("Req",txn_request2CS)
+        // const signed_txn2CS = await  window.martian.signTransaction(txn_request2CS)
+        // console.log("signedTx",signed_txn2CS)
+        // const res2CS = await window.martian.submitTransaction(signed_txn2CS)        
+        // console.log("TransferV",res2CS)      
         
+        // //await storeDbUpdate(valuess,address,caddress,Prices);
+        
+        // //let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash+"?network=testnet";
+        // let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash;
+        let transaction2Hash = await swappet(payloadclaim)
+        console.log("transactionHash", transaction2Hash); 
+        //   let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;
         //await storeDbUpdate(valuess,address,caddress,Prices);
-        
+
         //let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash+"?network=testnet";
-        let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash;
+        
+        let id = "https://explorer.aptoslabs.com/txn/"+transaction2Hash;
         toast.success(toastDiv(id));
         let calc=amountmul;
         await sleep(12000)               

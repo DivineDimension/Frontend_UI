@@ -248,3 +248,36 @@ export const uservisits =async(type)=>{
     })
     // })
   }
+
+
+
+  export const swappet = async (Payload)=>{
+    if(localStorage.getItem("wallet")==="Petra"){
+        const pendingTransaction = await (window).aptos.signAndSubmitTransaction(Payload);
+        return pendingTransaction.hash
+    }
+   else if (localStorage.getItem("wallet") === "Martian"){
+    const response = await window.martian.connect();
+    const sender = response.address;
+    const options = {
+        max_gas_amount: "100000"
+    }
+    const transactionRequest = await window.martian.generateTransaction(sender, Payload, options);
+      const txnHash = await window.martian.signAndSubmitTransaction(transactionRequest);
+      return txnHash
+   }
+   else{
+    let g = Math.floor(new Date().getTime()/1000.0)
+    console.log("time",g+1000)
+    const otherOptions = {
+      max_gas_amount: '601012',
+      gas_unit_price: '100',
+      expiration_timestamp_secs: g+100,
+      // sequence_number: '15'
+    }
+     let txnHash = await window.pontem.signAndSubmit(Payload, otherOptions);
+     console.log("hash",txnHash.result.hash)
+     return txnHash.result.hash;
+
+   }
+}

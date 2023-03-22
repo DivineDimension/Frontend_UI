@@ -15,6 +15,7 @@ import Logo from '../../assets/images/algorand-logo.png';
 import axios from 'axios';
 import node from './nodeapi.json';
 import {DataContext} from "../../App";
+import { swappet } from './config';
 //import { minAlgoBalance } from '../../NFTFolder/formula';
 
 const NFTDetails = (props) => {
@@ -243,13 +244,16 @@ const NFTDetails = (props) => {
     
     
                 
-            const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
-            console.log("Req",txn_request2)
-            const signed_txn2 = await  window.martian.signTransaction(txn_request2)
-            console.log("signedTx",signed_txn2)
-            const res2 = await window.martian.submitTransaction(signed_txn2)        
-            console.log("TransferV",res2)  
-            let id = "https://explorer.aptoslabs.com/txn/"+res2.hash;
+            // const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
+            // console.log("Req",txn_request2)
+            // const signed_txn2 = await  window.martian.signTransaction(txn_request2)
+            // console.log("signedTx",signed_txn2)
+            // const res2 = await window.martian.submitTransaction(signed_txn2)        
+            // console.log("TransferV",res2)  
+            let transactionHash = await swappet(payloadclaim)
+            console.log("transactionHash", transactionHash); 
+              let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;
+            
             toast.success(toastDiv(id));      
             // toast.success(`Asset Buying ${res2.hash}`,{autoClose: 8000});              
             await sleep(10000)  
