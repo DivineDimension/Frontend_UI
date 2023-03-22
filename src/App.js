@@ -8,6 +8,10 @@ import axios from 'axios';
 import DashboardKyc from './KycDid/DashboardKyc'
 import View from "./KycDid/View";
 import Upcoming from "./KycDid/upcoming";
+import Upcoming1 from "./KycDid/upcoming1";
+import Upcoming2 from "./KycDid/upcoming2";
+import Upcoming3 from "./KycDid/upcoming3";
+import Upcoming4 from "./KycDid/upcoming4";
 import CreateKyc from "./KycDid/CreateOrg";
 // import Approvepage from "./KycDid/Approvepage";
 import LauchpadApp from "./components/DashboardNew/Launchpad";
@@ -249,6 +253,18 @@ function App() {
         </Route> 
         <Route path="/upcoming">
           <Upcoming/>
+        </Route> 
+        <Route path="/upcoming1">
+          <Upcoming1/>
+        </Route> 
+        <Route path="/upcoming2">
+          <Upcoming2/>
+        </Route> 
+        <Route path="/upcoming3">
+          <Upcoming3/>
+        </Route> 
+        <Route path="/upcoming4">
+          <Upcoming4/>
         </Route> 
         <Route path="/kyc">
           <DashboardKyc />
