@@ -8,7 +8,8 @@
     --hr: rgb(51,51,51);
     --bg-77: rgb(77, 77, 77);
     --text-primary: #000;
-    --blue: rgb(19,58,198);
+    // --blue: rgb(19,58,198);
+    --blue: #FDBD01;
     --dark-primary: #191919;
     --gray: rgb(153,153,153);
     --dark-text-primary: #f2f2f2;
@@ -21,11 +22,22 @@
     --font-sans: "Mohr Rounded Regular",-apple-system,system-ui,BlinkMacSystemFont,"Helvetica Neue","Helvetica",sans-serif;
 }
 
+.btn-primary{
+    --bs-btn-bg: var(--blue);
+    --bs-btn-border-color: var(--blue);
+    --bs-btn-hover-bg: var(--blue);
+    --bs-btn-hover-border-color: var(--blue);
+    --bs-btn-active-bg: var(--blue);
+    --bs-btn-active-border-color: var(--blue);
+    --bs-btn-disabled-bg: var(--blue);
+    --bs-btn-disabled-border-color: var(--blue);
+}
+
 ::-webkit-scrollbar {
     width: 6px;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 105, 197, 0.85);
+    background: var(--blue);
     border-radius: 12px;
 }
 ::-webkit-scrollbar-track {
@@ -315,11 +327,16 @@ body{
         @include minDevice(1200px){
             &.active{
                 width: 250px;
+                background: var(--dark-primary) url('../assets/images/sidebar-image.png') no-repeat center bottom / cover;
 
                 .side-navigation-list{
                     svg, img{
                         margin-right: 8px;
                     }
+
+                    // .btn{
+                    //     background-color: rgba(0, 0, 0, 0.7);
+                    // }
                 }
             }
         }   
