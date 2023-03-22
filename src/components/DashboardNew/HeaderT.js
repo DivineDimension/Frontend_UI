@@ -801,7 +801,7 @@ const[storereem,setstoreredeem] = useState([]);
                                 <svg class="dark-theme-white-10 me-2 ms-0" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g><g><rect height="7" width="3" x="4" y="10"></rect><rect height="7" width="3" x="10.5" y="10"></rect><rect height="3" width="20" x="2" y="19"></rect><rect height="7" width="3" x="17" y="10"></rect><polygon points="12,1 2,6 2,8 22,8 22,6"></polygon></g></g></svg>
                                 Governance 
                             </Dropdown.Item> */}
-                            <hr />
+                            {/* <hr />
                             {themeState ? (
                                     <Dropdown.Item onClick={() => handleThemeDark()} className='d-flex align-items-center'>
                                         <svg class="dark-theme-white-10 me-2 ms-0" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 2C8.18 2 6.47 2.5 5 3.35C7.99 5.08 10 8.3 10 12C10 15.7 7.99 18.92 5 20.65C6.47 21.5 8.18 22 10 22C15.52 22 20 17.52 20 12C20 6.48 15.52 2 10 2Z"></path></svg>
@@ -813,7 +813,7 @@ const[storereem,setstoreredeem] = useState([]);
                                         Light Theme
                                     </Dropdown.Item>
                                 )}
-                            <hr />
+                            <hr /> */}
                         </Dropdown.Menu>
                     </Dropdown>
                 
