@@ -1,6 +1,7 @@
 import { Col, Form, Row,Alert } from "react-bootstrap";
 // import Logo from '../../../assets/images/cbdc/Logo.png'
-import LoginBg from '../../../assets/images/cbdc/p06.jpg'
+// import LoginBg from '../../../assets/images/cbdc/p06.jpg'
+import LoginBg from '../../../assets/images/Login-banner.png'
 import { Link,useHistory} from "react-router-dom";
 import React,{ useState,useRef } from "react";
 import { auth } from "../../../NFTFolder/firebase"

@@ -327,7 +327,9 @@ body{
         @include minDevice(1200px){
             &.active{
                 width: 250px;
-                background: var(--dark-primary) url('../assets/images/sidebar-image.png') no-repeat center bottom / cover;
+                background: var(--dark-primary) 
+                // url('../assets/images/sidebar-image.png') 
+                no-repeat center bottom / cover;
 
                 .side-navigation-list{
                     svg, img{
@@ -574,7 +576,7 @@ body{
     padding-top: 70px;
     // min-height: calc(100vh - 86px);
     min-height: 100vh;
-    background-image: url('../assets/images/patternimage2.jpg');
+    background-image: url('../assets/images/s2.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

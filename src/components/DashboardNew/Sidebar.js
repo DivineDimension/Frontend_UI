@@ -11,14 +11,14 @@ import Auction from '../../assets/images/icons/auction.png';
 import Faucet from '../../assets/images/icons/faucet.png';
 import GenerateDid from '../../assets/images/icons/generate-did.png';
 import GenesisMarket from '../../assets/images/icons/genesis-market.png';
-import shop from '../../assets/images/shop.jpg';
+import shop from '../../assets/images/shop.png';
 import game from '../../assets/images/play.jpg';
 import map from '../../assets/images/map.png';
 import asst from '../../assets/images/asst.jpg';
 import earn from '../../assets/images/earn.jpg';
-import info from '../../assets/images/info.jpg';
-import community from '../../assets/images/community.jpg';
-import create from '../../assets/images/create.jpg';
+import info from '../../assets/images/info.png';
+import community from '../../assets/images/community.png';
+import create from '../../assets/images/create.png';
 import avatar from '../../assets/images/avatar.jpg';
 import assets from '../../assets/images/assets.png';
 import createlog from '../../assets/images/createicon.png';
@@ -241,7 +241,7 @@ const Sidebar = ({activeClass, handleLink}) => {
                 <Dropdown>
                     {device > 1199 && activeClass ? (
                         <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
-                            <img src={shop} alt="CBDC Hub" />
+                            <img src={create} alt="CBDC Hub" />
                         </Dropdown.Toggle>
                     ) : (                            
                         <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
@@ -264,7 +264,7 @@ const Sidebar = ({activeClass, handleLink}) => {
                 <Dropdown>
                     {device > 1199 && activeClass ? (
                         <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
-                            <img src={shop} alt="CBDC Hub" />
+                            <img src={earn} alt="CBDC Hub" />
                         </Dropdown.Toggle>
                     ) : (                            
                         <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
@@ -289,7 +289,7 @@ const Sidebar = ({activeClass, handleLink}) => {
                 <Dropdown>
                     {device > 1199 && activeClass ? (
                         <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
-                            <img src={shop} alt="CBDC Hub" />
+                            <img src={community} alt="CBDC Hub" />
                         </Dropdown.Toggle>
                     ) : (                            
                         <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
@@ -314,7 +314,7 @@ const Sidebar = ({activeClass, handleLink}) => {
                 <Dropdown>
                     {device > 1199 && activeClass ? (
                         <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
-                            <img src={shop} alt="CBDC Hub" />
+                            <img src={info} alt="CBDC Hub" />
                         </Dropdown.Toggle>
                     ) : (                            
                         <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">

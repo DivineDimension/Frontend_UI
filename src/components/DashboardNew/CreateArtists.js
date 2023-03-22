@@ -6,6 +6,7 @@ import ButtonLoad from 'react-bootstrap-button-loader';
 import { ToastContainer, Zoom, toast} from 'react-toastify';
 import firebase from '../../NFTFolder/firebase';
 import Compress from "react-image-file-resizer";
+import { createprofile } from '../../awsdatafile';
 
 
 const CreateArtists = () => {
@@ -98,7 +99,10 @@ const CreateArtists = () => {
         }
     };
   
-    const CreateArtist = () =>{
+    const CreateArtist = async() =>{
+        let succ = await createprofile();
+    }
+    const CreateArtists = () =>{
 
         if(UserName === null || UserName === "" || UserName === undefined){            
             toast.warning(`please enter profile name`,{autoClose:5000})
