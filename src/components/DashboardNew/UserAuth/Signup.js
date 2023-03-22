@@ -128,10 +128,10 @@ function HomePage() {
             <Col md={12} style={{backgroundImage: `url(${LoginBg})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
                     <div className="cbdc-login px-sm-4 px-3 mx-auto d-flex flex-column">
                         {/* <img src={Logo} height="75px" width="75px" alt="logo" /><br/> */}
-                        <div className="form-middle pt-5 pt-md-0 m-auto">
-                            <div style={{color: "white"}} className="mb-2 text-uppercase">
+                        <div className="card bg-dark border-0 form-middle text-secondary pt-4 m-auto">
+                            {/* <div style={{color: "white"}} className="mb-2 text-uppercase">
                                 <h2></h2>
-                            </div><br/><br/><br/><br/>
+                            </div><br/><br/><br/><br/> */}
                             {error && <Alert variant="danger">{error}</Alert>}
                             {/* <Row>
                                 <Col sm={6}>
@@ -158,9 +158,9 @@ function HomePage() {
                             <div className="mb-3">
                                 <label>Retype password</label>
                                 <input type='password' className='form-control form-control-field border-0' ref={passwordConfirmRef} placeholder='Repeat your password' /> 
-                            </div><br/>
-                            <button type='submit' className='mb-4 btn-white btn w-100' onClick={()=>{SignupFirebase()}}>Start application</button>
-                            <p style={{color: "white"}} className="text-center">Don’t have an account? <Link to="/login" style={{color: "white"}}><strong style={{textDecorationLine: 'underline', textDecorationLineColor: 'white'}}>Log in</strong></Link></p>
+                            </div><br />
+                            <button type='submit' className='mb-4 btn-primary btn w-100' onClick={()=>{SignupFirebase()}}>Start application</button>
+                            <p className="text-center">Don’t have an account? <Link to="/login" style={{color: "white"}}><strong style={{textDecorationLine: 'underline', textDecorationLineColor: 'white'}}>Log in</strong></Link></p>
 
                             {/* <p style={{color: "white"}}><small>By clicking "Start Application" I agree to Mercury's <Link to="/" ><strong style={{color: "white", textDecorationLine: 'underline', textDecorationLineColor: 'white'}}>Terms of Use</strong></Link>, <Link to="/" ><strong style={{color: "white", textDecorationLine: 'underline', textDecorationLineColor: 'white'}}>Privacy Policy</strong></Link> and to receive electronic communication about my accounts and services per Mercury's Electronic Communications Agreement.</small></p> */}
                         </div>

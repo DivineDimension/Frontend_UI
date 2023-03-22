@@ -87,6 +87,11 @@ const TopCategories = () => {
     
     return (    
         <Layout>
+          <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+                <Link to="/top-nftcollection">NFT Collections</Link>
+                <Link className="active" to="/top-categories">Trending Collections</Link>
+                <Link to="/genesis-market">Royalty NFTs</Link>  
+            </div>
             <Container>
                 <ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/>            
                 <div className='nft-tabs'>
@@ -99,7 +104,46 @@ const TopCategories = () => {
                         </Button>
                     </InputGroup>                    
                     <Tabs defaultActiveKey="all" id="uncontrolled-tab-example" className='dashboard-tabs'>
-                        <Tab eventKey="all" title="All">                            
+                        <Tab eventKey="all" title="All">    
+                            <div className='d-flex mt-4 mb-3 align-items-start flex-wrap'>
+                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                  <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                                </svg>
+                                Collections
+                              </Link>
+                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                  <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                                </svg>
+                                Avatar
+                              </Link>
+                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                  <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                                </svg>
+                                Entity
+                              </Link>
+                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                  <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                                </svg>
+                                Equipment
+                              </Link>
+                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                  <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                                </svg>
+                                Art
+                              </Link>
+                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                  <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                                </svg>
+                                LAND & Estate
+                              </Link>
+                            </div>                        
+
                             <Row>                            
                             {getImgreffprofile === null || getImgreffprofile === "" || getImgreffprofile === undefined || getImgreffprofile[0] === null || getImgreffprofile[0] === "" || getImgreffprofile[0] === undefined ?(
                                 <>                                

@@ -10,6 +10,7 @@ import GNFTPhotographyTab from './GNFTPhotographyTab';
 import GNFTSportsTab from './GNFTSportsTab';
 import ImageExploreTab from './imageExploreTab';
 import { getApprovedImages } from '../../firebaseuploadconfig';
+import { Link } from 'react-router-dom';
 
 const TopCollectionsNFTN = () => {
     useEffect(() => {
@@ -40,6 +41,11 @@ const TopCollectionsNFTN = () => {
     return (    
 
         <Layout>
+            <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+                <Link className="active" to="/play">Play Events</Link>
+                <Link to="/createclub">Create Event</Link>
+                <Link to="/created_events">Created Events</Link>  
+            </div>
             <Container>
             <ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/>        
                 <div className='nft-tabs'>

@@ -148,10 +148,10 @@ function HomePage() {
                     <Col md={12} style={{backgroundImage: `url(${LoginBg})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
                         <div className="cbdc-login px-sm-4 px-3 mx-auto d-flex flex-column">
                             {/* <img src={Logo} height="75px" width="75px" alt="logo" /> */}
-                            <div className="form-middle pt-5 pt-md-0 m-auto">
-                                <div style={{color: "white"}} className="mb-2 text-uppercase">
+                            <div className="card bg-dark border-0 form-middle text-secondary pt-4 m-auto">
+                                {/* <div style={{color: "white"}} className="mb-2 text-uppercase">
                                     <h2></h2>
-                                </div><br/><br/><br/><br/>
+                                </div><br/><br/><br/><br/> */}
                                 {/* <Dropdown variant="dark" className="mb-4 ms-2 me-2">
                                     <Dropdown.Toggle variant="dark" className='text-white' id="dropdown-basic">
                                         {option1}
@@ -191,8 +191,8 @@ function HomePage() {
                                             )}
                                         </span>
                                     </div>
-                                </div>
-                                <div className="mb-3 d-flex flex-wrap align-items-center justify-content-between">
+                                </div><br />
+                                {/* <div className="mb-3 d-flex flex-wrap align-items-center justify-content-between"> */}
                                     {/* <Form.Check 
                                         value={isSubscribed}
                                         onChange={handleChange}
@@ -202,19 +202,19 @@ function HomePage() {
                                     /> */}
     
                                     {/* <Link to="/" className="btn-link ms-auto">Forgot password?</Link> */}
-                                </div>
-                                <button type='submit' className='mb-4 btn btn-white w-100' onClick={()=>{LoginNew()}}>Log In</button>
+                                {/* </div> */}
+                                <button type='submit' className='mb-4 btn btn-primary w-100' onClick={()=>{LoginNew()}}>Log In</button>
                                 {/* <p className="text-center">Or</p>
                                 <button className='btn-dark mb-4 btn w-100' onClick={()=>{signInWithGoogleFunction()}}>
                                     Sign in with Google
                                 </button> */}
-                                <p style={{color: "white"}} className="text-center">Or</p>
-                                <button className='mb-4 btn btn-white w-100' onClick={()=>{history.push({
+                                <p className="text-center">Or</p>
+                                <button className='mb-4 btn btn-secondary w-100' onClick={()=>{history.push({
                                  pathname: '/login-otp'
                                 })}}>
                                     Sign in with Mobile Number
                                 </button>
-                                <p className="text-center" style={{color: "white"}}>Don’t have an account? <Link to="/sign-up" style={{color: "white"}}><strong style={{textDecorationLine: 'underline', textDecorationLineColor: 'white'}}>Sign Up</strong></Link></p>
+                                <p className="text-center">Don’t have an account? <Link to="/sign-up" className="text-white"><strong style={{textDecorationLine: 'underline', textDecorationLineColor: 'white'}}>Sign Up</strong></Link></p>
                             </div>
                         </div>
                     </Col>

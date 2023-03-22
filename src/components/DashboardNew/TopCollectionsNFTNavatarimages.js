@@ -15,6 +15,7 @@ import scan from '../../assets/images/scan.png';
 import mus from '../../assets/images/mus.png';
 import chr from '../../assets/images/chr.png';
 import hin from '../../assets/images/hin.png';
+import { Link } from 'react-router-dom';
 
 
 const TopCollectionsNFTN = () => {
@@ -40,6 +41,15 @@ const TopCollectionsNFTN = () => {
     return (    
 
         <Layout>
+            <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+                <Link to="/my-NFT">Profile</Link>
+                <Link to="/upcoming">Staking</Link>
+                <Link to="/upcoming">Badges</Link>
+                <Link to="/viewtoken">Inventory</Link>
+                <Link to="/viewtoken">Claim</Link>
+                <Link className='active' to="/avatar">Avatar</Link>
+                <Link to="/create-artists">Settings</Link>
+            </div>
             <Container>
             <ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/>        
                 <div className='nft-tabs'>

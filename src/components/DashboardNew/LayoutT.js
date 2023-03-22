@@ -11,8 +11,8 @@ function Layout(props) {
       }
     return (
         <>
-        {/* <Sidebar/> */}
-            <div id="dashboard" className={show ? 'ps-dash' : ''}>
+        {/* <Sidebar/>  className={show ? 'ps-dash' : ''} */}
+            <div id="dashboard">
                 <Header func={pull_data} />
                 {/* <Sidebar /> */}
                 {props.children}

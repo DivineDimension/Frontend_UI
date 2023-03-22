@@ -161,3 +161,19 @@
         display: block;
     }
 }
+
+
+// sidebar-inner
+.sidebar-inner{
+    background: var(--dark-primary);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar-inner a{
+    font-size: 15px;
+    margin-right: 5px;
+    padding: 14px 35px;
+    border-bottom: 2px solid transparent;
+}
+.sidebar-inner a.active, .sidebar-inner a:hover{
+    border-bottom-color: var(--blue);
+}

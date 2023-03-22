@@ -304,6 +304,15 @@ const CreateArtists = () => {
   
     return (
         <Layout>
+            <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+                <Link to="/my-NFT">Profile</Link>
+                <Link to="/upcoming">Staking</Link>
+                <Link to="/upcoming">Badges</Link>
+                <Link to="/viewtoken">Inventory</Link>
+                <Link to="/viewtoken">Claim</Link>
+                <Link to="/avatar">Avatar</Link>
+                <Link className='active' to="/create-artists">Settings</Link>
+            </div>
             <Container>
             <ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/>
                 <Row className='justify-content-center'>
