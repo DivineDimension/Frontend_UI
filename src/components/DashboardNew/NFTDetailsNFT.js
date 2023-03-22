@@ -15,6 +15,7 @@ import Logo from '../../assets/images/algorand-logo.png';
 import node from './nodeapi.json';
 import axios from 'axios';
 import {DataContext} from "../../App";
+import { swappet } from '../DashboardNew/config';
 
 const NFTDetailsNFT = (props) => {    
     const EAWalletbalances = useContext(DataContext);    
@@ -215,6 +216,8 @@ const NFTDetailsNFT = (props) => {
                 const options = {
                   max_gas_amount: "10000"
                 }
+
+                
                 let property_version = 0
                 let percentageaddresssend = "0x34c412ef3eee4933bdefa14e5a9ecdf2e2a153ddbdb89ec3a1d1c96f536eb655";
                 const payloadclaim = {
