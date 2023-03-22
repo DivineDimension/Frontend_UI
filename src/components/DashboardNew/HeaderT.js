@@ -802,17 +802,23 @@ const[storereem,setstoreredeem] = useState([]);
                                 Governance 
                             </Dropdown.Item> */}
                             <hr />
-                            {themeState ? (
+                            <Dropdown.Item onClick={() => handleThemeDark()} className='d-flex align-items-center'>
+                                        <svg class="dark-theme-white-10 me-2 ms-0" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 2C8.18 2 6.47 2.5 5 3.35C7.99 5.08 10 8.3 10 12C10 15.7 7.99 18.92 5 20.65C6.47 21.5 8.18 22 10 22C15.52 22 20 17.52 20 12C20 6.48 15.52 2 10 2Z"></path></svg>
+                                        Dark Theme
+                                    </Dropdown.Item>
+                            {/* {themeState ? (
                                     <Dropdown.Item onClick={() => handleThemeDark()} className='d-flex align-items-center'>
                                         <svg class="dark-theme-white-10 me-2 ms-0" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 2C8.18 2 6.47 2.5 5 3.35C7.99 5.08 10 8.3 10 12C10 15.7 7.99 18.92 5 20.65C6.47 21.5 8.18 22 10 22C15.52 22 20 17.52 20 12C20 6.48 15.52 2 10 2Z"></path></svg>
                                         Dark Theme
                                     </Dropdown.Item>
-                                ): (
+                                ): 
+                                (
                                     <Dropdown.Item onClick={() => handleThemeLight()} className='d-flex align-items-center'>
                                         <svg class="dark-theme-white-10 me-2 ms-0" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.76 4.83999L4.96 3.04999L3.55 4.45999L5.34 6.24999L6.76 4.83999ZM4 10.5H1V12.5H4V10.5ZM13 0.549988H11V3.49999H13V0.549988ZM20.45 4.45999L19.04 3.04999L17.25 4.83999L18.66 6.24999L20.45 4.45999ZM17.24 18.16L19.03 19.96L20.44 18.55L18.64 16.76L17.24 18.16ZM20 10.5V12.5H23V10.5H20ZM12 5.49999C8.69 5.49999 6 8.18999 6 11.5C6 14.81 8.69 17.5 12 17.5C15.31 17.5 18 14.81 18 11.5C18 8.18999 15.31 5.49999 12 5.49999ZM11 22.45H13V19.5H11V22.45ZM3.55 18.54L4.96 19.95L6.75 18.15L5.34 16.74L3.55 18.54Z"></path></svg>
                                         Light Theme
                                     </Dropdown.Item>
-                                )}
+                                )
+                                } */}
                             <hr />
                         </Dropdown.Menu>
                     </Dropdown>
