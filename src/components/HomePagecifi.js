@@ -17,8 +17,8 @@ import Platform from './snippetscifi/Platform';
 // assets
 // import BannerImage from '../assets/images/gaming-market-image.png';
 import BannerDots from '../assets/images/banner-dots.png';
-import BMDots from '../assets/images/bm-dots.png'
-import BannerImage from '../assets/images/divinemainlogo.png';
+import BannerImage from '../assets/images/uImage.png'
+// import BannerImage from '../assets/images/divinemainlogo.png';
 
 
 function HomePage() {
@@ -37,10 +37,10 @@ function HomePage() {
                             <img src={BannerImage} className="img-fluid page-banner-image" alt="banner" />
                         </Col>
                         <Col lg="6">
-                            <h2 style={{color:'white'}} className="text-uppercase">DivineDimension<strong className="text-grad"><br />
+                            <h2 style={{color:'white'}} className="text-uppercase">Divine Dimension<strong className="text-grad"><br />
                             {/* platform <span>FOR cricket</span> */}
                             </strong></h2>
-                            <p style={{color:'white'}}>The ultimate metaverse experience for the spiritual community.</p>                            
+                            <p style={{color:'white'}}>A New Metaverse for Cultural Traditions and World Tourism.</p>                            
                     {/* <Button href="/my-NFT" size="lg">Join us now</Button>                                         */}
                         </Col>                        
                     </Row>                       

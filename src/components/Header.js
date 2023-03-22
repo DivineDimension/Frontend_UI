@@ -9,7 +9,12 @@ function Header() {
         <Navbar collapseOnSelect expand="lg">
             <Container>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Brand href="/"><img src={Logo} alt="logo" width={75} height={75}/></Navbar.Brand>
+                <Navbar.Brand href="/">
+                    {/* <img src={Logo} alt="logo" width={75} height={75}/> */}
+                    <br/>
+                    <br/>
+                    </Navbar.Brand>
+                    <br/>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ms-auto">
                         <Nav.Link className="active" href="/">Home</Nav.Link>

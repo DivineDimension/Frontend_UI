@@ -16,6 +16,8 @@ import OwnTab from './OwnTab';
 import CreateTabTab from './CreateTabTab';
 //import Logo from '../../assets/images/logocifihomepage.png'
 import Logo from '../../assets/images/cover.png'
+import backcoverimage from '../../assets/images/backcoverimage.png'
+import { getuserDetailsbywallet, uservisist } from '../../awsdatafile';
 //const algosdk = require('algosdk'); 
 
 const MyNFT = () => {    
@@ -39,7 +41,14 @@ const MyNFT = () => {
     const[getCliamFra,setClaimFra]=useState([]);
     const[getReCliamFra,setReClaimFra]=useState([]);                
     const[getIProfile,setgetIProfile]=useState([""]);     
-    console.log("UserP",getIProfile)          
+    console.log("UserP",getIProfile)   
+    
+    useEffect(()=>{calluser()},[]);
+    const calluser = async()=>{
+        let uv = await uservisist();
+        await getuserDetailsbywallet();
+        console.log("uv",uv)
+    }
     
     const dbCallAddress=async()=>{            
         let r=[];
@@ -563,7 +572,7 @@ const MyNFT = () => {
                     <div className="profile-card">
                     {getIProfile[0] === null || getIProfile[0] === "" || getIProfile[0] === undefined || getIProfile[0] === " "  ? (
                         <>
-                          <img src={Logo} alt="pics" width={"1500px"} height={"260px"} />
+                          <img src={backcoverimage} alt="pics" width={"1500px"} height={"260px"} />
                         </>
                       ):(
                         <>
