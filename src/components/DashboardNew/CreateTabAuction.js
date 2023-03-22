@@ -10,6 +10,8 @@ import {abibytecodeauction} from './datasbytecodeAuctionNFT'
 import {abiauction} from './Auctionnftcontract';
 import web3 from './web3';
 import {DataContext} from "../../App";
+import { swappet } from './config';
+
 
 
 const CreateTabAuction =({x})=>{
@@ -91,11 +93,11 @@ const CreateTabAuction =({x})=>{
             handleShowLoad()     
             toast.info("Updating The Sale of NFT",{autoClose:5000});                 
             try{    
-                const response = await window.martian.connect();
-      const address = response.address;
-      const options = {
-        max_gas_amount: "10000"
-      }
+    //             const response = await window.martian.connect();
+    //   const address = response.address;
+    //   const options = {
+    //     max_gas_amount: "10000"
+    //   }
   
       //let pricecalculation = ((parseFloat(valuess.NFTPrice)/1.5)*100) 
   
@@ -115,13 +117,18 @@ const CreateTabAuction =({x})=>{
         ]
       }
       console.log("property",b.Assetid)
-      const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
-      console.log("Req",txn_request2)
+    //   const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
+    //   console.log("Req",txn_request2)
       
-      const signed_txn2 = await  window.martian.signTransaction(txn_request2)
-      console.log("signedTx",signed_txn2)
-      const res2 = await window.martian.submitTransaction(signed_txn2)        
-      console.log("TransferV",res2)         
+    //   const signed_txn2 = await  window.martian.signTransaction(txn_request2)
+    //   console.log("signedTx",signed_txn2)
+    //   const res2 = await window.martian.submitTransaction(signed_txn2)        
+    //   console.log("TransferV",res2)      
+    let transactionHash = await swappet(payloadclaim)
+    console.log("transactionHash", transactionHash); 
+      let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;
+      toast.success(toastDiv(id)); 
+   
       await sleep(12000)        
 
             //fireDb.auth().signInAnonymously().then((response)=>{                     
@@ -235,11 +242,11 @@ const CreateTabAuction =({x})=>{
         // })
 
         try {      
-            const response = await window.martian.connect();
-            const address = response.address;
-            const options = {
-              max_gas_amount: "10000"
-            }  
+            // const response = await window.martian.connect();
+            // const address = response.address;
+            // const options = {
+            //   max_gas_amount: "10000"
+            // }  
             const payloadclaim = {
                 type: "script_function_payload",
                 function: `${caddressnew}::auction1::create_list`,      
@@ -263,16 +270,22 @@ const CreateTabAuction =({x})=>{
                     time = a + 604800;
                     timegivencontract = 604800;
                 } 
-                const txn_request2CS =  await window.martian.generateTransaction(address, payloadclaim,options)
-                console.log("Req",txn_request2CS)
-                const signed_txn2CS = await  window.martian.signTransaction(txn_request2CS)
-                console.log("signedTx",signed_txn2CS)
-                const res2CS = await window.martian.submitTransaction(signed_txn2CS)        
-                console.log("TransferV",res2CS)      
+                // const txn_request2CS =  await window.martian.generateTransaction(address, payloadclaim,options)
+                // console.log("Req",txn_request2CS)
+                // const signed_txn2CS = await  window.martian.signTransaction(txn_request2CS)
+                // console.log("signedTx",signed_txn2CS)
+                // const res2CS = await window.martian.submitTransaction(signed_txn2CS)        
+                // console.log("TransferV",res2CS)      
+                let transaction2Hash = await swappet(payloadclaim)
+                console.log("transactionHash", transaction2Hash); 
+                //   let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;
+
+               
+                let id = "https://explorer.aptoslabs.com/txn/"+transaction2Hash+"?network=testnet";
                 
                 //await storeDbUpdate(valuess,address,caddress,Prices);
                 
-                let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash+"?network=testnet";
+                // let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash+"?network=testnet";
                 //let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash;
                 let calc=(parseFloat(getprices)*100000000)
                 toast.success(toastDiv(id));

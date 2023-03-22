@@ -132,24 +132,94 @@ const Header = (props) => {
             }
     };
 
-    const connectWalletphantom = async () => {
-        localStorage.setItem("walletName", "myAlgoWallet");
+    // const connectWalletphantom = async () => {
+    //     localStorage.setItem("walletName", "myAlgoWallet");
+
+    const getpetraWallet = () => {
+        const isPetraInstalled = window.aptos
+        if ('petra' in window) {
+            return window.petra;
+        } else {
+            window.open('https://petra.app/', `_blank`);
+        }
+    }
+
+    // const wallet = getAptosWallet();
+    const connectWalletpetra = async () => {
+        localStorage.setItem("EAWalletName", "EPetraWallet");
             try {
                 handleCopy();
-    
-                let settings = {
-                    shouldSelectOneAccount: true,
-                    openManager: true
-                }
-                  
-                  
-                //await countAsset();
-              window.location.reload();
-              setShowButton(false);
-            } catch (err) {
-              console.error(err);
-            }
+                handleCopy();                                    
+                const isPetraWalletInstalled = window.petra    
+                console.log("Is",isPetraWalletInstalled)
+                const get = getpetraWallet();
+                console.log("get",get)
+                let response1 = await window.petra.connect();
+                localStorage.setItem("EAWalletAddress",response1.address)
+                console.log(response1); // { address: string, address: string }
+                await ReadBalance();
+                window.location.reload(false);
+
+          } catch (error) {
+            console.log(error);
+            // { code: 4001, message: "User rejected the request."}
+        }
     };
+
+    const disconnect = async () => {
+        const wallet = getpetraWallet();
+        await wallet.disconnect();
+        localStorage.setItem("EAWalletAddress", "");
+    }
+      
+    const getpontemWallet = () => {
+        const isPontemInstalled = window.aptos
+        if ('pontem' in window) {
+            return window.pontem;
+        } else {
+            window.open("https://chrome.google.com/webstore/detail/pontem-aptos-wallet/phkbamefinggmakgklpkljjmgibohnba", "_blank");
+        }
+    } 
+    const connectwalletpontem =async()=>{
+        localStorage.setItem("EAWalletName", "EPontemWallet");
+        try {
+            handleCopy();                                    
+            const isPontemWalletInstalled = window.isPontemWalletInstalled    
+            console.log("Is",isPontemWalletInstalled)
+            const get = getpontemWallet();
+            console.log("get",get)
+            let response2 = await window.pontem.connect();
+            localStorage.setItem("EAWalletAddress",response2.address)
+            console.log(response2); // { address: string, address: string }
+            await ReadBalance();
+            window.location.reload(false);
+
+      } catch (error) {
+        console.log(error);
+        // { code: 4001, message: "User rejected the request."}
+    }
+};
+
+
+
+    // const connectWalletphantom = async () => {
+    //     localStorage.setItem("walletName", "myAlgoWallet");
+    //         try {
+    //             handleCopy();
+    
+    //             let settings = {
+    //                 shouldSelectOneAccount: true,
+    //                 openManager: true
+    //             }
+                  
+                  
+    //             //await countAsset();
+    //           window.location.reload();
+    //           setShowButton(false);
+    //         } catch (err) {
+    //           console.error(err);
+    //         }
+    // };
 
     // const connectWalletmetamask = async ()=>{
     //     if (typeof window.ethereum === 'undefined') {
@@ -180,138 +250,138 @@ const Header = (props) => {
     //     }
     // }
 
-    // const isMetaMaskInstalled = () => {
-    //     //Have to check the ethereum binding on the window object to see if it's installed
-    //     const { ethereum } = window;
-    //     return Boolean(ethereum && ethereum.isMetaMask);
-    // };
-    // const connectWalletmetamask=async()=>{     
-    //     let metamaskcheck= await isMetaMaskInstalled();
-    //     if(metamaskcheck){
-    //     localStorage.setItem("walletName", "Metamask");             
-    //     const networkid=await web3.eth.getChainId();
-    //     console.log("network id",networkid);
-    //     if(networkid !== 80001){
-    //     // setIsOpen(true);
-    //     // setDis("Connected to Wrong Network,Please connect to Binance Testnet");
-    //         toast.dismiss();
-    //         toast.error("Change Your Network",{autoClose:3000});          
-    //         setShowButton(false);
-    //         handleClose();
-    //     }else{        
-    //         console.log("network id",networkid);
-    //         window.ethereum.enable();          
-    //         const accounts =await web3.eth.getAccounts();
-    //         // web3.eth.getChainId().then(console.log);
-    //         // const networkid=await web3.eth.getChainId();
-    //         // console.log("network id",networkid);
-    //         //await sleep(2000)
-    //         await web3.eth.getAccounts().then(()=>{          
-    //             console.log("acc Binance",accounts[0])
-    //             //setwalletconnect(accounts[0])
-    //             window.wallet=accounts[0];           
-    //             //localStorage.setItem("walletAddress", accounts[0]);
-    //             localStorage.setItem("EAWalletName","EMetamaskWallet");
-    //             localStorage.setItem("EAWalletAddress","")
-    //             localStorage.setItem("EAWalletAddress",accounts[0])
-    //             setShowButton(false);
-    //             handleClose();
-    //         //sessionStorage.setItem("wallet", accounts[0]);
-    //         }).then(async()=>{
-    //             setShowButton(false);
-    //             //window.location.reload()
-    //             let url="https://api-testnet.polygonscan.com/api?module=account&action=balance&address="+accounts[0]+"&tag=latest&apikey=YourApiKeyToken";      
-    //             //await sleep(1000)
-    //             await axios.get(`${url}`)
-    //             .then(async(url)=>{
-    //                 const allnote=await (url.data.result/100000000);                 
-    //                 //setalgobalance(allnote);
-    //                 console.log("matbal",allnote)
-    //                 localStorage.setItem('EAWalletBalance',allnote)                
-    //                 await setwalletbalance(allnote)                                
-    //                 //await sleep(2000)
-    //                 window.location.reload(false)                                                
-    //             }).catch(error => console.error(`Error: ${error}`));                     
-    //         })            
-    //      }  
-    // }else{  
-    //     window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', '_blank','noreferrer');
+    const isMetaMaskInstalled = () => {
+        //Have to check the ethereum binding on the window object to see if it's installed
+        const { ethereum } = window;
+        return Boolean(ethereum && ethereum.isMetaMask);
+    };
+    const connectWalletmetamask=async()=>{     
+        let metamaskcheck= await isMetaMaskInstalled();
+        if(metamaskcheck){
+        localStorage.setItem("walletName", "Metamask");             
+        const networkid=await web3.eth.getChainId();
+        console.log("network id",networkid);
+        if(networkid !== 80001){
+        // setIsOpen(true);
+        // setDis("Connected to Wrong Network,Please connect to Binance Testnet");
+            toast.dismiss();
+            toast.error("Change Your Network",{autoClose:3000});          
+            setShowButton(false);
+            handleClose();
+        }else{        
+            console.log("network id",networkid);
+            window.ethereum.enable();          
+            const accounts =await web3.eth.getAccounts();
+            // web3.eth.getChainId().then(console.log);
+            // const networkid=await web3.eth.getChainId();
+            // console.log("network id",networkid);
+            //await sleep(2000)
+            await web3.eth.getAccounts().then(()=>{          
+                console.log("acc Binance",accounts[0])
+                //setwalletconnect(accounts[0])
+                window.wallet=accounts[0];           
+                //localStorage.setItem("walletAddress", accounts[0]);
+                localStorage.setItem("EAWalletName","EMetamaskWallet");
+                localStorage.setItem("EAWalletAddress","")
+                localStorage.setItem("EAWalletAddress",accounts[0])
+                setShowButton(false);
+                handleClose();
+            //sessionStorage.setItem("wallet", accounts[0]);
+            }).then(async()=>{
+                setShowButton(false);
+                //window.location.reload()
+                let url="https://api-testnet.polygonscan.com/api?module=account&action=balance&address="+accounts[0]+"&tag=latest&apikey=YourApiKeyToken";      
+                //await sleep(1000)
+                await axios.get(`${url}`)
+                .then(async(url)=>{
+                    const allnote=await (url.data.result/100000000);                 
+                    //setalgobalance(allnote);
+                    console.log("matbal",allnote)
+                    localStorage.setItem('EAWalletBalance',allnote)                
+                    await setwalletbalance(allnote)                                
+                    //await sleep(2000)
+                    window.location.reload(false)                                                
+                }).catch(error => console.error(`Error: ${error}`));                     
+            })            
+         }  
+    }else{  
+        window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', '_blank','noreferrer');
       
-    //   }
-    // }
+      }
+    }
 
   
 
-    // const connectWallet=async()=>{     
-    //     let metamaskcheck= await isMetaMaskInstalled();
-    //     if(metamaskcheck){
-    //     localStorage.setItem("walletName", "Metamask");             
-    //     const networkid=await web3.eth.getChainId();
-    //     console.log("network id",networkid);
-    //     if(networkid !== 137){
-    //     // setIsOpen(true);
-    //     // setDis("Connected to Wrong Network,Please connect to Binance Testnet");
-    //     }else if(networkid === 137){
-    //         console.log("network ids",networkid);
-    //         window.ethereum.enable();          
-    //         const accounts =await web3.eth.getAccounts();
-    //         await web3.eth.getAccounts().then(()=>{          
-    //         console.log("acc Binance",accounts[0])
-    //             //setwalletconnect(accounts[0])
-    //             window.wallet=accounts[0];           
-    //             //localStorage.setItem("walletAddress", accounts[0]);
-    //             localStorage.setItem("EAWalletName","EMetamaskWallet");
-    //             localStorage.setItem("EAWalletAddress","")
-    //             localStorage.setItem("EAWalletAddress",accounts[0])
-    //             setShowButton(false);
-    //             handleClose();
-    //         //sessionStorage.setItem("wallet", accounts[0]);
-    //         }).then(async()=>{
-    //             setShowButton(false);
-    //             //window.location.reload()
-    //             //let url="https://api-mainnet.polygonscan.com/api?module=account&action=balance&address="+accounts[0]+"&tag=latest&apikey=YourApiKeyToken";      
-    //             let url = `https://api.polygonscan.com/api?module=account&action=balance&address=${accounts[0]}&apikey=YourApiKeyToken`;
-    //             //await sleep(1000)
-    //             await axios.get(`${url}`)
-    //             .then(async(url)=>{
-    //                 const allnote=await (url.data.result/100000000);                 
-    //                 //setalgobalance(allnote);
-    //                 console.log("matbal",allnote)
-    //                 localStorage.setItem('EAWalletBalance',allnote)                
-    //                 await setwalletbalance(allnote)                                
-    //                 //await sleep(2000)
-    //                 window.location.reload(false)                                                
-    //             }).catch(error => console.error(`Error: ${error}`));                     
-    //         })            
-    //     }else{
+    const connectWallet=async()=>{     
+        let metamaskcheck= await isMetaMaskInstalled();
+        if(metamaskcheck){
+        localStorage.setItem("walletName", "Metamask");             
+        const networkid=await web3.eth.getChainId();
+        console.log("network id",networkid);
+        if(networkid !== 137){
+        // setIsOpen(true);
+        // setDis("Connected to Wrong Network,Please connect to Binance Testnet");
+        }else if(networkid === 137){
+            console.log("network ids",networkid);
+            window.ethereum.enable();          
+            const accounts =await web3.eth.getAccounts();
+            await web3.eth.getAccounts().then(()=>{          
+            console.log("acc Binance",accounts[0])
+                //setwalletconnect(accounts[0])
+                window.wallet=accounts[0];           
+                //localStorage.setItem("walletAddress", accounts[0]);
+                localStorage.setItem("EAWalletName","EMetamaskWallet");
+                localStorage.setItem("EAWalletAddress","")
+                localStorage.setItem("EAWalletAddress",accounts[0])
+                setShowButton(false);
+                handleClose();
+            //sessionStorage.setItem("wallet", accounts[0]);
+            }).then(async()=>{
+                setShowButton(false);
+                //window.location.reload()
+                //let url="https://api-mainnet.polygonscan.com/api?module=account&action=balance&address="+accounts[0]+"&tag=latest&apikey=YourApiKeyToken";      
+                let url = `https://api.polygonscan.com/api?module=account&action=balance&address=${accounts[0]}&apikey=YourApiKeyToken`;
+                //await sleep(1000)
+                await axios.get(`${url}`)
+                .then(async(url)=>{
+                    const allnote=await (url.data.result/100000000);                 
+                    //setalgobalance(allnote);
+                    console.log("matbal",allnote)
+                    localStorage.setItem('EAWalletBalance',allnote)                
+                    await setwalletbalance(allnote)                                
+                    //await sleep(2000)
+                    window.location.reload(false)                                                
+                }).catch(error => console.error(`Error: ${error}`));                     
+            })            
+        }else{
 
-    //     }
-    //     }else{  
-    //     window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', '_blank','noreferrer');      
-    //     }
-    // }
+        }
+        }else{  
+        window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', '_blank','noreferrer');      
+        }
+    }
     
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
 
-    const connectWalletpetra = async () => {
-        localStorage.setItem("walletName", "myAlgoWallet");
-            try {
-                handleCopy();
+    // const connectWalletpetra = async () => {
+    //     localStorage.setItem("walletName", "myAlgoWallet");
+    //         try {
+    //             handleCopy();
     
-                let settings = {
-                    shouldSelectOneAccount: true,
-                    openManager: true
-                }
+    //             let settings = {
+    //                 shouldSelectOneAccount: true,
+    //                 openManager: true
+    //             }
                   
-              window.location.reload();
-              setShowButton(false);
-            } catch (err) {
-              console.error(err);
-            }
-    };
+    //           window.location.reload();
+    //           setShowButton(false);
+    //         } catch (err) {
+    //           console.error(err);
+    //         }
+    // };
 
 
 
@@ -335,16 +405,47 @@ const Header = (props) => {
         
      
     
-      const Disconnect = async() => {
-        await window.martian.disconnect();        
-        //await 
-        localStorage.setItem("EAWalletAddress","");
-        localStorage.setItem("EAWalletName", "");
-        localStorage.setItem("EAWalletBalance", "");
-        handleCopy();
-        window.location.reload();
-        setShowButton(true)
-      }
+    //   const Disconnect = async() => {
+    //     await window.martian.disconnect();        
+    //     //await 
+    //     localStorage.setItem("EAWalletAddress","");
+    //     localStorage.setItem("EAWalletName", "");
+    //     localStorage.setItem("EAWalletBalance", "");
+    //     handleCopy();
+    //     window.location.reload();
+    //     setShowButton(true)
+    //   }
+
+    const Disconnect = async () => {
+        console.log("closed")
+
+        try{
+            const wallet = getProvider();
+            await wallet.disconnect();
+        }catch(error){
+
+        }
+        try{
+
+            await window.petra.disconnect();
+        }catch(error){
+
+        }
+        try{
+            await window.pontem.disconnect();
+            console.log("Disconnected successfully")
+        }catch(error){
+
+        }
+
+              localStorage.setItem("EAWalletAddress","");
+      localStorage.setItem("EAWalletName", "");
+    localStorage.setItem("EAWalletBalance", "");
+    handleCopy();
+      window.location.reload();
+         setShowButton(true)
+
+    }
 
     //   const connectPeraWallet = async () => {
     //     localStorage.setItem("walletName", "PeraWallet");
@@ -767,20 +868,31 @@ const[storereem,setstoreredeem] = useState([]);
                                 <span className='text-white'>Martian-Wallet</span>
                                 <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
                             </Button>
+                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletpetra}>
+                                <span className='text-white'>Petra-Wallet</span>
+                                <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
+                            </Button>
+                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectwalletpontem}>
+                                <span className='text-white'>Pontem-Wallet</span>
+                                <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
+                            </Button>
+                            
+
+                            
                         </Tab>
                         <Tab eventKey="second" title="Ethereum">
-                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
+                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmetamask}>
+                                <span className='text-white'>MetaMask</span>
+                                <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
+                            </Button>
+                            {/* <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
                                 <span className='text-white'>Martian-Wallet</span>
                                 <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
                             </Button>
                             <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
                                 <span className='text-white'>Martian-Wallet</span>
                                 <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
-                            </Button>
-                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
-                                <span className='text-white'>Martian-Wallet</span>
-                                <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
-                            </Button>
+                            </Button> */}
                         </Tab>
                     </Tabs>
                 </Modal.Body>
@@ -805,7 +917,20 @@ const[storereem,setstoreredeem] = useState([]);
                     <Modal.Title>Account</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <h6 className='mb-2 me-auto'>Connected with Martian Wallet</h6>
+                <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("wallet") === "Petra"  ? "Martian" : "Pontem"} Wallet
+                
+            
+            </h6>
+                {/* <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("wallet") === "Petra" ? (<> */}
+                {/* <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("wallet") === "Petra" ? (<>
+                                            <img src={petra} alt="ConnectPop_icon" />
+                                        </>): localStorage.getItem("wallet") === "Martian" ? (<>
+                                            <img src={MyAlgoLogo} alt="ConnectPop_icon" />
+                                        </>):(<>
+                                            <img src={pontem} alt="ConnectPop_icon" />
+                                        </>)
+                                        } Wallet</h6> */}
+                                          
                     <div className="d-flex flex-wrap mb-3 align-items-center">                                                
                         <Button variant="primary" className='btn-xs mb-2 ms-1' onClick={Disconnect}>Disconnect</Button>
                         {/* <Button variant="primary" className='btn-xs mb-2 ms-1' onClick={connectWallet}>Change Account</Button>                     */}
