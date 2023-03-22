@@ -111,22 +111,36 @@ const TopCollectionsNFTN = () => {
                             </Dropdown>
                             </div>
                             {/* <Button > */}
-                            <img src={plus} onClick={()=>zoomin()} width={50}></img>    &nbsp;
+                            {/* <img src={plus} onClick={()=>zoomin()} width={50}></img>    &nbsp; */}
 		{/* Zoom-In */}
 	{/* </Button> */}
 	
 	{/* <Button  > */}
-    <img src={minus} onClick={()=>zoomout()} width={50}></img>
+                            {/* <img src={minus} onClick={()=>zoomout()} width={50}></img> */}
 		{/* Zoom-Out */}
 	{/* </Button> */}
                             <Row>
                             {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'> */}
                             {/* <Card className='card-dash p-3 d-block border-0'>   */}
-                                 <img src={landmap} id="geeks" GFG="250"
-                                //  className='img-fluid'
+                            <Col className='position-relative'>
+                                <div className='map-controls d-flex flex-column align-items-center'>
+                                    <button onClick={()=>zoomin()}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                        </svg>
+                                    </button>
+                                    <button onClick={()=>zoomout()}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-dash-lg" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                 <img src={landmap} id="geeks" GFG="250"></img>  
+                            </Col>
+                                                {/* </Card>
+                            //  className='img-fluid'
                                                 // width={100} height={100}
-                                                ></img>  
-                                                {/* </Card>                                               */}
+                                                                                               */}
                                                              
                                 {/* </Col> */}
                             {/* {getImgreffalgosaleSports === null || getImgreffalgosaleSports === "" || getImgreffalgosaleSports === undefined || getImgreffalgosaleSports[0] === null || getImgreffalgosaleSports[0] === "" || getImgreffalgosaleSports[0] === undefined || filterdata1()[0] === null || filterdata1()[0] === "" || filterdata1()[0] === undefined ? (
