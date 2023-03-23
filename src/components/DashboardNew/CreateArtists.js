@@ -99,10 +99,10 @@ const CreateArtists = () => {
         }
     };
   
+    // const CreateArtist = async() =>{
+    //     let succ = await createprofile();
+    // }
     const CreateArtist = async() =>{
-        let succ = await createprofile();
-    }
-    const CreateArtists = () =>{
 
         if(UserName === null || UserName === "" || UserName === undefined){            
             toast.warning(`please enter profile name`,{autoClose:5000})
@@ -140,25 +140,39 @@ const CreateArtists = () => {
             toast.warning(`Artist InProgress`,{autoClose:3000})        
             handleShowLoad()     
             //firebase.auth().signInAnonymously().then((response)=>{           
-            let ref2=firebase.database().ref(`EPuserprofile/${localStorage.getItem('EAWalletAddress')}`);                    
-            let dateset=new Date().toDateString();
-            ref2.set({
-            Imageurl:Img,bgurl:"",
-            UserName:UserName,Customurl:"",walletAddress:localStorage.getItem('EAWalletAddress'),
-            TimeStamp:dateset,Twittername:Twitter,Personalsiteurl:SocialUrl,Email:Email,Bio:Bio,valid:""})
-            .then(async()=>{             
+            // let ref2=firebase.database().ref(`EPuserprofile/${localStorage.getItem('EAWalletAddress')}`);                    
+            // let dateset=new Date().toDateString();
+            // ref2.set({
+            // Imageurl:Img,bgurl:"",
+            // UserName:UserName,Customurl:"",walletAddress:localStorage.getItem('EAWalletAddress'),
+            // TimeStamp:dateset,Twittername:Twitter,Personalsiteurl:SocialUrl,Email:Email,Bio:Bio,valid:""})
+            // .then(async()=>{             
+            //     handleHideLoad()                
+            //     toast.dismiss()
+            //     toast.success(`Updated Details of The Artist`,{autoClose:5000})
+            //     handleHideLoad()
+            //     await sleep(2000)
+            //     done()
+            // }).catch((err) => {                                    
+            //     handleHideLoad()                
+            //     toast.error(`your browser appearing issue`,{autoClose:3000})
+            //     handleHideLoad()
+            //     done()
+            // });  
+            try{
+                await createprofile(localStorage.getItem('EAWalletAddress'),"",UserName,Twitter,SocialUrl, Bio, Img,"",Email)
                 handleHideLoad()                
                 toast.dismiss()
                 toast.success(`Updated Details of The Artist`,{autoClose:5000})
                 handleHideLoad()
-                await sleep(2000)
+                await sleep(2000);
                 done()
-            }).catch((err) => {                                    
+            }catch(err){
                 handleHideLoad()                
                 toast.error(`your browser appearing issue`,{autoClose:3000})
                 handleHideLoad()
                 done()
-            });  
+            }
             //})             
         }
         else{

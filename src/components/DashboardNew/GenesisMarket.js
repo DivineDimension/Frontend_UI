@@ -12,6 +12,7 @@ import GArtTab from './GArtTab'
 import GPetTab from './GPetTab'
 import GTradingCardTab from './GTradingCardTab'
 import GPhotographyTab from './GPhotographyTab'
+import { getNFTDetailsByTypeSale } from '../../awsdatafile';
 
 
 const GenesisMarket = () => {
@@ -41,43 +42,46 @@ const GenesisMarket = () => {
 
     const dbcallalgos=async()=>{        
         let req = [];
+        let slaenft = await getNFTDetailsByTypeSale("Royalty-NFT","yes")
+        setgetImgreffalgosale(slaenft.data2);
+        console.log("salenft",slaenft.data2)
         //firebase.auth().signInAnonymously().then((response)=>{      
-          firebase.database().ref("EPolygonNFTRS").on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                Object.keys(value).map(async(k)=>{   
-                    if(value[k].NFTChannel === "Royalty"){
-                        req.push(            
-                            {
-                              Assetid:value[k].Assetid,
-                              Imageurl:value[k].Imageurl,
-                              NFTPrice:value[k].NFTPrice,
-                              EscrowAddress:value[k].EscrowAddress,
-                              keyId:value[k].keyId,
-                              NFTName:value[k].NFTName,
-                              userSymbol:value[k].userSymbol,
-                              Ipfsurl:value[k].Ipfsurl,
-                              ownerAddress:value[k].ownerAddress,
-                              previousoaddress:value[k].previousoaddress,
-                              TimeStamp:value[k].TimeStamp,
-                              NFTDescription:value[k].NFTDescription,
-                              HistoryAddress:value[k].HistoryAddress,
-                              Appid:value[k].Appid,
-                              valid:value[k].valid,
-                              CreatorAddress:value[k].CreatorAddress,
-                              NFTType:value[k].NFTType,
-                              NFTChannel:value[k].NFTChannel,
-                              SocialLink:value[k].SocialLink,
-                              NFTModel:value[k].NFTModel
-                        })                
-                    }                                        
-                })
-                });        
-              }
-              req.reverse()
-              setgetImgreffalgosale(req);
-            });      
+        //   firebase.database().ref("EPolygonNFTRS").on("value", (data) => {
+        //     if (data) {
+        //       data.forEach((d) => {                
+        //         let value=d.val();
+        //         Object.keys(value).map(async(k)=>{   
+        //             if(value[k].NFTChannel === "Royalty"){
+        //                 req.push(            
+        //                     {
+        //                       Assetid:value[k].Assetid,
+        //                       Imageurl:value[k].Imageurl,
+        //                       NFTPrice:value[k].NFTPrice,
+        //                       EscrowAddress:value[k].EscrowAddress,
+        //                       keyId:value[k].keyId,
+        //                       NFTName:value[k].NFTName,
+        //                       userSymbol:value[k].userSymbol,
+        //                       Ipfsurl:value[k].Ipfsurl,
+        //                       ownerAddress:value[k].ownerAddress,
+        //                       previousoaddress:value[k].previousoaddress,
+        //                       TimeStamp:value[k].TimeStamp,
+        //                       NFTDescription:value[k].NFTDescription,
+        //                       HistoryAddress:value[k].HistoryAddress,
+        //                       Appid:value[k].Appid,
+        //                       valid:value[k].valid,
+        //                       CreatorAddress:value[k].CreatorAddress,
+        //                       NFTType:value[k].NFTType,
+        //                       NFTChannel:value[k].NFTChannel,
+        //                       SocialLink:value[k].SocialLink,
+        //                       NFTModel:value[k].NFTModel
+        //                 })                
+        //             }                                        
+        //         })
+        //         });        
+        //       }
+        //       req.reverse()
+        //       setgetImgreffalgosale(req);
+        //     });      
         //})                      
     }      
     useEffect(()=>{dbcallalgos()},[])
@@ -361,7 +365,7 @@ const GenesisMarket = () => {
         }
         if(getrecent === "Recently added"){        
             let data = getImgreffalgosaleSports.filter((val)=>{                                                                                        
-                return dateset === val.TimeStamp            
+                return dateset === val.createdTime            
                 //return (val.TimeStamp < currentdate || val.TimeStamp > weekdate);                
             })
             return data;                                        
@@ -369,19 +373,19 @@ const GenesisMarket = () => {
         //   return data;        
         }
         if(getrecent === "Low to High"){
-          let data=getImgreffalgosaleSports.sort((a,b)=>{ return parseFloat(a.NFTPrice/100000000) - parseFloat(b.NFTPrice/100000000)})          
+          let data=getImgreffalgosaleSports.sort((a,b)=>{ return parseFloat(a.nftPrice/100000000) - parseFloat(b.nftPrice/100000000)})          
           return data;
         }
         if(getrecent ===  "High to Low"){
-          let data=getImgreffalgosaleSports.sort((a,b)=>{ return parseFloat(b.NFTPrice/100000000) - parseFloat(a.NFTPrice/100000000)})        
+          let data=getImgreffalgosaleSports.sort((a,b)=>{ return parseFloat(b.nftPrice/100000000) - parseFloat(a.nftPrice/100000000)})        
           return data;
         }
         }
         else{
                 let data = getImgreffalgosaleSports.filter((val)=>{
-                if(val.NFTName === "" || val.NFTName === null || val.NFTName === undefined){    
+                if(val.nftName === "" || val.nftName === null || val.nftName === undefined){    
                 }else{
-                let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
+                let val1 = (val.nftName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
                 return val1
                 }            
             })                                    
@@ -575,14 +579,14 @@ const GenesisMarket = () => {
     const filterdata2static1=()=>{
         if(searchText === "")
         {                  
-        let data=getImgreffalgosale.sort((a,b)=>{ return parseFloat(a.NFTPrice/100000000) - parseFloat(b.NFTPrice/100000000)})        
+        let data=getImgreffalgosale.sort((a,b)=>{ return parseFloat(a.nftPrice/100000000) - parseFloat(b.nftPrice/100000000)})        
         return data;
         }
         else{
                 let data = getImgreffalgosale.filter((val)=>{
-                if(val.NFTName === "" || val.NFTName === null || val.NFTName === undefined){    
+                if(val.nftName === "" || val.nftName === null || val.nftName === undefined){    
                 }else{
-                let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())                
+                let val1 = (val.nftName).toLowerCase().includes(searchText.toLocaleLowerCase())                
                 return val1
                     }            
             })            
@@ -679,8 +683,9 @@ const GenesisMarket = () => {
     return (
         <Layout>
             <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+            <Link to="/top-categories">Trending Collections</Link>
                 <Link to="/top-nftcollection">NFT Collections</Link>
-                <Link to="/top-categories">Trending Collections</Link>
+                
                 <Link className="active" to="/genesis-market">Royalty NFTs</Link>  
             </div>
             <Container>
@@ -697,37 +702,37 @@ const GenesisMarket = () => {
                     <Tabs defaultActiveKey="all" id="uncontrolled-tab-example" className='dashboard-tabs'>
                         <Tab eventKey="all" title="Explore">
                             <div className='d-flex mt-4 mb-3 align-items-start flex-wrap'>
-                                <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                     <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Collections
                                 </Link>
-                                <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                     <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Avatar
                                 </Link>
-                                <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                     <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Entity
                                 </Link>
-                                <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                     <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Equipment
                                 </Link>
-                                <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                     <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Art
                                 </Link>
-                                <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                                <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                     <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
@@ -814,7 +819,7 @@ const GenesisMarket = () => {
 
                             ) }                            
                         </Tab>
-                        
+{/*                         
                         <Tab eventKey="Sports" title="Sports">
                             <div className='d-flex mt-4 mb-3 align-items-start flex-wrap'>
                                 <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
@@ -1295,7 +1300,7 @@ const GenesisMarket = () => {
                             </div>
 
                             ) }                            
-                        </Tab>                                            
+                        </Tab>                                             */}
                     </Tabs>
                 </div>
             </Container>

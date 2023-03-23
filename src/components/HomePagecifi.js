@@ -37,10 +37,10 @@ function HomePage() {
                             <img src={BannerImage} className="img-fluid page-banner-image" alt="banner" />
                         </Col>
                         <Col lg="6">
-                            <h2 style={{color:'white'}} className="text-uppercase">Divine Dimension<strong className="text-grad"><br />
+                            {/* <h2 style={{color:'white'}} className="text-uppercase">Divine Dimension<strong className="text-grad"><br /> */}
                             {/* platform <span>FOR cricket</span> */}
-                            </strong></h2>
-                            <p style={{color:'white'}}>A New Metaverse for Cultural Traditions and World Tourism.</p>                            
+                            {/* </strong></h2> */}
+                            <h2  style={{color:'white'}}><strong className="text-grad">A New Metaverse for Cultural Traditions and World Tourism.</strong></h2>                            
                     {/* <Button href="/my-NFT" size="lg">Join us now</Button>                                         */}
                         </Col>                        
                     </Row>                       

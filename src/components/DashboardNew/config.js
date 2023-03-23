@@ -252,19 +252,23 @@ export const uservisits =async(type)=>{
 
 
   export const swappet = async (Payload)=>{
-    if(localStorage.getItem("wallet")==="Petra"){
+    console.log("enter")
+    if(localStorage.getItem("EAWalletName")==="EPetraWallet"){
         const pendingTransaction = await (window).aptos.signAndSubmitTransaction(Payload);
         return pendingTransaction.hash
     }
-   else if (localStorage.getItem("wallet") === "Martian"){
+   else if (localStorage.getItem("EAWalletName") === "EMartianWallet"){
+    
     const response = await window.martian.connect();
     const sender = response.address;
     const options = {
         max_gas_amount: "100000"
     }
     const transactionRequest = await window.martian.generateTransaction(sender, Payload, options);
+   
       const txnHash = await window.martian.signAndSubmitTransaction(transactionRequest);
       return txnHash
+
    }
    else{
     let g = Math.floor(new Date().getTime()/1000.0)

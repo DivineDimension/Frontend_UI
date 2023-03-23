@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import configfile from '../../NFTFolder/config.json'
 import {DataContext} from "../../App";
 import { swappet } from './config';
+import { createActivityTable, getuserDetailsbywallet, putByPrice, putBySale } from '../../awsdatafile';
 
 const CreateTab =({x})=>{
     console.log("Blog",x)
@@ -24,11 +25,14 @@ const CreateTab =({x})=>{
     let pooladdressfinal = "0xc78f87c3e587d53bf4821a10472c4ba973ac57815d7901d4d3224347f484cd7f"; 
     // const [getduplicateAssetValue2new,setduplicateAssetValue2new] = useState("");     
     // const [getduplicateAssetValue2newEscrow,setduplicateAssetValue2newEscrow] = useState("");     
+    const[userprofile,setUserProfile] = useState([]);
 
     const dbcallProfile=async()=>{            
       if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
       }
       else{
+        let k = await getuserDetailsbywallet(localStorage.getItem("EAWalletAddress"))
+        setUserProfile(k.data2);
         //firebase.auth().signInAnonymously().then(async(response)=>{           
           const hasRestaurant = await fireDb.database()
           .ref(`EPuserprofile/${localStorage.getItem('EAWalletAddress')}`)
@@ -94,11 +98,11 @@ const CreateTab =({x})=>{
                 function: `${caddressnew}::royalty1final::list_token`,
                 type_arguments: [],
                 arguments: [               
-                  b.CreatorAddress,                               
-                  b.NFTName,         
-                  b.NFTName,     
+                  b.creatorAddress,                               
+                  b.nftName,         
+                  b.nftName,     
                   property_version,
-                  b.NFTPrice,                
+                  b.nftPrice,                
                   1,       
                 ]
               }
@@ -124,27 +128,40 @@ const CreateTab =({x})=>{
             // });            
             //fireDb.auth().signInAnonymously().then((response)=>{                     
             let dateset=new Date().toDateString();      
-            fireDb.database().ref(`EPolygonNFTRS/${localStorage.getItem('EAWalletAddress')}`).child(b.keyId).set({
-                Assetid:b.Assetid,Imageurl:b.Imageurl,NFTPrice:b.NFTPrice,EscrowAddress:b.EscrowAddress,keyId:b.keyId,
-                NFTName:b.NFTName,userSymbol:b.userSymbol,Ipfsurl:b.Ipfsurl,ownerAddress:b.ownerAddress,previousoaddress:b.previousoaddress,
-                TimeStamp:dateset,NFTDescription:b.NFTDescription,HistoryAddress:b.HistoryAddress,Appid:b.Appid,valid:b.valid,
-                CreatorAddress:b.CreatorAddress,NFTType:b.NFTType,NFTChannel:b.NFTChannel,SocialLink:b.SocialLink,NFTModel:b.NFTModel
-              }).then(()=>{
-                fireDb.database().ref(`EPolygonNFTR/${localStorage.getItem('EAWalletAddress')}`).child(b.keyId).remove();
-                let refactivity=fireDb.database().ref(`EPolygonactivitytable/${localStorage.getItem('EAWalletAddress')}`);   
-                const db = refactivity.push().key;                         
-                refactivity.child(db).set({
-                Assetid:b.Assetid,Imageurl:b.Imageurl,NFTPrice:b.NFTPrice,EscrowAddress:"saleNFT",keyId:db,
-                NFTName:b.NFTName,userSymbol:b.userSymbol,Ipfsurl:b.Ipfsurl,ownerAddress:b.ownerAddress,previousoaddress:localStorage.getItem('EAWalletAddress'),                
-                TimeStamp:dateset,NFTDescription:b.NFTDescription,HistoryAddress:b.HistoryAddress,Appid:b.Appid,valid:b.valid,
-                CreatorAddress:b.CreatorAddress,NFTType:b.NFTType,NFTChannel:b.NFTChannel,SocialLink:b.SocialLink,NFTModel:b.NFTModel
-            })
-                .then(async()=>{                                                                                
-                    handleHideLoad()                    
-                    toast.success(`Moving NFT to Sale`,{autoClose: 5000});                                
+            // fireDb.database().ref(`EPolygonNFTRS/${localStorage.getItem('EAWalletAddress')}`).child(b.keyId).set({
+            //     Assetid:b.Assetid,Imageurl:b.Imageurl,NFTPrice:b.NFTPrice,EscrowAddress:b.EscrowAddress,keyId:b.keyId,
+            //     NFTName:b.NFTName,userSymbol:b.userSymbol,Ipfsurl:b.Ipfsurl,ownerAddress:b.ownerAddress,previousoaddress:b.previousoaddress,
+            //     TimeStamp:dateset,NFTDescription:b.NFTDescription,HistoryAddress:b.HistoryAddress,Appid:b.Appid,valid:b.valid,
+            //     CreatorAddress:b.CreatorAddress,NFTType:b.NFTType,NFTChannel:b.NFTChannel,SocialLink:b.SocialLink,NFTModel:b.NFTModel
+            //   }).then(()=>{
+            //     fireDb.database().ref(`EPolygonNFTR/${localStorage.getItem('EAWalletAddress')}`).child(b.keyId).remove();
+            //     let refactivity=fireDb.database().ref(`EPolygonactivitytable/${localStorage.getItem('EAWalletAddress')}`);   
+            //     const db = refactivity.push().key;                         
+            //     refactivity.child(db).set({
+            //     Assetid:b.Assetid,Imageurl:b.Imageurl,NFTPrice:b.NFTPrice,EscrowAddress:"saleNFT",keyId:db,
+            //     NFTName:b.NFTName,userSymbol:b.userSymbol,Ipfsurl:b.Ipfsurl,ownerAddress:b.ownerAddress,previousoaddress:localStorage.getItem('EAWalletAddress'),                
+            //     TimeStamp:dateset,NFTDescription:b.NFTDescription,HistoryAddress:b.HistoryAddress,Appid:b.Appid,valid:b.valid,
+            //     CreatorAddress:b.CreatorAddress,NFTType:b.NFTType,NFTChannel:b.NFTChannel,SocialLink:b.SocialLink,NFTModel:b.NFTModel
+            // })
+            //     .then(async()=>{                                                                                
+            //         handleHideLoad()                    
+            //         toast.success(`Moving NFT to Sale`,{autoClose: 5000});                                
+            //         await done();
+            //     })                                         
+            //   })
+            try{
+                await putBySale("yes",b.keyValue);
+                await createActivityTable(localStorage.getItem('EAWalletAddress'),"Put for Sale", pooladdressfinal,transactionHash,"Royalty-NFT")
+                toast.success(`NFT Put for Sale Successfully Done`,{autoClose: 5000});            
+                    //await saledb()
+                    handleHideLoad()
                     await done();
-                })                                         
-              })
+            }catch(error){
+                console.log("Error",error)
+                console.log(error)                                
+                handleHideLoad()
+                window.location.reload(false)
+            }
             //})
         }        
     }
@@ -194,8 +211,8 @@ const CreateTab =({x})=>{
             console.log("AmountLog",amountmul);
 
 
-            const response = await window.martian.connect();
-            const address = response.address;
+            // const response = await window.martian.connect();
+            // const address = response.address;
             const options = {
               max_gas_amount: "10000"
             }    
@@ -207,7 +224,7 @@ const CreateTab =({x})=>{
                 type_arguments: ["0x1::aptos_coin::AptosCoin"],
                 arguments: [                              
                   1,                  
-                  b.NFTName,                 
+                  b.nftName,                 
                   1000
                 ]
               }        
@@ -254,27 +271,40 @@ const CreateTab =({x})=>{
             //db here          
             let dateset=new Date().toDateString();
             //fireDb.auth().signInAnonymously().then((responses)=>{                     
-            fireDb.database().ref(`EPolygonNFTR/${localStorage.getItem('EAWalletAddress')}`).child(b.keyId).update({
-                Assetid:b.Assetid,Imageurl:b.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:localStorage.getItem('EAWalletAddress'),keyId:b.keyId,
-                NFTName:b.NFTName,userSymbol:b.userSymbol,Ipfsurl:b.Ipfsurl,ownerAddress:b.ownerAddress,previousoaddress:localStorage.getItem('EAWalletAddress'),
-                TimeStamp:dateset,NFTDescription:b.NFTDescription,HistoryAddress:b.HistoryAddress,Appid:b.Appid,valid:b.valid,
-                CreatorAddress:b.CreatorAddress,NFTType:b.NFTType,NFTChannel:b.NFTChannel,SocialLink:b.SocialLink,NFTModel:b.NFTModel
-            }).then(()=>{  
-                let refactivity=fireDb.database().ref(`EPolygonactivitytable/${localStorage.getItem('EAWalletAddress')}`);   
-                const db = refactivity.push().key;                         
-                refactivity.child(db).set({
-                    Assetid:b.Assetid,Imageurl:b.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:"priceupdated",keyId:db,
-                    NFTName:b.NFTName,userSymbol:b.userSymbol,Ipfsurl:b.Ipfsurl,ownerAddress:b.ownerAddress,previousoaddress:localStorage.getItem('EAWalletAddress'),
-                    TimeStamp:dateset,NFTDescription:cl,HistoryAddress:b.HistoryAddress,Appid:b.Appid,valid:b.valid,
-                    CreatorAddress:b.CreatorAddress,NFTType:b.NFTType,NFTChannel:b.NFTChannel,SocialLink:b.SocialLink,NFTModel:b.NFTModel
-            })
-            .then(async()=>{                                                    
+            // fireDb.database().ref(`EPolygonNFTR/${localStorage.getItem('EAWalletAddress')}`).child(b.keyId).update({
+            //     Assetid:b.Assetid,Imageurl:b.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:localStorage.getItem('EAWalletAddress'),keyId:b.keyId,
+            //     NFTName:b.NFTName,userSymbol:b.userSymbol,Ipfsurl:b.Ipfsurl,ownerAddress:b.ownerAddress,previousoaddress:localStorage.getItem('EAWalletAddress'),
+            //     TimeStamp:dateset,NFTDescription:b.NFTDescription,HistoryAddress:b.HistoryAddress,Appid:b.Appid,valid:b.valid,
+            //     CreatorAddress:b.CreatorAddress,NFTType:b.NFTType,NFTChannel:b.NFTChannel,SocialLink:b.SocialLink,NFTModel:b.NFTModel
+            // }).then(()=>{  
+            //     let refactivity=fireDb.database().ref(`EPolygonactivitytable/${localStorage.getItem('EAWalletAddress')}`);   
+            //     const db = refactivity.push().key;                         
+            //     refactivity.child(db).set({
+            //         Assetid:b.Assetid,Imageurl:b.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:"priceupdated",keyId:db,
+            //         NFTName:b.NFTName,userSymbol:b.userSymbol,Ipfsurl:b.Ipfsurl,ownerAddress:b.ownerAddress,previousoaddress:localStorage.getItem('EAWalletAddress'),
+            //         TimeStamp:dateset,NFTDescription:cl,HistoryAddress:b.HistoryAddress,Appid:b.Appid,valid:b.valid,
+            //         CreatorAddress:b.CreatorAddress,NFTType:b.NFTType,NFTChannel:b.NFTChannel,SocialLink:b.SocialLink,NFTModel:b.NFTModel
+            // })
+            // .then(async()=>{                                                    
+            //     toast.success(`NFT Price Updated Successfully`,{autoClose: 5000});            
+            //     handleHideLoad()
+            //     done()
+            //     //await saledb()
+            //     })                        
+            // })  
+            try{
+                await putByPrice(amountmul,b.keyValue);
+                await createActivityTable(localStorage.getItem('EAWalletAddress'),"Update price", pooladdressfinal,transaction2Hash,"Royalty-NFT")
                 toast.success(`NFT Price Updated Successfully`,{autoClose: 5000});            
+                    //await saledb()
+                    handleHideLoad()
+                    await done();
+            }catch(error){
+                console.log("Error",error)
+                console.log(error)                                
                 handleHideLoad()
-                done()
-                //await saledb()
-                })                        
-            })            
+                window.location.reload(false)
+            }          
             //})
             //db end here                  
             } catch (err) {
@@ -297,7 +327,7 @@ const CreateTab =({x})=>{
     const toastDiv = (txId) =>
     (
     <div>
-         <p> Transaction is successful &nbsp;<a style={{color:'#FDBD01'}} href={txId} target="_blank" rel="noreferrer"><br/><p style={{fontWeight: 'bold'}}>View in Algoexplorer <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <p> Transaction is successful &nbsp;<a style={{color:'#FDBD01'}} href={txId} target="_blank" rel="noreferrer"><br/><p style={{fontWeight: 'bold'}}>View in Aptosexplorer <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
          <path d="M11.7176 3.97604L1.69366 14L0.046875 12.3532L10.0697 2.32926H1.23596V0H14.0469V12.8109H11.7176V3.97604Z" fill="#FDBD01"/>
           </svg></p></a></p>  
      </div>
@@ -306,15 +336,15 @@ const CreateTab =({x})=>{
                 <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                 <Card className='card-dash p-3 d-block border-0'>
                     <div className='card-img text-center mb-2'>                        
-                            <img src={x.Imageurl} alt="image" className='img-fluid' />                        
+                            <img src={x.imagePath} alt="image" className='img-fluid' />                        
                     </div>
                     <div className='d-flex mb-2 justify-content-between flex-wrap align-items-center'>                        
                     </div>
-                    <h5 className='mb-2'>{x.NFTName} <br />
+                    <h5 className='mb-2'>{x.nftName} <br />
                                         </h5>
                                         <p className='subheading mb-0'>
                                         <span className='text-success'>
-                                            {x.SocialLink === null || x.SocialLink === "" || x.SocialLink === undefined ?(
+                                            {x.socialLink === null || x.socialLink === "" || x.socialLink === undefined ?(
                                                 <>{configfile.nullvalue}</>
                                             ):(
                                                 <h6>
@@ -324,9 +354,9 @@ const CreateTab =({x})=>{
                                         </span>
                                         </p>
                                         <br />                    
-                        {x.NFTPrice === "" || x.NFTPrice === null || x.NFTPrice === undefined ?(
+                        {x.nftPrice === "" || x.nftPrice === null || x.nftPrice === undefined || x.nftPrice === 0 ?(
                         <>                                            
-                        <h6 className='mb-2'>Price</h6><h5 className='d-flex mb-3 align-items-center'><img src={getIProfile[0].Imageurl} alt="logo" className='me-2 avatar-pic' />                        
+                        <h6 className='mb-2'>Price</h6><h5 className='d-flex mb-3 align-items-center'><img src={userprofile.bgvImagePath} alt="logo" className='me-2 avatar-pic' />                        
                         <div className="input-group-max d-flex align-items-center text-nowrap px-3 input-group-max-lg w-100">
                         <input type="number" placeholder='Enter Price' className='form-control' value={((getprices))} onChange={event => setprices((event.target.value))} />
                         </div>
@@ -335,7 +365,7 @@ const CreateTab =({x})=>{
                         </>
                     ):(
                         <>
-                        <h6 className='mb-2'>Price</h6><h5 className='d-flex mb-3 align-items-center'><img src={getIProfile[0].Imageurl} alt="logo" className='me-2 avatar-pic' />{x.NFTPrice/100000000}</h5>
+                        <h6 className='mb-2'>Price</h6><h5 className='d-flex mb-3 align-items-center'><img src={userprofile.bgvImagePath} alt="logo" className='me-2 avatar-pic' />{x.nftPrice/100000000}</h5>
                         <ButtonLoad loading={loader} variant="blue" className='w-100' onClick={()=>{saledb(x)}}>Sale</ButtonLoad>                          
                         </>
                     )}

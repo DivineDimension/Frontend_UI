@@ -81,6 +81,7 @@ const GExploreTab = ({x})=>{
       }                
     }    
     useEffect(()=>{dbcallProfile2()},[])
+
                         return(
                                 <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                                     <Card className='card-dash p-3 d-block border-0'>  
@@ -89,7 +90,7 @@ const GExploreTab = ({x})=>{
                                         <img src={Logo}  alt="logo" className='me-2 avatar-pic' />                                            
                                         ):(
                                             <>
-                                            {getIProfile1[0].Imageurl === null || getIProfile1[0].Imageurl === undefined || getIProfile1[0].Imageurl === ""  ? (
+                                            {getIProfile1[0].imagePath === null || getIProfile1[0].imagePath === undefined || getIProfile1[0].imagePath === ""  ? (
                                                 <img src={Logo}  alt="logo" className='me-2 avatar-pic' />                                                
                                             ):(
                                                 
@@ -97,7 +98,7 @@ const GExploreTab = ({x})=>{
                                                     pathname: "/my-NFTcopy",            
                                                     state:{allData:x}                                                
                                                 }}>
-                                                <img src={getIProfile1[0].Imageurl}  alt="logo" className='me-2 avatar-pic' />                                                
+                                                <img src={getIProfile1[0].imagePath}  alt="logo" className='me-2 avatar-pic' />                                                
                                                 </Link>
                                             )}                                            
                                             </>
@@ -105,12 +106,12 @@ const GExploreTab = ({x})=>{
                                         </div>
                                         <br/>                                                                    
                                         <div className='card-img text-center mb-2'>                                            
-                                                <img src={x.Imageurl} alt="image" className='img-fluid' />                                            
+                                                <img src={x.imagePath} alt="image" className='img-fluid' />                                            
                                         </div>
                                         <div className='d-flex mb-2 justify-content-between flex-wrap align-items-center'>                                        
                                         </div>                                        
-                                        <h6 className='mb-2'>{x.NFTName} <br /><span className='text-success'><h6>
-                                            {x.SocialLink === null || x.SocialLink === undefined || x.SocialLink === "" ? ( 
+                                        <h6 className='mb-2'>{x.nftName} <br /><span className='text-success'><h6>
+                                            {x.socialLink === null || x.socialLink === undefined || x.socialLink === "" ? ( 
                                                 <>{configfile.nullvalue}</>
                                             ):( 
                                                 <>
@@ -119,8 +120,8 @@ const GExploreTab = ({x})=>{
                                                 </>
                                             )}                                            
                                             </h6></span></h6>                                        
-                                            <h6 className='mb-2'>Price</h6><h4 className='d-flex mb-3 align-items-center'><img src={Logo} alt="logo" className='me-2 avatar-pic' /> {x.NFTPrice/100000000}</h4> 
-                                        {x.NFTPrice === "" || x.NFTPrice === null || x.NFTPrice === undefined ?(
+                                            <h6 className='mb-2'>Price</h6><h4 className='d-flex mb-3 align-items-center'><img src={Logo} alt="logo" className='me-2 avatar-pic' /> {x.nftPrice/100000000}</h4> 
+                                        {x.nftPrice === "" || x.nftPrice === null || x.nftPrice === undefined ?(
                                             <>                                                                                        
                                             <Button variant="blue" className='w-100' s>Buy NFT</Button>                                        
                                             </>
