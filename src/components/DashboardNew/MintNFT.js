@@ -192,17 +192,74 @@ const MintNFT = () => {
                 const realipfsurl = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;                                  
                 console.log("Pinata updated",realipfsurl)
                 let newinstance;
+                let txnHash1;
+                let txnHash2;
                  // Create a collection
                 //  const txnHash1 = await (window).aptos.createCollection(Name, Description, "https://aptos.dev");
+                if(localStorage.getItem("EAWalletName")==="EPetraWallet"){
+                  const transaction1 = {
+                    function: "0x3::token::create_collection_script",
+                    type_arguments: [],
+                    arguments: [
+                      Name,
+                      Description,
+                      "\"https://aptos.dev\"",
+                      "9007199254740991",
+                      [
+                        false,
+                        false,
+                        false
+                      ]
+                    ],
+                    "type": "entry_function_payload"
+                  }
+              
+                  const transaction2 =  {
+                    function: "0x3::token::create_token_script",
+                    type_arguments: [],
+                    arguments: [
+                      Name,
+                      Name,
+                      Description,
+                      "1",
+                      "9007199254740991",
+                      realipfsurl,
+                      "0x1",
+                      "0",
+                      "0",
+                      [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false
+                      ],
+                      [],
+                      [],
+                      []
+                    ],
+                    type: "entry_function_payload"
+                  }
 
-                 const txnHash1 = await window.martian.createCollection(Name, Description, "https://aptos.dev");
+                   let txn1 = await (window).aptos.signAndSubmitTransaction(transaction1);
+                   txnHash1 = txn1.hash;
+                   let txn2 = await (window).aptos.signAndSubmitTransaction(transaction2);
+                   txnHash2 = txn2.hash;
+                }
+                else if (localStorage.getItem("EAWalletName") === "EMartianWallet"){
+                   txnHash1 = await window.martian.createCollection(Name, Description, "https://aptos.dev");
                  console.log("completedTXN1",txnHash1)           
                  // Create a token
 
                 //  const txnHash2 = await (window).aptos.createToken(Name,Name, Description, 1,realipfsurl, 1)
 
-                 const txnHash2 = await window.martian.createToken(Name,Name, Description, 1,realipfsurl, 1)
-                 console.log("completed",txnHash2)   
+                  txnHash2 = await window.martian.createToken(Name,Name, Description, 1,realipfsurl, 1)
+                 console.log("completed",txnHash2) 
+                }
+                else{
+
+                }
+                   
                 try{
                   await createNFTDetails(sender,txnHash1,selectValue31,Description,Name,Links,Img,selectValue2)
                   //  await storeDBOnly(txnHash2,txnHash2,sender,Img,realipfsurl,"")  
