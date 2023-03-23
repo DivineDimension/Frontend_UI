@@ -337,7 +337,7 @@ const CreateArtists = () => {
                     <Col md={10} lg={7}>
                         <Card className='card-dash border-0 d-block'>
                             <div>
-                                <h3 className='mb-1'>ASA Artists</h3>
+                                {/* <h3 className='mb-1'>ASA Artists</h3> */}
                                 <p>Create artist</p>
                             </div>
                             <hr className='my-4' />
