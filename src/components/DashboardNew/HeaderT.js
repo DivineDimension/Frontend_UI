@@ -731,7 +731,7 @@ const[storereem,setstoreredeem] = useState([]);
                                 {localStorage.getItem("EAWalletName") === "EMartianWallet" ?(
                                 <Button className='btn btn-blue d-sm-block d-none'>{localStorage.getItem("EAWalletBalance")? parseFloat(localStorage.getItem("EAWalletBalance")).toFixed(5):'0.0'} Aptos</Button>                    
                                 ):(
-                                    <Button className='btn btn-blue d-sm-block d-none'>{parseFloat(localStorage.getItem("EAWalletBalance")).toFixed(5)} Matic</Button>
+                                    <Button className='btn btn-blue d-sm-block d-none'>{parseFloat(localStorage.getItem("EAWalletBalance")).toFixed(5)} Aptos</Button>
                                 )}   
                                                                              
                                 </>
@@ -757,7 +757,7 @@ const[storereem,setstoreredeem] = useState([]);
                             
                         <Button className='btn btn-blue d-sm-block d-none'>{parseFloat(localStorage.getItem("EAWalletBalance")).toFixed(5)} Aptos</Button>                    
                         ):(
-                            <Button className='btn btn-blue d-sm-block d-none'>{parseFloat(localStorage.getItem("EAWalletBalance")).toFixed(5)} Matic</Button>
+                            <Button className='btn btn-blue d-sm-block d-none'>{parseFloat(localStorage.getItem("EAWalletBalance")).toFixed(5)} Aptos</Button>
                         )}                                                
                         </>
                     )}                    
