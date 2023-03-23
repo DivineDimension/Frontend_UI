@@ -42,7 +42,7 @@ function Footer() {
                             <ul className="d-flex list-unstyled align-items-center justify-content-center">
                                 <li><a href="https://www.reddit.com/user/divine_realm_"><img src={SMicon3} alt="icon" /></a></li>
                                 <li><a href="https://twitter.com/divine_realm_"><img src={SMicon4} alt="icon" /></a></li>
-                                <li><a href="https://discord.gg/3th9PGjP"><img src={SMicon6} alt="icon" /></a></li>
+                                <li><a href="https://discord.gg/8N5Rz7mB"><img src={SMicon6} alt="icon" /></a></li>
                                 <li><a href="https://medium.com/@divinedimension007"><img src={SMicon7} alt="icon" /></a></li>
                             </ul>
                         </div>
