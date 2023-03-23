@@ -7,8 +7,10 @@ import CreateTab from './CreateTab';
 import CreateTabFractional from './CreateTabFractional';
 import CreateTabAuction from './CreateTabAuction';
 import CreateTabNFT1155 from './CreateTabNFT1155';
+import { getNFTDetailsByAddressTypeSale } from '../../awsdatafile';
 
 const CreateTabTab=()=>{
+
     const[pageSize,setPageSize]=useState(12);     
     const[getImgreffalgoNFT,setgetImgreffalgoNFT]=useState([]);
     console.log('Poly1',getImgreffalgoNFT)
@@ -25,42 +27,45 @@ const CreateTabTab=()=>{
         if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
         }
         else{
-        let getalgo=localStorage.getItem("EAWalletAddress");              
+        let getalgo=localStorage.getItem("EAWalletAddress");  
+        let createdNft = await getNFTDetailsByAddressTypeSale(getalgo,"NFT","no")  
+        console.log("creatednft",createdNft)    
+        setImgNFT1155(createdNft.data2); 
         //firebase.auth().signInAnonymously().then((response)=>{      
-            firebase.database().ref("EPolygon1155").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                if(value.NFTChannel ==="NFT"){
-                    req.push(            
-                        {
-                          Assetid:value.Assetid,
-                          Imageurl:value.Imageurl,
-                          NFTPrice:value.NFTPrice,
-                          EscrowAddress:value.EscrowAddress,
-                          keyId:value.keyId,
-                          NFTName:value.NFTName,
-                          userSymbol:value.userSymbol,
-                          Ipfsurl:value.Ipfsurl,
-                          ownerAddress:value.ownerAddress,
-                          previousoaddress:value.previousoaddress,
-                          TimeStamp:value.TimeStamp,
-                          NFTDescription:value.NFTDescription,
-                          HistoryAddress:value.HistoryAddress,
-                          Appid:value.Appid,
-                          valid:value.valid,
-                          CreatorAddress:value.CreatorAddress,
-                          NFTType:value.NFTType,
-                          NFTChannel:value.NFTChannel,
-                          SocialLink:value.SocialLink,
-                          NFTModel:value.NFTModel
-                    })                
-                }                
-                });        
-              }              
-              req.reverse()              
-              setImgNFT1155(req)              
-            });          
+            // firebase.database().ref("EPolygon1155").child(getalgo).on("value", (data) => {
+            // if (data) {
+            //   data.forEach((d) => {                
+            //     let value=d.val();
+            //     if(value.NFTChannel ==="NFT"){
+            //         req.push(            
+            //             {
+            //               Assetid:value.Assetid,
+            //               Imageurl:value.Imageurl,
+            //               NFTPrice:value.NFTPrice,
+            //               EscrowAddress:value.EscrowAddress,
+            //               keyId:value.keyId,
+            //               NFTName:value.NFTName,
+            //               userSymbol:value.userSymbol,
+            //               Ipfsurl:value.Ipfsurl,
+            //               ownerAddress:value.ownerAddress,
+            //               previousoaddress:value.previousoaddress,
+            //               TimeStamp:value.TimeStamp,
+            //               NFTDescription:value.NFTDescription,
+            //               HistoryAddress:value.HistoryAddress,
+            //               Appid:value.Appid,
+            //               valid:value.valid,
+            //               CreatorAddress:value.CreatorAddress,
+            //               NFTType:value.NFTType,
+            //               NFTChannel:value.NFTChannel,
+            //               SocialLink:value.SocialLink,
+            //               NFTModel:value.NFTModel
+            //         })                
+            //     }                
+            //     });        
+            //   }              
+            //   req.reverse()              
+            //   setImgNFT1155(req)              
+            // });          
         //})        
         }        
     }      
@@ -73,41 +78,44 @@ const CreateTabTab=()=>{
         }
         else{
         let getalgo=localStorage.getItem("EAWalletAddress");              
-        //firebase.auth().signInAnonymously().then((response)=>{      
-            firebase.database().ref("EPolygonNFTN").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                if(value.NFTChannel ==="NFT"){
-                    req.push(            
-                        {
-                          Assetid:value.Assetid,
-                          Imageurl:value.Imageurl,
-                          NFTPrice:value.NFTPrice,
-                          EscrowAddress:value.EscrowAddress,
-                          keyId:value.keyId,
-                          NFTName:value.NFTName,
-                          userSymbol:value.userSymbol,
-                          Ipfsurl:value.Ipfsurl,
-                          ownerAddress:value.ownerAddress,
-                          previousoaddress:value.previousoaddress,
-                          TimeStamp:value.TimeStamp,
-                          NFTDescription:value.NFTDescription,
-                          HistoryAddress:value.HistoryAddress,
-                          Appid:value.Appid,
-                          valid:value.valid,
-                          CreatorAddress:value.CreatorAddress,
-                          NFTType:value.NFTType,
-                          NFTChannel:value.NFTChannel,
-                          SocialLink:value.SocialLink,
-                          NFTModel:value.NFTModel
-                    })                
-                }                
-                });        
-              }              
-              req.reverse()              
-              setgetImgreffalgoNFT(req)              
-            });          
+        //firebase.auth().signInAnonymously().then((response)=>{ 
+            let createdNft = await getNFTDetailsByAddressTypeSale(getalgo,"NFT","no")  
+        console.log("creatednft",createdNft)    
+        setgetImgreffalgoNFT(createdNft.data2)      
+            // firebase.database().ref("EPolygonNFTN").child(getalgo).on("value", (data) => {
+            // if (data) {
+            //   data.forEach((d) => {                
+            //     let value=d.val();
+            //     if(value.NFTChannel ==="NFT"){
+            //         req.push(            
+            //             {
+            //               Assetid:value.Assetid,
+            //               Imageurl:value.Imageurl,
+            //               NFTPrice:value.NFTPrice,
+            //               EscrowAddress:value.EscrowAddress,
+            //               keyId:value.keyId,
+            //               NFTName:value.NFTName,
+            //               userSymbol:value.userSymbol,
+            //               Ipfsurl:value.Ipfsurl,
+            //               ownerAddress:value.ownerAddress,
+            //               previousoaddress:value.previousoaddress,
+            //               TimeStamp:value.TimeStamp,
+            //               NFTDescription:value.NFTDescription,
+            //               HistoryAddress:value.HistoryAddress,
+            //               Appid:value.Appid,
+            //               valid:value.valid,
+            //               CreatorAddress:value.CreatorAddress,
+            //               NFTType:value.NFTType,
+            //               NFTChannel:value.NFTChannel,
+            //               SocialLink:value.SocialLink,
+            //               NFTModel:value.NFTModel
+            //         })                
+            //     }                
+            //     });        
+            //   }              
+            //   req.reverse()              
+            //   setgetImgreffalgoNFT(req)              
+            // });          
         //})        
         }        
     }      
@@ -119,93 +127,96 @@ const CreateTabTab=()=>{
         }
         else{
         let getalgo=localStorage.getItem("EAWalletAddress");              
-        //firebase.auth().signInAnonymously().then((response)=>{      
-            firebase.database().ref("EPolygonNFTR").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                if(value.NFTChannel ==="Royalty"){
-                    req.push(            
-                        {
-                          Assetid:value.Assetid,
-                          Imageurl:value.Imageurl,
-                          NFTPrice:value.NFTPrice,
-                          EscrowAddress:value.EscrowAddress,
-                          keyId:value.keyId,
-                          NFTName:value.NFTName,
-                          userSymbol:value.userSymbol,
-                          Ipfsurl:value.Ipfsurl,
-                          ownerAddress:value.ownerAddress,
-                          previousoaddress:value.previousoaddress,
-                          TimeStamp:value.TimeStamp,
-                          NFTDescription:value.NFTDescription,
-                          HistoryAddress:value.HistoryAddress,
-                          Appid:value.Appid,
-                          valid:value.valid,
-                          CreatorAddress:value.CreatorAddress,
-                          NFTType:value.NFTType,
-                          NFTChannel:value.NFTChannel,
-                          SocialLink:value.SocialLink,
-                          NFTModel:value.NFTModel
-                    })                
-                }                
-                });        
-              }              
-              req.reverse()              
-              setgetImgreffalgo(req)              
-            });          
+        //firebase.auth().signInAnonymously().then((response)=>{  
+            let createdNft = await getNFTDetailsByAddressTypeSale(getalgo,"Royalty-NFT","no")  
+        console.log("creatednft",createdNft)    
+        setgetImgreffalgo(createdNft.data2)
+            // firebase.database().ref("EPolygonNFTR").child(getalgo).on("value", (data) => {
+            // if (data) {
+            //   data.forEach((d) => {                
+            //     let value=d.val();
+            //     if(value.NFTChannel ==="Royalty"){
+            //         req.push(            
+            //             {
+            //               Assetid:value.Assetid,
+            //               Imageurl:value.Imageurl,
+            //               NFTPrice:value.NFTPrice,
+            //               EscrowAddress:value.EscrowAddress,
+            //               keyId:value.keyId,
+            //               NFTName:value.NFTName,
+            //               userSymbol:value.userSymbol,
+            //               Ipfsurl:value.Ipfsurl,
+            //               ownerAddress:value.ownerAddress,
+            //               previousoaddress:value.previousoaddress,
+            //               TimeStamp:value.TimeStamp,
+            //               NFTDescription:value.NFTDescription,
+            //               HistoryAddress:value.HistoryAddress,
+            //               Appid:value.Appid,
+            //               valid:value.valid,
+            //               CreatorAddress:value.CreatorAddress,
+            //               NFTType:value.NFTType,
+            //               NFTChannel:value.NFTChannel,
+            //               SocialLink:value.SocialLink,
+            //               NFTModel:value.NFTModel
+            //         })                
+            //     }                
+            //     });        
+            //   }              
+            //   req.reverse()              
+            //   setgetImgreffalgo(req)              
+            // });          
         //})        
         }        
     }      
     useEffect(()=>{dbcallalgoR()},[])
 
 
-    const dbcallalgoA=async()=>{                
-        let req = [];        
-        if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
-        }
-        else{
-        let getalgo=localStorage.getItem("EAWalletAddress");              
-        //firebase.auth().signInAnonymously().then((response)=>{      
-            firebase.database().ref("EPolygonNFTA").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                if(value.NFTChannel ==="Auction"){
-                    req.push(            
-                        {
-                          Assetid:value.Assetid,
-                          Imageurl:value.Imageurl,
-                          NFTPrice:value.NFTPrice,
-                          EscrowAddress:value.EscrowAddress,
-                          keyId:value.keyId,
-                          NFTName:value.NFTName,
-                          userSymbol:value.userSymbol,
-                          Ipfsurl:value.Ipfsurl,
-                          ownerAddress:value.ownerAddress,
-                          previousoaddress:value.previousoaddress,
-                          TimeStamp:value.TimeStamp,
-                          NFTDescription:value.NFTDescription,
-                          HistoryAddress:value.HistoryAddress,
-                          Appid:value.Appid,
-                          valid:value.valid,
-                          CreatorAddress:value.CreatorAddress,
-                          NFTType:value.NFTType,
-                          NFTChannel:value.NFTChannel,
-                          SocialLink:value.SocialLink,
-                          NFTModel:value.NFTModel,
-                          AuctionTime:value.AuctionTime
-                    })                
-                }                
-                });        
-              }              
-              req.reverse()              
-              setgetImgreffalgoauction(req)              
-            });          
-        //})        
-        }        
-    }      
-    useEffect(()=>{dbcallalgoA()},[])
+    // const dbcallalgoA=async()=>{                
+    //     let req = [];        
+    //     if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
+    //     }
+    //     else{
+    //     let getalgo=localStorage.getItem("EAWalletAddress");              
+    //     //firebase.auth().signInAnonymously().then((response)=>{      
+    //         firebase.database().ref("EPolygonNFTA").child(getalgo).on("value", (data) => {
+    //         if (data) {
+    //           data.forEach((d) => {                
+    //             let value=d.val();
+    //             if(value.NFTChannel ==="Auction"){
+    //                 req.push(            
+    //                     {
+    //                       Assetid:value.Assetid,
+    //                       Imageurl:value.Imageurl,
+    //                       NFTPrice:value.NFTPrice,
+    //                       EscrowAddress:value.EscrowAddress,
+    //                       keyId:value.keyId,
+    //                       NFTName:value.NFTName,
+    //                       userSymbol:value.userSymbol,
+    //                       Ipfsurl:value.Ipfsurl,
+    //                       ownerAddress:value.ownerAddress,
+    //                       previousoaddress:value.previousoaddress,
+    //                       TimeStamp:value.TimeStamp,
+    //                       NFTDescription:value.NFTDescription,
+    //                       HistoryAddress:value.HistoryAddress,
+    //                       Appid:value.Appid,
+    //                       valid:value.valid,
+    //                       CreatorAddress:value.CreatorAddress,
+    //                       NFTType:value.NFTType,
+    //                       NFTChannel:value.NFTChannel,
+    //                       SocialLink:value.SocialLink,
+    //                       NFTModel:value.NFTModel,
+    //                       AuctionTime:value.AuctionTime
+    //                 })                
+    //             }                
+    //             });        
+    //           }              
+    //           req.reverse()              
+    //           setgetImgreffalgoauction(req)              
+    //         });          
+    //     //})        
+    //     }        
+    // }      
+    // useEffect(()=>{dbcallalgoA()},[])
     
 
     const filterdata3NFT=()=>{        
@@ -217,24 +228,24 @@ const CreateTabTab=()=>{
         }
         if(getrecent === "Recently added"){        
             let data = getImgreffalgoNFT.filter((val)=>{                                                                                        
-                return dateset === val.TimeStamp                        
+                return dateset === val.createdTime                        
             })
             return data;                                                
         }
         if(getrecent === "Low to High"){
-          let data=getImgreffalgoNFT.sort((a,b)=>{ return parseFloat(a.NFTPrice/100000000) - parseFloat(b.NFTPrice/100000000)})          
+          let data=getImgreffalgoNFT.sort((a,b)=>{ return parseFloat(a.nftPrice/100000000) - parseFloat(b.nftPrice/100000000)})          
           return data;
         }
         if(getrecent ===  "High to Low"){
-          let data=getImgreffalgoNFT.sort((a,b)=>{ return parseFloat(b.NFTPrice/100000000) - parseFloat(a.NFTPrice/100000000)})          
+          let data=getImgreffalgoNFT.sort((a,b)=>{ return parseFloat(b.nftPrice/100000000) - parseFloat(a.nftPrice/100000000)})          
           return data;
         }
         }
         else{
                 let data = getImgreffalgoNFT.filter((val)=>{
-                if(val.NFTName === "" || val.NFTName === null || val.NFTName === undefined){    
+                if(val.nftName === "" || val.nftName === null || val.nftName === undefined){    
                 }else{
-                let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
+                let val1 = (val.nftName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
                 return val1
                 }            
             })                                    
@@ -253,24 +264,24 @@ const CreateTabTab=()=>{
         }                          
         if(getrecent === "Recently added"){        
             let data = getImgreffalgo.filter((val)=>{                                                                                        
-                return dateset === val.TimeStamp                        
+                return dateset === val.createdTime                        
             })
             return data;                                                
         }
         if(getrecent === "Low to High"){
-          let data=getImgreffalgo.sort((a,b)=>{ return parseFloat(a.NFTPrice/100000000) - parseFloat(b.NFTPrice/100000000)})         
+          let data=getImgreffalgo.sort((a,b)=>{ return parseFloat(a.nftPrice/100000000) - parseFloat(b.nftPrice/100000000)})         
           return data;
         }
         if(getrecent ===  "High to Low"){
-          let data=getImgreffalgo.sort((a,b)=>{ return parseFloat(b.NFTPrice/100000000) - parseFloat(a.NFTPrice/100000000)})          
+          let data=getImgreffalgo.sort((a,b)=>{ return parseFloat(b.nftPrice/100000000) - parseFloat(a.nftPrice/100000000)})          
           return data;
         }
         }
         else{
                 let data = getImgreffalgo.filter((val)=>{
-                if(val.NFTName === "" || val.NFTName === null || val.NFTName === undefined){    
+                if(val.nftName === "" || val.nftName === null || val.nftName === undefined){    
                 }else{
-                let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
+                let val1 = (val.nftName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
                 return val1
                 }            
             })                                    
@@ -629,7 +640,7 @@ const CreateTabTab=()=>{
 
                             ) }                            
                         </Tab>                                                                */}
-                        <Tab eventKey="Auction" title="Auction">
+                        {/* <Tab eventKey="Auction" title="Auction">
                             <div className='d-flex justify-content-end mb-3'>
                             <Dropdown>
                                 <Dropdown.Toggle variant='dark' className='noarrow' id="dropdown-basic">
@@ -706,7 +717,7 @@ const CreateTabTab=()=>{
                             </div>
 
                             ) }                            
-                        </Tab>                                                               
+                        </Tab>                                                                */}
                         {/* <Tab eventKey="ERC1155" title="ERC1155">
                             <div className='d-flex justify-content-end mb-3'>
                             <Dropdown>

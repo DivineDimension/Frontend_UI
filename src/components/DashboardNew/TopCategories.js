@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import { Card, Col, Container, Row, Tabs, Tab, Badge, Button, InputGroup, Form, Dropdown,Modal} from 'react-bootstrap';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import Loader from "react-js-loader";
-import Icon1 from '../../assets/images/elem-original.png';
+// import Icon1 from '../../assets/images/elem-original.png';
+import Icon1 from '../../assets/images/divinelogo.png';
 import cardbgblur from '../../assets/images/card-bg-blur.png';
 import firebase from '../../NFTFolder/firebase';
+import { getAlluserDetails, getuserDetailsbywallet } from '../../awsdatafile';
 
 const TopCategories = () => {
     useEffect(() => {
@@ -16,38 +18,42 @@ const TopCategories = () => {
     const[pageSize,setPageSize]=useState(12);     
     const [searchText, setSearchText] = React.useState('');    
     const[getImgreffalgoCount,setgetImgreffalgoCount]=useState([]); 
-    const[getImgreffprofile,setgetImgreffprofile]=useState([]);        
+    const[getImgreffprofile,setgetImgreffprofile]=useState([]); 
+    console.log("imagepath",getImgreffprofile)       
     const dbcallProfile=async()=>{        
         let req = [];
         let c=0;
+        let userprofile = await getAlluserDetails()
+        console.log("userprofile",userprofile)
+        setgetImgreffprofile(userprofile.data2);
         //firebase.auth().signInAnonymously().then((response)=>{      
-          firebase.database().ref("EPuserprofile").on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();      
+          // firebase.database().ref("EPuserprofile").on("value", (data) => {
+          //   if (data) {
+          //     data.forEach((d) => {                
+          //       let value=d.val();      
                
-                if(value.walletAddress === null || value.walletAddress === undefined || value.walletAddress === "")          {
-                c=c+1
-                }else{
-                    req.push(            
-                        {
-                          Bio:value.Bio,
-                          Imageurl:value.Imageurl,
-                          Customurl:value.Customurl,
-                          Email:value.Email,
-                          Personalsiteurl:value.Personalsiteurl,
-                          TimeStamp:value.TimeStamp,
-                          Twittername:value.Twittername,
-                          UserName:value.UserName,
-                          bgurl:value.bgurl,
-                          valid   :value.valid,
-                          walletAddress:value.walletAddress,                    
-                        })       
-                }                                         
-                });        
-              }
-              setgetImgreffprofile(req);
-            });                 
+          //       if(value.walletAddress === null || value.walletAddress === undefined || value.walletAddress === "")          {
+          //       c=c+1
+          //       }else{
+          //           req.push(            
+          //               {
+          //                 Bio:value.Bio,
+          //                 Imageurl:value.Imageurl,
+          //                 Customurl:value.Customurl,
+          //                 Email:value.Email,
+          //                 Personalsiteurl:value.Personalsiteurl,
+          //                 TimeStamp:value.TimeStamp,
+          //                 Twittername:value.Twittername,
+          //                 UserName:value.UserName,
+          //                 bgurl:value.bgurl,
+          //                 valid   :value.valid,
+          //                 walletAddress:value.walletAddress,                    
+          //               })       
+          //       }                                         
+          //       });        
+          //     }
+          //     setgetImgreffprofile(req);
+          //   });                 
         //})                      
     }      
     useEffect(()=>{dbcallProfile()},[])      
@@ -77,7 +83,7 @@ const TopCategories = () => {
         if(searchText === "" || searchText === null || searchText === undefined){                
         }else{
             let data = getImgreffprofile.filter((val)=>{            
-            let val1 = (val.UserName).toLowerCase().includes(searchText.toLocaleLowerCase())                
+            let val1 = (val.profileName).toLowerCase().includes(searchText.toLocaleLowerCase())                
             return val1;
         }) 
         return data;
@@ -88,8 +94,9 @@ const TopCategories = () => {
     return (    
         <Layout>
           <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
+          <Link className="active" to="/top-categories">Trending Collections</Link>
                 <Link to="/top-nftcollection">NFT Collections</Link>
-                <Link className="active" to="/top-categories">Trending Collections</Link>
+                
                 <Link to="/genesis-market">Royalty NFTs</Link>  
             </div>
             <Container>
@@ -106,37 +113,37 @@ const TopCategories = () => {
                     <Tabs defaultActiveKey="all" id="uncontrolled-tab-example" className='dashboard-tabs'>
                         <Tab eventKey="all" title="All">    
                             <div className='d-flex mt-4 mb-3 align-items-start flex-wrap'>
-                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                              <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                   <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Collections
                               </Link>
-                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                              <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                   <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Avatar
                               </Link>
-                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                              <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                   <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Entity
                               </Link>
-                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                              <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                   <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Equipment
                               </Link>
-                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                              <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                   <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
                                 Art
                               </Link>
-                              <Link to='/' className='d-flex link-pill mb-2 me-3 align-items-center '>
+                              <Link to='#' className='d-flex link-pill mb-2 me-3 align-items-center '>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                   <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                                 </svg>
@@ -167,23 +174,23 @@ const TopCategories = () => {
                     pathname: "/my-NFTcopyy",            
                     state:{allData:x}}}>       
                         <Card className='card-dash profile-card border-0' style={{minHeight: '360px'}}>                             
-                        {getImgreffprofile[0] === null || getImgreffprofile[0] === "" || getImgreffprofile[0] === undefined || getImgreffprofile[0] === " "  ? (
+                        {getImgreffprofile === null || getImgreffprofile === "" || getImgreffprofile === undefined || getImgreffprofile === " "  ? (
                         <>
                           <img src={cardbgblur} alt="pics" style={{width:50,height:50}} className='img-fluid profile-card-image w-100' />
                         </>
                       ):(
                         <>
-                        {x.bgurl === null || x.bgurl === "" || x.bgurl === undefined || x.bgurl === " "  ? (<>
+                        {x.bgvImagePath === null || x.bgvImagePath === "" || x.bgvImagePath === undefined || x.bgvImagePath === " "  ? (<>
                             <img src={cardbgblur} alt="pics" style={{width:50,height:50}}  />
                         </>):(
                           <>
-                          <img src={x.bgurl} alt="pic" className='img-fluid w profile-card-image-100'/>
+                          <img src={x.bgvImagePath} alt="pic" className='img-fluid w profile-card-image-100'/>
                         </>
                         )}                        
                         </>
                       )}                                
                       <br />              
-                      <h6 className='mb-2'>{x.UserName} <br /><span className='text-success'></span></h6>
+                      <h6 className='mb-2'>{x.profileName} <br /><span className='text-success'></span></h6>
                         </Card>                              
                         </Link>                           
                       {getImgreffprofile[0] === null || getImgreffprofile[0] === "" || getImgreffprofile[0] === undefined || getImgreffprofile[0] === " " ? (

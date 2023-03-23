@@ -127,7 +127,7 @@ const Sidebar = ({activeClass, handleLink}) => {
                     )}
                 </Dropdown>
             </li>  */}
-             <li>
+             {/* <li>
                 <Dropdown>
                     {device > 1199 && activeClass ? (
                         <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
@@ -141,7 +141,7 @@ const Sidebar = ({activeClass, handleLink}) => {
                         </Dropdown.Toggle>
                     )} 
                     </Dropdown>
-                    </li>
+                    </li> */}
             <li>
                 <Dropdown>                     
                         {device > 1199 && activeClass ? (

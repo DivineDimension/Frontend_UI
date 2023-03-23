@@ -21,7 +21,7 @@ function Footer() {
                 <Row>
                     <Col lg={8} className="mb-lg-0 mb-4">
                         <p className='mb-1' style={{color:'white'}}>&copy; 2023 DivineDimension, All Rights Reserved  </p>
-                        <ul className="d-flex list-unstyled align-items-center mb-1 flex-wrap ">
+                        {/* <ul className="d-flex list-unstyled align-items-center mb-1 flex-wrap ">
                             <li><a href="/" style={{color:'white'}}>Community</a></li>
                             <li><a href="/" style={{color:'white'}}>FAQ</a></li>
                             <li><a href="/" style={{color:'white'}}>Support</a></li>
@@ -35,15 +35,15 @@ function Footer() {
                             <li><a href="/" style={{color:'white'}}>Terms Conditions</a></li>
                             <li><a style={{color:'white'}} href="mailto:info@bosonlabs.net">info@bosonlabs.net</a></li>
                             
-                        </ul>
+                        </ul> */}
                     </Col>
                     <Col lg={4}>
                         <div className="social-group text-center">                    
                             <ul className="d-flex list-unstyled align-items-center justify-content-center">
-                                <li><a href="/"><img src={SMicon3} alt="icon" /></a></li>
-                                <li><a href="/"><img src={SMicon4} alt="icon" /></a></li>
-                                <li><a href="/"><img src={SMicon6} alt="icon" /></a></li>
-                                <li><a href="/"><img src={SMicon7} alt="icon" /></a></li>
+                                <li><a href="https://www.reddit.com/user/divine_realm_"><img src={SMicon3} alt="icon" /></a></li>
+                                <li><a href="https://twitter.com/divine_realm_"><img src={SMicon4} alt="icon" /></a></li>
+                                <li><a href="https://discord.gg/3th9PGjP"><img src={SMicon6} alt="icon" /></a></li>
+                                <li><a href="https://medium.com/@divinedimension007"><img src={SMicon7} alt="icon" /></a></li>
                             </ul>
                         </div>
                     </Col>

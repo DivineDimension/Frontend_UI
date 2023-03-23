@@ -16,6 +16,7 @@ import {abiauction} from './Auctionnftcontract';
 import {DataContext} from "../../App";
 import web3 from './web3';
 import axios from 'axios';
+import { createActivityTable, createNFTDetails } from '../../awsdatafile';
 //const axios = require('axios');
 const MintNFT = () => {
     const value = useContext(DataContext);
@@ -174,8 +175,8 @@ const MintNFT = () => {
           toast.info("Image Uploading in IPFS",{autoClose: 5000});                          
           if (getFile) {
             try {          
-              const response = await window.martian.connect();
-              const sender = response.address;                    
+              // const response = await window.martian.connect();
+              const sender = localStorage.getItem("EAWalletAddress");                    
               const formData = new FormData();
               formData.append("file", getFile);
               const resFile = await axios({
@@ -192,12 +193,31 @@ const MintNFT = () => {
                 console.log("Pinata updated",realipfsurl)
                 let newinstance;
                  // Create a collection
+                //  const txnHash1 = await (window).aptos.createCollection(Name, Description, "https://aptos.dev");
+
                  const txnHash1 = await window.martian.createCollection(Name, Description, "https://aptos.dev");
                  console.log("completedTXN1",txnHash1)           
                  // Create a token
+
+                //  const txnHash2 = await (window).aptos.createToken(Name,Name, Description, 1,realipfsurl, 1)
+
                  const txnHash2 = await window.martian.createToken(Name,Name, Description, 1,realipfsurl, 1)
-                 console.log("completed",txnHash2)           
-                 await storeDBOnly(txnHash2,txnHash2,sender,Img,realipfsurl,"")  
+                 console.log("completed",txnHash2)   
+                try{
+                  await createNFTDetails(sender,txnHash1,selectValue31,Description,Name,Links,Img,selectValue2)
+                  //  await storeDBOnly(txnHash2,txnHash2,sender,Img,realipfsurl,"")  
+                  await createActivityTable(sender,"Mint NFT",sender,txnHash2,selectValue2)
+  
+                  toast.dismiss()
+                  toast.success(`NFT Minted Successfully`,{autoClose: 5000});                                                                  
+                  handleHideLoad()
+                  done2();
+                } catch(err){
+                  console.log("Error sending File to IPFS: ")
+                  console.log(err)                                
+                  handleHideLoad()
+                }
+                 
                 // const accounts = await web3.eth.getAccounts();
                 // if(selectValue31 === "NFT"){
                 //   fireDb.database().ref(`nftgkey`).set(tid).then(async()=>{                  
@@ -562,7 +582,7 @@ const MintNFT = () => {
     const toastDiv = (txId) =>
     (
     <div>
-         <p> Transaction is successful &nbsp;<a style={{color:'#FDBD01'}} href={txId} target="_blank" rel="noreferrer"><br/><p style={{fontWeight: 'bold'}}>View in Algoexplorer <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <p> Transaction is successful &nbsp;<a style={{color:'#FDBD01'}} href={txId} target="_blank" rel="noreferrer"><br/><p style={{fontWeight: 'bold'}}>View in Aptosexplorer <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
          <path d="M11.7176 3.97604L1.69366 14L0.046875 12.3532L10.0697 2.32926H1.23596V0H14.0469V12.8109H11.7176V3.97604Z" fill="#FDBD01"/>
           </svg></p></a></p>  
      </div>
@@ -610,7 +630,7 @@ const MintNFT = () => {
                                                 <option value="NFT">NFT</option>
                                                 <option value="Royalty-NFT">Royalty-NFT</option>                                                
                                                 {/* <option value="Fractional-NFT">Fractional-NFT</option>                                                 */}
-                                                <option value="Auction-NFT">Auction-NFT</option>                                                
+                                                {/* <option value="Auction-NFT">Auction-NFT</option>                                                 */}
                                             </select>
                                         </div>
                                     </Col>
@@ -630,11 +650,11 @@ const MintNFT = () => {
                                             <select className="form-control form-control-field border-0"
                                             defaultValue={selectValue2} 
                                             onChange={handleChange2}>
-                                                <option value="Sports">Sports</option>
-                                                <option value="Pet">Pet</option>
-                                                <option value="Arts">Arts</option>
-                                                <option value="Photography">Photography</option>
-                                                <option value="Trading Cards">Trading Cards</option>
+                                                <option value="Buddhists">Buddhists</option>
+                                                <option value="Christian">Christian</option>
+                                                <option value="Hinduism">Hinduism</option>
+                                                <option value="Islam">Islam</option>
+                                                <option value="land">Land & Estate</option>
                                             </select>
                                         </div>
                                     </Col>

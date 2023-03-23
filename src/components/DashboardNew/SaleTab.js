@@ -5,17 +5,20 @@ import { useHistory } from "react-router-dom";
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import firebase from '../../NFTFolder/firebase';
 import configfile from '../../NFTFolder/config.json'
+import { getNFTDetailsByAddressTypeSale, getuserDetailsbywallet } from '../../awsdatafile';
 
 const SaleTab=()=>{
     const[pageSize,setPageSize]=useState(12);     
     const[getImgreffalgosaleNFT,setgetImgreffalgosaleNFT]=useState([]);
+    console.log("getImgreffalgosaleNFT",getImgreffalgosaleNFT[0])
     const[getImgreffalgosaleNFT1155,setgetImgreffalgosaleNFT1155]=useState([]);
     const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
     console.log("GetLog",getImgreffalgosale)
     const[getImgreffalgosaleFractionalNFT,setgetImgreffalgosaleFractionalNFT]=useState([]);
     const[getImgreffalgosaleAuctionNFT,setgetImgreffalgosaleAuctionNFT]=useState([]);
     const [searchText, setSearchText] = React.useState('');
-    const[getrecent,setrecent]=useState("View All");    
+    const[getrecent,setrecent]=useState("View All"); 
+    const[getuserimage,setgetuserimage]   = useState([])
 
     const dbcallalgosaleNFT1155=async()=>{
         //console.log("inside dbcallalgo function")  
@@ -23,40 +26,45 @@ const SaleTab=()=>{
         if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
         }
         else{
-        let getalgo=localStorage.getItem("EAWalletAddress");       
+        let getalgo=localStorage.getItem("EAWalletAddress");    
+        let createdNft = await getNFTDetailsByAddressTypeSale(getalgo,"NFT","yes")  
+        console.log("creatednft",createdNft)    
+        setgetImgreffalgosaleNFT1155(createdNft.data2);
+        let userimge = await getuserDetailsbywallet(getalgo) 
+        setgetuserimage(userimge.data2)   
         //firebase.auth().signInAnonymously().then((response)=>{             
-          firebase.database().ref("EPolygonNFT1155S").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                req.push(            
-                  {
-                    Assetid:value.Assetid,
-                    Imageurl:value.Imageurl,
-                    NFTPrice:value.NFTPrice,
-                    EscrowAddress:value.EscrowAddress,
-                    keyId:value.keyId,
-                    NFTName:value.NFTName,
-                    userSymbol:value.userSymbol,
-                    Ipfsurl:value.Ipfsurl,
-                    ownerAddress:value.ownerAddress,
-                    previousoaddress:value.previousoaddress,
-                    TimeStamp:value.TimeStamp,
-                    NFTDescription:value.NFTDescription,
-                    HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid,
-                    valid:value.valid,
-                    CreatorAddress:value.CreatorAddress,
-                    NFTType:value.NFTType,
-                    NFTChannel:value.NFTChannel,
-                    SocialLink:value.SocialLink,
-                    NFTModel:value.NFTModel
-                  })                
-                });        
-              }
-              req.reverse()
-              setgetImgreffalgosaleNFT1155(req);
-            });     
+        //   firebase.database().ref("EPolygonNFT1155S").child(getalgo).on("value", (data) => {
+        //     if (data) {
+        //       data.forEach((d) => {                
+        //         let value=d.val();
+        //         req.push(            
+        //           {
+        //             Assetid:value.Assetid,
+        //             Imageurl:value.Imageurl,
+        //             NFTPrice:value.NFTPrice,
+        //             EscrowAddress:value.EscrowAddress,
+        //             keyId:value.keyId,
+        //             NFTName:value.NFTName,
+        //             userSymbol:value.userSymbol,
+        //             Ipfsurl:value.Ipfsurl,
+        //             ownerAddress:value.ownerAddress,
+        //             previousoaddress:value.previousoaddress,
+        //             TimeStamp:value.TimeStamp,
+        //             NFTDescription:value.NFTDescription,
+        //             HistoryAddress:value.HistoryAddress,
+        //             Appid:value.Appid,
+        //             valid:value.valid,
+        //             CreatorAddress:value.CreatorAddress,
+        //             NFTType:value.NFTType,
+        //             NFTChannel:value.NFTChannel,
+        //             SocialLink:value.SocialLink,
+        //             NFTModel:value.NFTModel
+        //           })                
+        //         });        
+        //       }
+        //       req.reverse()
+        //       setgetImgreffalgosaleNFT1155(req);
+        //     });     
         //})             
           }        
     }      
@@ -68,41 +76,44 @@ const SaleTab=()=>{
         if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
         }
         else{
-        let getalgo=localStorage.getItem("EAWalletAddress");       
+        let getalgo=localStorage.getItem("EAWalletAddress"); 
+        let createdNft = await getNFTDetailsByAddressTypeSale(getalgo,"NFT","yes")  
+        console.log("creatednft",createdNft) 
+        setgetImgreffalgosaleNFT(createdNft.data2)      
         //firebase.auth().signInAnonymously().then((response)=>{             
-          firebase.database().ref("EPolygonNFTNS").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                req.push(            
-                  {
-                    Assetid:value.Assetid,
-                    Imageurl:value.Imageurl,
-                    NFTPrice:value.NFTPrice,
-                    EscrowAddress:value.EscrowAddress,
-                    keyId:value.keyId,
-                    NFTName:value.NFTName,
-                    userSymbol:value.userSymbol,
-                    Ipfsurl:value.Ipfsurl,
-                    ownerAddress:value.ownerAddress,
-                    previousoaddress:value.previousoaddress,
-                    TimeStamp:value.TimeStamp,
-                    NFTDescription:value.NFTDescription,
-                    HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid,
-                    valid:value.valid,
-                    CreatorAddress:value.CreatorAddress,
-                    NFTType:value.NFTType,
-                    NFTChannel:value.NFTChannel,
-                    SocialLink:value.SocialLink,
-                    NFTModel:value.NFTModel
-                  })                
-                });        
-              }
-              req.reverse()
-              setgetImgreffalgosaleNFT(req);
-            });     
-        //})             
+        //   firebase.database().ref("EPolygonNFTNS").child(getalgo).on("value", (data) => {
+        //     if (data) {
+        //       data.forEach((d) => {                
+        //         let value=d.val();
+        //         req.push(            
+        //           {
+        //             Assetid:value.Assetid,
+        //             Imageurl:value.Imageurl,
+        //             NFTPrice:value.NFTPrice,
+        //             EscrowAddress:value.EscrowAddress,
+        //             keyId:value.keyId,
+        //             NFTName:value.NFTName,
+        //             userSymbol:value.userSymbol,
+        //             Ipfsurl:value.Ipfsurl,
+        //             ownerAddress:value.ownerAddress,
+        //             previousoaddress:value.previousoaddress,
+        //             TimeStamp:value.TimeStamp,
+        //             NFTDescription:value.NFTDescription,
+        //             HistoryAddress:value.HistoryAddress,
+        //             Appid:value.Appid,
+        //             valid:value.valid,
+        //             CreatorAddress:value.CreatorAddress,
+        //             NFTType:value.NFTType,
+        //             NFTChannel:value.NFTChannel,
+        //             SocialLink:value.SocialLink,
+        //             NFTModel:value.NFTModel
+        //           })                
+        //         });        
+        //       }
+        //       req.reverse()
+        //       setgetImgreffalgosaleNFT(req);
+        //     });     
+        // //})             
           }        
     }      
     useEffect(()=>{dbcallalgosaleNFT()},[])
@@ -113,40 +124,43 @@ const SaleTab=()=>{
         if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
         }
         else{
-        let getalgo=localStorage.getItem("EAWalletAddress");       
+        let getalgo=localStorage.getItem("EAWalletAddress"); 
+        let createdNft = await getNFTDetailsByAddressTypeSale(getalgo,"Royalty-NFT","yes")  
+        console.log("creatednft",createdNft) 
+        setgetImgreffalgosale(createdNft.data2)    
         //firebase.auth().signInAnonymously().then((response)=>{             
-          firebase.database().ref("EPolygonNFTRS").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                req.push(            
-                  {
-                    Assetid:value.Assetid,
-                    Imageurl:value.Imageurl,
-                    NFTPrice:value.NFTPrice,
-                    EscrowAddress:value.EscrowAddress,
-                    keyId:value.keyId,
-                    NFTName:value.NFTName,
-                    userSymbol:value.userSymbol,
-                    Ipfsurl:value.Ipfsurl,
-                    ownerAddress:value.ownerAddress,
-                    previousoaddress:value.previousoaddress,
-                    TimeStamp:value.TimeStamp,
-                    NFTDescription:value.NFTDescription,
-                    HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid,
-                    valid:value.valid,
-                    CreatorAddress:value.CreatorAddress,
-                    NFTType:value.NFTType,
-                    NFTChannel:value.NFTChannel,
-                    SocialLink:value.SocialLink,
-                    NFTModel:value.NFTModel
-                  })                
-                });        
-              }
-              req.reverse()
-              setgetImgreffalgosale(req);
-            });     
+        //   firebase.database().ref("EPolygonNFTRS").child(getalgo).on("value", (data) => {
+        //     if (data) {
+        //       data.forEach((d) => {                
+        //         let value=d.val();
+        //         req.push(            
+        //           {
+        //             Assetid:value.Assetid,
+        //             Imageurl:value.Imageurl,
+        //             NFTPrice:value.NFTPrice,
+        //             EscrowAddress:value.EscrowAddress,
+        //             keyId:value.keyId,
+        //             NFTName:value.NFTName,
+        //             userSymbol:value.userSymbol,
+        //             Ipfsurl:value.Ipfsurl,
+        //             ownerAddress:value.ownerAddress,
+        //             previousoaddress:value.previousoaddress,
+        //             TimeStamp:value.TimeStamp,
+        //             NFTDescription:value.NFTDescription,
+        //             HistoryAddress:value.HistoryAddress,
+        //             Appid:value.Appid,
+        //             valid:value.valid,
+        //             CreatorAddress:value.CreatorAddress,
+        //             NFTType:value.NFTType,
+        //             NFTChannel:value.NFTChannel,
+        //             SocialLink:value.SocialLink,
+        //             NFTModel:value.NFTModel
+        //           })                
+        //         });        
+        //       }
+        //       req.reverse()
+        //       setgetImgreffalgosale(req);
+        //     });     
         //})             
           }        
     }      
@@ -256,26 +270,26 @@ const SaleTab=()=>{
         }
         if(getrecent === "Recently added"){        
             let data = getImgreffalgosaleNFT.filter((val)=>{                                                                                        
-                return dateset === val.TimeStamp                        
+                return dateset === val.createdTime                        
             })
             return data;                                                
         }
         if(getrecent === "Low to High"){
-          let data=getImgreffalgosaleNFT.sort((a,b)=>{ return parseFloat(a.NFTPrice/100000000) - parseFloat(b.NFTPrice/100000000)})
+          let data=getImgreffalgosaleNFT.sort((a,b)=>{ return parseFloat(a.nftPrice/100000000) - parseFloat(b.nftPrice/100000000)})
           //console.log("filtercall1",data)
           return data;
         }
         if(getrecent ===  "High to Low"){
-          let data=getImgreffalgosaleNFT.sort((a,b)=>{ return parseFloat(b.NFTPrice/100000000) - parseFloat(a.NFTPrice/100000000)})
+          let data=getImgreffalgosaleNFT.sort((a,b)=>{ return parseFloat(b.nftPrice/100000000) - parseFloat(a.nftPrice/100000000)})
           //console.log("filtercall1",data)
           return data;
         }
         }
         else{
                 let data = getImgreffalgosaleNFT.filter((val)=>{
-                if(val.NFTName === "" || val.NFTName === null || val.NFTName === undefined){    
+                if(val.nftName === "" || val.nftName === null || val.nftName === undefined){    
                 }else{
-                let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
+                let val1 = (val.nftName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
                 return val1
                 }            
             })                                    
@@ -296,26 +310,26 @@ const SaleTab=()=>{
         }
         if(getrecent === "Recently added"){        
             let data = getImgreffalgosale.filter((val)=>{                                                                                        
-                return dateset === val.TimeStamp                        
+                return dateset === val.createdTime                        
             })
             return data;                                                
         }
         if(getrecent === "Low to High"){
-          let data=getImgreffalgosale.sort((a,b)=>{ return parseFloat(a.NFTPrice/100000000) - parseFloat(b.NFTPrice/100000000)})
+          let data=getImgreffalgosale.sort((a,b)=>{ return parseFloat(a.nftPrice/100000000) - parseFloat(b.nftPrice/100000000)})
           //console.log("filtercall1",data)
           return data;
         }
         if(getrecent ===  "High to Low"){
-          let data=getImgreffalgosale.sort((a,b)=>{ return parseFloat(b.NFTPrice/100000000) - parseFloat(a.NFTPrice/100000000)})
+          let data=getImgreffalgosale.sort((a,b)=>{ return parseFloat(b.nftPrice/100000000) - parseFloat(a.nftPrice/100000000)})
           //console.log("filtercall1",data)
           return data;
         }
         }
         else{
                 let data = getImgreffalgosale.filter((val)=>{
-                if(val.NFTName === "" || val.NFTName === null || val.NFTName === undefined){    
+                if(val.nftName === "" || val.nftName === null || val.nftName === undefined){    
                 }else{
-                let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
+                let val1 = (val.nftName).toLowerCase().includes(searchText.toLocaleLowerCase())                                
                 return val1
                 }            
             })                                    
@@ -510,21 +524,21 @@ const SaleTab=()=>{
                                         <Card className='card-dash p-3 d-block border-0'>
                                             <div className='card-img text-center mb-2'>
                                                 {/* <Link to="/NFT-details"> */}
-                                                    <img src={x.Imageurl} alt="image" className='img-fluid' />
+                                                    <img src={x.imagePath} alt="image" className='img-fluid' />
                                                 {/* </Link> */}
                                             </div>
                                             <div className='d-flex mb-2 justify-content-between flex-wrap align-items-center'>
                                                 {/* <h6 className='subheading'>Images</h6> */}
                                                 {/* <Badge bg="purple">Image</Badge> */}
                                             </div>
-                                            <p className='mb-2'>{x.NFTName} <br /><span className='text-success'>
-                                            {x.SocialLink === null || x.SocialLink === "" || x.SocialLink === undefined ?(
+                                            <p className='mb-2'>{x.nftName} <br /><span className='text-success'>
+                                            {x.socialLink === null || x.socialLink === "" || x.socialLink === undefined ?(
                                                 <>{configfile.nullvalue}</>
                                             ):(
-                                                <>{x.SocialLink}</>
+                                                <>{x.socialLink}</>
                                             )}                                                
                                                 </span></p>
-                                                <h6 className='mb-2'>Price</h6><h4 className='d-flex mb-3 align-items-center'><img src={getImgreffalgosaleNFT[0].Imageurl} alt="logo" className='me-2 avatar-pic' /> {x.NFTPrice/100000000}</h4>                                             
+                                                <h6 className='mb-2'>Price</h6><h4 className='d-flex mb-3 align-items-center'><img src={getuserimage.profileImagePath} alt="logo" className='me-2 avatar-pic' /> {x.nftPrice/100000000}</h4>                                             
                                         </Card>
                                         </Col>
                                     )
@@ -595,7 +609,7 @@ const SaleTab=()=>{
                             </Dropdown>
                             </div>
                             <Row>
-                            {getImgreffalgosale === null || getImgreffalgosale === undefined || getImgreffalgosale === null || getImgreffalgosale[0] === null || getImgreffalgosale[0] === undefined || getImgreffalgosale[0] === null || filterdata()[0] === null || filterdata()[0] === "" || filterdata()[0] === undefined ? (
+                            {getImgreffalgosale === null || getImgreffalgosale === undefined || getImgreffalgosale === null || getImgreffalgosale === null || getImgreffalgosale === undefined || getImgreffalgosale === null || filterdata()[0] === null || filterdata()[0] === "" || filterdata()[0] === undefined ? (
                                 <div className="no-found py-5p text-center">
                                 <h2>No Data Found</h2>
                                 {/* <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p> */}
@@ -610,22 +624,22 @@ const SaleTab=()=>{
                                         <Card className='card-dash p-3 d-block border-0'>
                                             <div className='card-img text-center mb-2'>
                                                 {/* <Link to="/NFT-details"> */}
-                                                    <img src={x.Imageurl} alt="image" className='img-fluid' />
+                                                    <img src={x.imagePath} alt="image" className='img-fluid' />
                                                 {/* </Link> */}
                                             </div>
                                             <div className='d-flex mb-2 justify-content-between flex-wrap align-items-center'>
                                                 {/* <h6 className='subheading'>Images</h6> */}
                                                 {/* <Badge bg="purple">Image</Badge> */}
                                             </div>
-                                            <p className='mb-2'>{x.NFTName} <br /><span className='text-success'>
-                                            {x.SocialLink === null || x.SocialLink === "" || x.SocialLink === undefined ?(
+                                            <p className='mb-2'>{x.nftName} <br /><span className='text-success'>
+                                            {x.socialLink === null || x.socialLink === "" || x.socialLink === undefined ?(
                                                 <>{configfile.nullvalue}</>
                                             ):(
                                                 // <>{x.SocialLink}</>
                                                 <>{configfile.nullvalue}</>
                                             )}                                                
                                                 </span></p>
-                                                <h6 className='mb-2'>Price</h6><h4 className='d-flex mb-3 align-items-center'><img src={getImgreffalgosale[0].Imageurl} alt="logo" className='me-2 avatar-pic' /> {x.NFTPrice/100000000}</h4> 
+                                                <h6 className='mb-2'>Price</h6><h4 className='d-flex mb-3 align-items-center'><img src={getuserimage.profileImagePath} alt="logo" className='me-2 avatar-pic' /> {x.nftPrice/100000000}</h4> 
                                             {/* {x.NFTPrice === "" || x.NFTPrice === null || x.NFTPrice === undefined ?(
                                                 <>                                            
                                                 <input type="text" placeholder='Enter Price' className="className='d-flex mb-3 align-items-center" onChange={event => setprices( event.target.value)}/>
@@ -756,7 +770,7 @@ const SaleTab=()=>{
 
                             ) }                            
                         </Tab> */}
-                        <Tab eventKey="Auction" title="Auction">
+                        {/* <Tab eventKey="Auction" title="Auction">
                             <div className='d-flex justify-content-end mb-3'>
                             <Dropdown>
                                 <Dropdown.Toggle variant='dark' className='noarrow' id="dropdown-basic">
@@ -802,7 +816,7 @@ const SaleTab=()=>{
                                 <div className="no-found py-5p text-center">
                                 <h2>No Data Found</h2>
                                 {/* <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p> */}
-                                <Link to="/my-NFT" className='btn btn-primary'>Browse marketplace</Link>
+                                {/* <Link to="/my-NFT" className='btn btn-primary'>Browse marketplace</Link>
                                 </div>
                             ):(
                                 <>
@@ -811,15 +825,15 @@ const SaleTab=()=>{
                                     return( 
                                         <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                                         <Card className='card-dash p-3 d-block border-0'>
-                                            <div className='card-img text-center mb-2'>
+                                            <div className='card-img text-center mb-2'> */}
                                                 {/* <Link to="/NFT-details"> */}
-                                                    <img src={x.Imageurl} alt="image" className='img-fluid' />
+                                                    {/* <img src={x.Imageurl} alt="image" className='img-fluid' /> */}
                                                 {/* </Link> */}
-                                            </div>
-                                            <div className='d-flex mb-2 justify-content-between flex-wrap align-items-center'>
+                                            {/* </div>
+                                            <div className='d-flex mb-2 justify-content-between flex-wrap align-items-center'> */}
                                                 {/* <h6 className='subheading'>Images</h6> */}
                                                 {/* <Badge bg="purple">Image</Badge> */}
-                                            </div>
+                                            {/* </div>
                                             <p className='mb-2'>{x.NFTName} <br /><span className='text-success'>
                                             {x.SocialLink === null || x.SocialLink === "" || x.SocialLink === undefined ?(
                                                 <>{configfile.nullvalue}</>
@@ -828,29 +842,22 @@ const SaleTab=()=>{
                                             )}                                                
                                                 </span></p>
                                                 <h6 className='mb-2'>Price</h6><h4 className='d-flex mb-3 align-items-center'><img src={getImgreffalgosaleAuctionNFT[0].Imageurl} alt="logo" className='me-2 avatar-pic' /> {x.NFTPrice/100000000}</h4> 
-                                            {/* {x.NFTPrice === "" || x.NFTPrice === null || x.NFTPrice === undefined ?(
-                                                <>                                            
-                                                <input type="text" placeholder='Enter Price' className="className='d-flex mb-3 align-items-center" onChange={event => setprices( event.target.value)}/>
-                                                <Button variant="blue" className='w-100' onClick={()=>{setpricedb(x)}}>Set Price</Button>                                        
-                                                </>
-                                            ):(
-                                                <Button variant="blue" className='w-100' onClick={()=>{saledb(x)}}>Sale</Button>                                        
-                                            )}  */}
+                                          
                                         </Card>
-                                        </Col>
-                                    )
+                                        </Col> */}
+                                    {/* )
                                 })} 
                                 </>                                                                                          
-                            )}                                                        
-                            </Row>
+                            )}                                                         */}
+                            {/* </Row>
 
                             {getImgreffalgosaleAuctionNFT.length <= 10 ? (
                                 <></>
                             ):(
-                                <div className='pagination justify-content-end d-flex align-items-center'>
+                                <div className='pagination justify-content-end d-flex align-items-center'> */}
                                 {/* <div className='page-count'>1</div>
                                 <div className='page-numbers'>of 49</div> */}
-                                <Button variant='page' onClick={()=>{decrementSize()}}>
+                                {/* <Button variant='page' onClick={()=>{decrementSize()}}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" class="bi m-0 bi-chevron-left" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                                     </svg>
@@ -860,10 +867,10 @@ const SaleTab=()=>{
                                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
                                     </svg>
                                 </Button>
-                            </div>
+                            </div> */}
 
-                            ) }                            
-                        </Tab>                        
+                            {/* ) }                            
+                        </Tab>                         */}
                                             
                         </Tabs> 
                         </div>        

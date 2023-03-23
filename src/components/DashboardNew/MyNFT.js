@@ -7,7 +7,8 @@ import { useHistory } from "react-router-dom";
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import fireDb from '../../NFTFolder/firebase';
 import configfile from '../../NFTFolder/config.json'
-import Icon1 from '../../assets/images/elem-original.png';
+// import Icon1 from '../../assets/images/elem-original.png';
+import Icon1 from '../../assets/images/divinelogo.png';
 import node from './nodeapi.json';
 import Compress from "react-image-file-resizer";
 //import ClaimTabReFra from './ClaimTabReFra';
@@ -17,7 +18,7 @@ import CreateTabTab from './CreateTabTab';
 //import Logo from '../../assets/images/logocifihomepage.png'
 import Logo from '../../assets/images/cover.png'
 import backcoverimage from '../../assets/images/backcoverimage.png'
-import { getuserDetailsbywallet, uservisist } from '../../awsdatafile';
+import { getActivityByWallet, getuserDetailsbywallet, putbgImagebywallet, uservisist } from '../../awsdatafile';
 //const algosdk = require('algosdk'); 
 
 const MyNFT = () => {    
@@ -41,14 +42,14 @@ const MyNFT = () => {
     const[getCliamFra,setClaimFra]=useState([]);
     const[getReCliamFra,setReClaimFra]=useState([]);                
     const[getIProfile,setgetIProfile]=useState([""]);     
-    console.log("UserP",getIProfile)   
+    console.log("UserP",getImgreffalgoActivity)   
     
-    useEffect(()=>{calluser()},[]);
-    const calluser = async()=>{
-        let uv = await uservisist();
-        await getuserDetailsbywallet();
-        console.log("uv",uv)
-    }
+    // useEffect(()=>{calluser()},[]);
+    // const calluser = async()=>{
+    //     let uv = await uservisist();
+    //     await getuserDetailsbywallet();
+    //     console.log("uv",uv)
+    // }
     
     const dbCallAddress=async()=>{            
         let r=[];
@@ -126,45 +127,49 @@ const MyNFT = () => {
         if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
         }
         else{
-            //firebase.auth().signInAnonymously().then(async(response)=>{           
-            const hasRestaurant = await fireDb.database()
-            .ref(`EPuserprofile/${localStorage.getItem('EAWalletAddress')}`)
-            .orderByKey().limitToFirst(1).once('value')
-            .then(res => res.exists());              
+            //firebase.auth().signInAnonymously().then(async(response)=>{ 
+                let hasRestaurant = await getuserDetailsbywallet(localStorage.getItem('EAWalletAddress')) ;         
+            // const hasRestaurant = await fireDb.database()
+            // .ref(`EPuserprofile/${localStorage.getItem('EAWalletAddress')}`)
+            // .orderByKey().limitToFirst(1).once('value')
+            // .then(res => res.exists()); 
+            console.log("Has",hasRestaurant.data2)             
             if(hasRestaurant)
             {
+                let s = hasRestaurant.data2;
                 let r=[];
-            try {    
-            //firebase.auth().signInAnonymously().then((response)=>{           
-            firebase.database().ref("EPuserprofile").child(localStorage.getItem('EAWalletAddress')).on("value", (data) => {          
-                if (data) {  
-                    try{
+                setgetIProfile(s);
+            // try {    
+            // //firebase.auth().signInAnonymously().then((response)=>{           
+            // firebase.database().ref("EPuserprofile").child(localStorage.getItem('EAWalletAddress')).on("value", (data) => {          
+            //     if (data) {  
+            //         try{
     
                     
-                    r.push({
-                    Bio:data.val().Bio,
-                    Customurl: data.val().Customurl,
-                    Email: data.val().Email,
-                    Imageurl:data.val().Imageurl,
-                    Personalsiteurl: data.val().Personalsiteurl,
-                    TimeStamp: data.val().TimeStamp,
-                    Twittername: data.val().Twittername,
-                    UserName: data.val().UserName,
-                    WalletAddress: data.val().walletAddress,
-                    bgurl:data.val().bgurl,
-                    valid:data.val().valid
-                    })                
-                }   catch(e){                      
-                }                 
-                }
-                else{
-                setgetIProfile([""]);  
-                }
-                setgetIProfile(r);
-            });         
-            //})         
-            } catch (error) {            
-            }                
+            //         r.push({
+            //         Bio:data.val().Bio,
+            //         Customurl: data.val().Customurl,
+            //         Email: data.val().Email,
+            //         Imageurl:data.val().Imageurl,
+            //         Personalsiteurl: data.val().Personalsiteurl,
+            //         TimeStamp: data.val().TimeStamp,
+            //         Twittername: data.val().Twittername,
+            //         UserName: data.val().UserName,
+            //         WalletAddress: data.val().walletAddress,
+            //         bgurl:data.val().bgurl,
+            //         valid:data.val().valid
+            //         })                
+            //     }   catch(e){                      
+            //     }                 
+            //     }
+            //     else{
+            //     setgetIProfile([""]);  
+            //     }
+            //     setgetIProfile(r);
+            // });         
+            // //})         
+            // } catch (error) {            
+            // }                
             }else{
                 setgetIProfile([""]);  
             }  
@@ -180,25 +185,35 @@ const MyNFT = () => {
                 toast.error(`Please Create Your Artist`,{autoClose: 3000});         
                 done()
             }else{
-                if(getIProfile[0] === "" || getIProfile[0] === null || getIProfile[0] === undefined){                    
+                if(getIProfile === "" || getIProfile === null || getIProfile === undefined){                    
                     toast.error(`Please Create Your Artist`,{autoClose: 3000});         
                     done()
                 }else{
                     //firebase.auth().signInAnonymously().then((response)=>{           
-                    let ref2=firebase.database().ref(`EPuserprofile/${localStorage.getItem('EAWalletAddress')}`);                    
-                    let dateset=new Date().toDateString();                                    
-                    ref2.update({
-                    Imageurl:getIProfile[0].Imageurl,bgurl:u,
-                    UserName:getIProfile[0].UserName,Customurl:getIProfile[0].Customurl,WalletAddress:localStorage.getItem('EAWalletAddress'),
-                    TimeStamp:dateset,Twittername:getIProfile[0].Twittername,Personalsiteurl:getIProfile[0].Personalsiteurl,Email:getIProfile[0].Email,Bio:getIProfile[0].Bio,valid:getIProfile[0].valid})
-                    .then(()=>{                              
-                    toast.dismiss()
-                    toast.success(`Banner Uploaded SuccessFully`,{autoClose: 3000});            
-                    done()                    
-                    }).catch((err) => {                                    
-                    toast.error(`Banner Uploaded Failed`,{autoClose: 3000});         
-                    done()                    
-                    }); 
+                    // let ref2=firebase.database().ref(`EPuserprofile/${localStorage.getItem('EAWalletAddress')}`);                    
+                    // let dateset=new Date().toDateString();                                    
+                    // ref2.update({
+                    // Imageurl:getIProfile[0].Imageurl,bgurl:u,
+                    // UserName:getIProfile[0].UserName,Customurl:getIProfile[0].Customurl,WalletAddress:localStorage.getItem('EAWalletAddress'),
+                    // TimeStamp:dateset,Twittername:getIProfile[0].Twittername,Personalsiteurl:getIProfile[0].Personalsiteurl,Email:getIProfile[0].Email,Bio:getIProfile[0].Bio,valid:getIProfile[0].valid})
+                    // .then(()=>{                              
+                    // toast.dismiss()
+                    // toast.success(`Banner Uploaded SuccessFully`,{autoClose: 3000});            
+                    // done()                    
+                    // }).catch((err) => {                                    
+                    // toast.error(`Banner Uploaded Failed`,{autoClose: 3000});         
+                    // done()                    
+                    // }); 
+
+                    try{
+                        await putbgImagebywallet(localStorage.getItem('EAWalletAddress'),u)
+                        toast.dismiss()
+                        toast.success(`Banner Uploaded SuccessFully`,{autoClose: 3000});            
+                        done() 
+                    }catch(err){
+                        toast.error(`Banner Uploaded Failed`,{autoClose: 3000});         
+                        done() 
+                    }
                     //})  
                 }                
             }          
@@ -312,39 +327,42 @@ const MyNFT = () => {
         if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
         }
         else{            
-        let getalgo=localStorage.getItem("EAWalletAddress");      
+        let getalgo=localStorage.getItem("EAWalletAddress");   
+        let activitys = await getActivityByWallet(getalgo)   ;
+        console.log("activity",activitys.data2)
+        setgetImgreffalgoActivity(activitys.data2);
         //firebase.auth().signInAnonymously().then((response)=>{              
-          firebase.database().ref("EPolygonactivitytable").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();                
-                req.push(            
-                  {
-                    Assetid:value.Assetid,
-                    Imageurl:value.Imageurl,
-                    NFTPrice:value.NFTPrice,
-                    EscrowAddress:value.EscrowAddress,
-                    keyId:value.keyId,
-                    NFTName:value.NFTName,
-                    userSymbol:value.userSymbol,
-                    Ipfsurl:value.Ipfsurl,
-                    ownerAddress:value.ownerAddress,
-                    previousoaddress:value.previousoaddress,
-                    TimeStamp:value.TimeStamp,
-                    NFTDescription:value.NFTDescription,
-                    HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid,
-                    valid:value.valid,
-                    CreatorAddress:value.CreatorAddress,
-                    NFTType:value.NFTType,
-                    NFTChannel:value.NFTChannel,
-                    SocialLink:value.SocialLink
-                })                
-                });        
-              }
-              req.reverse()
-              setgetImgreffalgoActivity(req);              
-            });    
+        //   firebase.database().ref("EPolygonactivitytable").child(getalgo).on("value", (data) => {
+        //     if (data) {
+        //       data.forEach((d) => {                
+        //         let value=d.val();                
+        //         req.push(            
+        //           {
+        //             Assetid:value.Assetid,
+        //             Imageurl:value.Imageurl,
+        //             NFTPrice:value.NFTPrice,
+        //             EscrowAddress:value.EscrowAddress,
+        //             keyId:value.keyId,
+        //             NFTName:value.NFTName,
+        //             userSymbol:value.userSymbol,
+        //             Ipfsurl:value.Ipfsurl,
+        //             ownerAddress:value.ownerAddress,
+        //             previousoaddress:value.previousoaddress,
+        //             TimeStamp:value.TimeStamp,
+        //             NFTDescription:value.NFTDescription,
+        //             HistoryAddress:value.HistoryAddress,
+        //             Appid:value.Appid,
+        //             valid:value.valid,
+        //             CreatorAddress:value.CreatorAddress,
+        //             NFTType:value.NFTType,
+        //             NFTChannel:value.NFTChannel,
+        //             SocialLink:value.SocialLink
+        //         })                
+        //         });        
+        //       }
+        //       req.reverse()
+        //       setgetImgreffalgoActivity(req);              
+        //     });    
         //})              
         }        
     }      
@@ -544,7 +562,7 @@ const MyNFT = () => {
                                         
                          <Row className='align-items-center'>
                          <Col lg={4} className="order-lg-2 mb-lg-0 mb-2 text-end">
-                         {getIProfile === "" || getIProfile === null || getIProfile === undefined  || getIProfile[0] === "" || getIProfile[0] === null || getIProfile[0] === undefined?( 
+                         {getIProfile === "" || getIProfile === null || getIProfile === undefined  || getIProfile === "" || getIProfile === null || getIProfile === undefined?( 
                              <>
                              {localStorage.getItem('EAWalletAddress') === "" || localStorage.getItem('EAWalletAddress') === null || localStorage.getItem('EAWalletAddress') === undefined ?(
                                  <Button className='btn btn-blue' onClick={()=>{alertOpen()}}>Create Artist</Button>
@@ -570,37 +588,37 @@ const MyNFT = () => {
                          </Col>
                          <div className="profile-banner">
                     <div className="profile-card">
-                    {getIProfile[0] === null || getIProfile[0] === "" || getIProfile[0] === undefined || getIProfile[0] === " "  ? (
+                    {getIProfile === null || getIProfile === "" || getIProfile === undefined || getIProfile === " "  ? (
                         <>
                           <img src={backcoverimage} alt="pics" width={"1500px"} height={"260px"} />
                         </>
                       ):(
                         <>
-                        {getIProfile[0].bgurl === null || getIProfile[0].bgurl === "" || getIProfile[0].bgurl === undefined || getIProfile[0].bgurl === " " ? (<>
+                        {getIProfile.bgvImagePath === null || getIProfile.bgvImagePath === "" || getIProfile.bgvImagePath === undefined || getIProfile.bgvImagePath === " " ? (<>
                           <img src={Logo} alt="pics" width={"1500px"} height={"260px"} />
                         </>):(
                           <>
-                          <img src={getIProfile[0].bgurl} alt="pic" width={"1500px"} height={"260px"}/>
+                          <img src={getIProfile.bgvImagePath} alt="pic" width={"1500px"} height={"260px"}/>
                         </>
                         )}                        
                         </>
                       )}                        
                       <Button variant='blue' onClick={handleShow}>Add cover</Button>
                     </div>                   
-                      {getIProfile[0] === null || getIProfile[0] === "" || getIProfile[0] === undefined || getIProfile[0] === " "  ? (
+                      {getIProfile === null || getIProfile === "" || getIProfile === undefined || getIProfile === " "  ? (
                         <> <Link className='profile-pic'>
                           <img src={Logo} alt="pic" />
                           </Link>
                         </>
                       ):(
                         <>
-                        {getIProfile[0].Imageurl === null || getIProfile[0].Imageurl === "" || getIProfile[0].Imageurl === undefined || getIProfile[0].Imageurl === " "  ? (<>
+                        {getIProfile.profileImagePath === null || getIProfile.profileImagePath === "" || getIProfile.profileImagePath === undefined || getIProfile.profileImagePath === " "  ? (<>
                             <Link className='profile-pic'>
                           <img src={Logo} alt="pic" />
                           </Link>
                         </>):(<> 
                             <Link className='profile-pic'>                       
-                          <img src={getIProfile[0].Imageurl} alt="pic" />
+                          <img src={getIProfile.profileImagePath} alt="pic" />
                           </Link>
                         </>)}
                         
@@ -611,21 +629,21 @@ const MyNFT = () => {
                          <Col lg={8}>
                              <div className='d-flex flex-wrap flex-lg-nowrap align-items-center create-art'>                                                              
                                  <div className=''>
-                                     {getIProfile === "" || getIProfile === null || getIProfile === undefined || getIProfile[0] === "" || getIProfile[0] === null || getIProfile[0] === undefined?(
+                                     {getIProfile === "" || getIProfile === null || getIProfile === undefined ?(
                                          <>
                                          <p className="heading mb-0">Artist Name : <strong>{configfile.nullvalue}</strong> </p>
                                          <p className='heading mb-0'>Social : {configfile.nullvalue} <br />Wallet address : {configfile.nullvalue} </p>
                                          </>
                                      ):(
                                          <>
-                                         <p className="heading mb-0">Artist Name : <strong>{getIProfile[0].UserName}</strong></p>
+                                         <p className="heading mb-0">Artist Name : <strong>{getIProfile.profileName}</strong></p>
                                          <p className='heading mb-0'>Social : 
-                                             {getIProfile[0].Personalsiteurl === null || getIProfile[0].Personalsiteurl === undefined || getIProfile[0].Personalsiteurl === "" ? (
+                                             {getIProfile.profileURL === null || getIProfile.profileURL === undefined || getIProfile.profileURL === "" ? (
                                                 <strong> {configfile.nullvalue} </strong>
                                              ):(                                                
                                                 <strong>
                                                     &nbsp;
-                                                {getIProfile[0].Personalsiteurl}
+                                                {getIProfile.profileURL}
                                                 &nbsp;
                                                 </strong>
                                              )}
@@ -639,12 +657,12 @@ const MyNFT = () => {
                                                 <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
                                                 </svg>
                                         </a>                                        
-                                         <p className='heading mb-0'>Twitter : {getIProfile[0].Twittername === null || getIProfile[0].Twittername === undefined || getIProfile[0].Twittername === "" ? (
+                                         <p className='heading mb-0'>Twitter : {getIProfile.twitterName === null || getIProfile.twitterName === undefined || getIProfile.twitterName === "" ? (
                                             <strong>{configfile.nullvalue}</strong>
                                          ):(
-                                            <a  href={"https://twitter.com/" + getIProfile[0].Twittername} target="_blank" rel="noreferer noreferrer">
+                                            <a  href={"https://twitter.com/" + getIProfile.twitterName} target="_blank" rel="noreferer noreferrer">
                                             <strong>
-                                            {getIProfile[0].Twittername}
+                                            {getIProfile.twitterName}
                                             &nbsp;
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi ms-2 bi-box-arrow-up-right" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
@@ -673,11 +691,11 @@ const MyNFT = () => {
                                      <SaleTab/>                                                 
                             </Row>                            
                         </Tab>                                                
-                        <Tab eventKey="Owned-NFT" title="Owned-NFT">                            
+                        {/* <Tab eventKey="Owned-NFT" title="Owned-NFT">                            
                             <Row>                            
                                      <OwnTab/>                                                 
                             </Row>                            
-                        </Tab>                        
+                        </Tab>                         */}
                         <Tab eventKey="Created-NFT" title="Created-NFT">                            
                             <Row>                            
                                      <CreateTabTab/>                                                 
@@ -803,30 +821,34 @@ const MyNFT = () => {
                             </Dropdown>
                             </div>
                             <Row>
-                            {getImgreffalgoActivity === null || getImgreffalgoActivity === "" || getImgreffalgoActivity === undefined || getImgreffalgoActivity[0] === null || getImgreffalgoActivity[0] === "" || getImgreffalgoActivity[0] === undefined || filterdata5()[0] === null || filterdata5()[0] === "" || filterdata5()[0] === undefined ? (
+                            {getImgreffalgoActivity === null || getImgreffalgoActivity === "" || getImgreffalgoActivity === undefined || getImgreffalgoActivity[0] === null || getImgreffalgoActivity[0] === "" || getImgreffalgoActivity[0] === undefined 
+                            // || filterdata5()[0] === null || filterdata5()[0] === "" || filterdata5()[0] === undefined
+                             ? (
                                 <div className="no-found py-5p text-center">
                                 <h2>No Data Found</h2>                            
                                 <Link to="/my-NFT" className='btn btn-primary'>Browse marketplace</Link>
                                 </div>
                             ) : (
                             <>
-                            {filterdata5().map((x, index) => {   
+                            {/* {filterdata5().map((x, index) => {    */}
+                            {getImgreffalgoActivity.map((x,index)=>{
                                 if(index<pageSize)                
                                 return(                                     
                                     <Card className='card-dash p-3 d-block border-0'>
                                     <div className='activity-item d-flex align-items-center mb-3'>        
                                             <div className="activity-content">                                                
-                                                <p>  {x.EscrowAddress}</p>
+                                                <p>  {x.txnType}</p>
                                                 {/* {x.Assetid === "" || x.Assetid === null || x.Assetid === undefined ?(<>
                                                 </>):(<>
                                                     <p style={{cursor: 'pointer'}} onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${x.Assetid}`)}>  {x.Assetid}</p>
                                                 </>)} */}
-                                                <p style={{cursor: 'pointer'}} onClick={() => window.open(`https://mumbai.polygonscan.com/address/${x.ownerAddress}`)}> {x.ownerAddress}</p>                
-                                                {x.NFTDescription === "" || x.NFTDescription === null || x.NFTDescription === undefined ?(<>
+                                                <p style={{cursor: 'pointer'}} onClick={() => window.open(`https://explorer.aptoslabs.com/account/${x.txnHash}?network=testnet`)}> {x.txnHash}</p>                
+                                                {/* {x.nftDescription === "" || x.nftDescription === null || x.nftDescription === undefined ?(<>
                                                 </>):(<>
-                                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(`https://mumbai.polygonscan.com/address/${x.NFTDescription}`)}>  {x.NFTDescription}</p>
-                                                </>)}
-                                                <div className="time">{x.TimeStamp}</div>
+                                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(`https://mumbai.polygonscan.com/address/${x.nftDescription}`)}>  {x.nftDescription}</p>
+                                                </>)} */}
+                                                <div className="time">{x.txnTime}</div>
+                                                
                                                 
                                             </div>
                                         </div>                                                                                                        
