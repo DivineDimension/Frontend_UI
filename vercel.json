@@ -13,24 +13,30 @@
             "destination": "https://testapi1.stasisonline.in/platform/v1/activity"
         },
         {
-            "source": "/platform/v1/uservisitrecord",
-            "destination": "https://testapi1.stasisonline.in/platform/v1/uservisitrecord"
+            "source": "/platform/v1/nftescrow",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftescrow"
         },
         {
-            "source": "/platform/v1/payment",
-            "destination": "https://testapi1.stasisonline.in/platform/v1/payment"
+            "source": "/platform/v1/nftowner",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftowner"
         },
         {
-            "source": "/platform/v1/invoice",
-            "destination": "https://testapi1.stasisonline.in/platform/v1/invoice"
+            "source": "/platform/v1/nftsale",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftsale"
         },
         {
-            "source": "/platform/v1/generateinvoice",
-            "destination": "https://testapi1.stasisonline.in/platform/v1/generateinvoice"
+            "source": "/platform/v1/nftprevoius",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftprevoius"
         },
         {
             "source": "/platform/v1/events",
             "destination": "https://testapi1.stasisonline.in/platform/v1/events"
         }
+        ,
+        {
+            "source": "/platform/v1/visitinfo",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/visitinfo"
+        }
+        
     ]
 }
