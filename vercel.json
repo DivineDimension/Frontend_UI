@@ -4,10 +4,7 @@
             "source": "/platform/v1/userinfo",
             "destination": "https://testapi1.stasisonline.in/platform/v1/userinfo"            
         },
-        {
-            "source": "/platform/v1/userinfo/${id}",
-            "destination": "https://testapi1.stasisonline.in/platform/v1/userinfo/${id}"            
-        },
+       
         {
             "source": "/platform/v1/nftDetails",
             "destination": "https://testapi1.stasisonline.in/platform/v1/nftDetails"            
