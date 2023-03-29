@@ -10,7 +10,7 @@
         },
         {
             "source": "/platform/v1/nftdetails/:match*/:match2*",
-            "destination": "https://testapi1.stasisonline.in/platform/v1/nftdetails/:match*/::match2*"            
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftdetails/:match*/:match2*"            
         },
         
       
