@@ -9,8 +9,8 @@
             "destination": "https://testapi1.stasisonline.in/platform/v1/userinfo/:path*"            
         },
         {
-            "source": "/platform/v1/nftdetails/:match/:match1",
-            "destination": "https://testapi1.stasisonline.in/platform/v1/nftdetails/:match?match1=:match1"            
+            "source": "/platform/v1/nftdetails/:match*",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftdetails/:match*"            
         },
         
       
