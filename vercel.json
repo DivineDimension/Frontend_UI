@@ -18,8 +18,8 @@
         },
         
         {
-            "source": "/platform/v1/nftDetails/:path*/:path*",
-            "destination": "https://testapi1.stasisonline.in/platform/v1/nftDetails/:path*/:path*"            
+            "source": "/platform/v1/nftDetails/:path*:path*",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftDetails/:path*:path*"            
         },
         {
             "source": "/platform/v1/activity",
