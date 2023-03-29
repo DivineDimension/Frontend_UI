@@ -1,6 +1,6 @@
 import React,{ useEffect ,useState,useContext} from "react";
 import { Link, useHistory } from "react-router-dom";
-import {  Col, Container,Row,Button } from "reactstrap";
+import {  Col, Container,Row,Button } from "react-bootstrap";
 import ButtonLoad from 'react-bootstrap-button-loader';
 import Layout from '../components/DashboardNew/LayoutT';
 import { ToastContainer, Zoom, toast} from 'react-toastify';
