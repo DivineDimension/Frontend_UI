@@ -59,5 +59,15 @@
             "destination": "https://testapi1.stasisonline.in/platform/v1/visitinfo"
         }
         
-    ]
+    ],
+    "redirects": [
+        {
+            "source": "/platform/v1/nftDetails/:path/:path2",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftDetails"            
+        },
+        {
+            "source": "/platform/v1/nftDetails/:path1/:path2/:path3",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftDetails?param1=:path1&param2=:path2&param3=:path3"            
+        }
+      ]
 }
