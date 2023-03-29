@@ -13,6 +13,15 @@
             "destination": "https://testapi1.stasisonline.in/platform/v1/nftDetails"            
         },
         {
+            "source": "/platform/v1/nftDetails/:path*",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftDetails/:path*"            
+        },
+        
+        {
+            "source": "/platform/v1/nftDetails/:path1*/:path2*",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftDetails/:path1*/:path2*"            
+        },
+        {
             "source": "/platform/v1/activity",
             "destination": "https://testapi1.stasisonline.in/platform/v1/activity"
         },
