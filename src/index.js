@@ -12,7 +12,6 @@ import './scss/cbdc.scss';
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    app.use(express.static(path.join(__dirname,'client','build')) 
   </React.StrictMode>,
   document.getElementById('root')
   
