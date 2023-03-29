@@ -26,6 +26,10 @@
             "destination": "https://testapi1.stasisonline.in/platform/v1/activity"
         },
         {
+            "source": "/platform/v1/activity/:path",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/activity/:path"
+        },
+        {
             "source": "/platform/v1/nftescrow",
             "destination": "https://testapi1.stasisonline.in/platform/v1/nftescrow"
         },
