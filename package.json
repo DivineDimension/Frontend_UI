@@ -2,7 +2,7 @@
   "name": "elementdefi",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://testapi1.stasisonline.in/",
+  "proxy": "https://testapi1.stasisonline.in",
   "dependencies": {
     "@json-rpc-tools/utils": "^1.7.6",
     "@pinata/sdk": "^2.1.0",
