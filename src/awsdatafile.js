@@ -380,11 +380,14 @@ export const getNFTDetailsByTypeSale = async(type,sale) =>{
 
       let response2 = await fetch(`https://testapi1.stasisonline.in/platform/v1/nftdetails/${type}/${sale}`,{
         mode: 'no-cors',
+        method: 'GET',
         headers:{
-          'Access-Control-Allow-Origin': "*" 
+          'Access-Control-Allow-Origin': '*' ,
+          'Content-Type':'application/json',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'
         }
       })
-      //console.log(response2);
+      console.log("response2",response2.Response);
         const data2 = await response2.json();
       console.log("response2 inside", data2)
       return {data2};
@@ -400,7 +403,8 @@ export const getNFTDetailsByAddressTypeSale = async(owner,type,sale) =>{
         mode: 'no-cors',
         headers:{
           'Access-Control-Allow-Origin': "*" 
-        }}        )
+        }
+      })
       //console.log(response2);
         const data2 = await response2.json();
       console.log("Api inside", data2)
