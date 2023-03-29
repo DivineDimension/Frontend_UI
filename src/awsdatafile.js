@@ -56,6 +56,7 @@ export const getuserDetailsbywallet = async(address) =>{
           }
           )
         //console.log(response2);
+        
           const data2 = await response2.json();
         console.log("Api inside", data2)
         return {data2};
