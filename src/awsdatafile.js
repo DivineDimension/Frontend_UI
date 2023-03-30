@@ -47,18 +47,23 @@ export const getuserDetailsbywallet = async(address) =>{
    
     let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
       //Get method start
-      
+      try{
         let response2 = await fetch(`/platform/v1/userinfo/${address}`, 
-      {
-          headers: {
-              'x-api-key': `${key}`    
-            },
-        }
-        )
-      //console.log(response2);
-        const data2 = await response2.json();
-      console.log("Api inside", data2)
-      return {data2};
+        {
+            headers: {
+                'x-api-key': `${key}`    
+              },
+          }
+          )
+        //console.log(response2);
+        
+          const data2 = await response2.json();
+        console.log("Api inside", data2)
+        return {data2};
+      }catch(err){
+        console.log("vercelerrro",err)
+      }
+       
 }
 export const getAlluserDetails = async() =>{
    
@@ -364,7 +369,7 @@ export const getNFTDetailsByTypeSale = async(type,sale) =>{
    
     let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
       //Get method start
-      
+     
         let response2 = await fetch(`/platform/v1/nftdetails/${type}/${sale}`, 
       {
           headers: {
@@ -372,9 +377,19 @@ export const getNFTDetailsByTypeSale = async(type,sale) =>{
             },
         }
         )
-      //console.log(response2);
+
+      // let response2 = await fetch(`https://testapi1.stasisonline.in/platform/v1/nftdetails/${type}/${sale}`,{
+      //   mode: 'no-cors',
+      //   method: 'GET',
+      //   headers:{
+      //     'Access-Control-Allow-Origin': '*' ,
+      //     'Content-Type':'application/json',
+      //     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'
+      //   }
+      // })
+      // console.log("response2",response2.Response);
         const data2 = await response2.json();
-      console.log("Api inside", data2)
+      console.log("response2 inside", data2)
       return {data2};
 }
 
@@ -384,12 +399,11 @@ export const getNFTDetailsByAddressTypeSale = async(owner,type,sale) =>{
       //Get method start
       
         let response2 = await fetch(`/platform/v1/nftdetails/${owner}/${type}/${sale}`, 
-      {
+        {
           headers: {
-              'x-api-key': `${key}`    
-            },
-        }
-        )
+            'x-api-key': `${key}`    
+          },
+      })
       //console.log(response2);
         const data2 = await response2.json();
       console.log("Api inside", data2)

@@ -2,7 +2,7 @@ import React,{ useEffect ,useState,useContext} from "react";
 //import "../node_modules/video-react/dist/video-react.css";
 //import { Player } from "video-react";
 import { Link, useHistory } from "react-router-dom";
-import {  Col, Container,Row,Button } from "reactstrap";
+import {  Col, Container,Row,Button } from "react-bootstrap";
 import ButtonLoad from 'react-bootstrap-button-loader';
 import Compress from "react-image-file-resizer";
 import Layout from '../components/DashboardNew/LayoutT';
