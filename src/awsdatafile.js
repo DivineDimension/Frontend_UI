@@ -398,12 +398,11 @@ export const getNFTDetailsByAddressTypeSale = async(owner,type,sale) =>{
     let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
       //Get method start
       
-        let response2 = await fetch(`https://testapi1.stasisonline.in/platform/v1/nftdetails/${owner}/${type}/${sale}`, 
+        let response2 = await fetch(`platform/v1/nftdetails/${owner}/${type}/${sale}`, 
         {
-        mode: 'no-cors',
-        headers:{
-          'Access-Control-Allow-Origin': "*" 
-        }
+          headers: {
+            'x-api-key': `${key}`    
+          },
       })
       //console.log(response2);
         const data2 = await response2.json();
