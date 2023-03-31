@@ -34,6 +34,7 @@ import GenesisMarketApp from './components/DashboardNew/GenesisMarket'
 import MyNFTApp from './components/DashboardNew/MyNFT'
 import NFTDetailsApp from './components/DashboardNew/NFTDetails'
 import CreateArtistsApp from './components/DashboardNew/CreateArtists'
+import CreateLandApp from './components/DashboardNew/createLand'
 import MintNFTApp from './components/DashboardNew/MintNFT'
 import MintNFTerc1155 from './components/DashboardNew/MintNFTerc1155'
 // import EditArtists from "./components/DashboardNew/EditArtists";
@@ -52,6 +53,7 @@ import NFTDetailsAuction from "./components/DashboardNew/NFTDetailsAuction";
 import DashboardNFT from "./components/DashboardNew/DashboardNFT";
 //import DashboardAMM from "./components/DashboardNew/DashboardAMM";
 import firebase from "./NFTFolder/firebase";
+import LandUpdateApp from './components/DashboardNew/LandPriceUpdate';
 
 //stablecoin
 
@@ -309,6 +311,12 @@ function App() {
         <Route path="/approval_page">
           <CreatedEventsApprovalpage />
         </Route> 
+        <Route path="/create-land">
+          <CreateLandApp />
+        </Route>
+        <Route path="/price-update">
+          <LandUpdateApp />
+        </Route>
         <Route path="/home">
           <HomePage />                    
         </Route>  

@@ -451,7 +451,7 @@ const NFTDetailsNFT = (props) => {
                                 {location.state === null || location.state === "" || location.state === undefined ? ( 
                                     <strong>{configfile.nullvalue}</strong>
                                 ):(
-                                    <a href={`https://mumbai.polygonscan.com/address/${location.state.allData.escrowAddress}`} target="_blank" rel="noopener noreferrer">                                                                    
+                                    <a href={`https://explorer.aptoslabs.com/account/${location.state.allData.escrowAddress}?network=testnet`} target="_blank" rel="noopener noreferrer">                                                                    
                                     <strong>{location.state.allData.escrowAddress.slice(0,6)}....{location.state.allData.escrowAddress.slice(52,58)}</strong>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi ms-2 bi-box-arrow-up-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
@@ -481,7 +481,7 @@ const NFTDetailsNFT = (props) => {
                                 {location.state === null || location.state === "" || location.state === undefined ? ( 
                                     <strong>{configfile.nullvalue}</strong>
                                 ):(
-                                    <a href={`https://mumbai.polygonscan.com/address/${location.state.allData.creatorAddress}`} target="_blank" rel="noopener noreferrer">                                
+                                    <a href={`https://explorer.aptoslabs.com/account/${location.state.allData.creatorAddress}?network=testnet`} target="_blank" rel="noopener noreferrer">                                
                                     <strong>{location.state.allData.creatorAddress.slice(0,6)}....{location.state.allData.creatorAddress.slice(52,58)}</strong>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi ms-2 bi-box-arrow-up-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
@@ -495,7 +495,7 @@ const NFTDetailsNFT = (props) => {
                                 {location.state === null || location.state === "" || location.state === undefined ? ( 
                                     <strong>{configfile.nullvalue}</strong>
                                 ):(
-                                    <a href={`https://mumbai.polygonscan.com/address/${location.state.allData.ownerAddress}`} target="_blank" rel="noopener noreferrer">                                
+                                    <a href={`https://explorer.aptoslabs.com/account/${location.state.allData.ownerAddress}?network=testnet`} target="_blank" rel="noopener noreferrer">                                
                                     <strong>{location.state.allData.ownerAddress.slice(0,6)}....{location.state.allData.ownerAddress.slice(52,58)}</strong>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi ms-2 bi-box-arrow-up-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
@@ -554,7 +554,7 @@ const NFTDetailsNFT = (props) => {
                                         <>
                                         {(location.state  === null || location.state  === "" || location.state === " " || location.state === undefined || location.state === '') ? (
 
-                                            <a  href={"https://mumbai.polygonscan.com/address/" + configfile.nullvalue} target="_blank" rel="noreferer noreferrer">
+                                            <a  href={"https://explorer.aptoslabs.com/account/" + configfile.nullvalue+"?network=testnet"} target="_blank" rel="noreferer noreferrer">
                                             <strong>{configfile.nullvalue}.... </strong>
                                             &nbsp;
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi ms-2 bi-box-arrow-up-right" viewBox="0 0 16 16">
@@ -563,7 +563,7 @@ const NFTDetailsNFT = (props) => {
                                                     </svg>
                                             </a>                                                                                
                                         ):(
-                                        <a  href={"https://mumbai.polygonscan.com/address/" + location.state.allData.ownerAddress} target="_blank" rel="noreferer noreferrer">
+                                        <a  href={"https://explorer.aptoslabs.com/account/" + location.state.allData.ownerAddress+"?network=testnet"} target="_blank" rel="noreferer noreferrer">
                                         <strong>{location.state.allData.ownerAddress.slice(0,12)}....{location.state.allData.ownerAddress.slice(52,58)} </strong>
                                         &nbsp;
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi ms-2 bi-box-arrow-up-right" viewBox="0 0 16 16">

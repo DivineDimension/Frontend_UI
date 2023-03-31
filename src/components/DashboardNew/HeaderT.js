@@ -19,6 +19,7 @@ import { ToastContainer, Zoom, toast} from 'react-toastify';
 // import { uservisit } from '../../firedbstore';
 import axios from 'axios';
 import {DataContext} from "../../App";
+import { async } from 'q';
 //import { async } from 'q';
 //import { AppId,escrowProgram } from "../swapConfig";
 
@@ -258,7 +259,7 @@ const Header = (props) => {
         const { ethereum } = window;
         return Boolean(ethereum && ethereum.isMetaMask);
     };
-    const connectWalletmetamask=async()=>{     
+    const connectWalletmetamaskold=async()=>{     
         let metamaskcheck= await isMetaMaskInstalled();
         if(metamaskcheck){
         localStorage.setItem("walletName", "Metamask");             
@@ -307,6 +308,78 @@ const Header = (props) => {
                 }).catch(error => console.error(`Error: ${error}`));                     
             })            
          }  
+    }else{  
+        window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', '_blank','noreferrer');
+      
+      }
+    }
+
+    useEffect(()=>{fetchethBalance()},[])
+    const fetchethBalance = async() =>{
+        if(localStorage.getItem("walletUsed") === "Metamask"){
+            let accountinfo =await fetch(`https://api-sepolia.etherscan.io/api?module=account&action=balance&address=${localStorage.getItem("walletAddress")}&tag=latest&apikey=YourApiKeyToken`);
+            let accinforesponse= await accountinfo.json();
+            console.log("response",accinforesponse.result);
+            let accinfo = accinforesponse.result;
+            localStorage.setItem("walletbalance",accinfo/1000000000000000000)
+        }
+    }
+
+    const connectWalletmetamask = async() =>{
+        var metamaskcheck= await isMetaMaskInstalled();
+        if(metamaskcheck){
+        localStorage.setItem("walletUsed", "Metamask");             
+        const networkid=await web3.eth.getChainId();
+        console.log("network id",networkid);
+        if(networkid!=11155111){
+            const chainId = 11155111
+            // toast.warning("Please switch to PolygonTestnet(mumbai)");
+            // window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', '_blank','noreferrer');
+            await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                  {
+                    chainName: 'Sepolia test network',
+                    chainId: web3.utils.toHex(chainId),
+                    nativeCurrency: { name: 'SepoliaETH', decimals: 18, symbol: 'SepoliaETH' },
+                    rpcUrls: ['https://sepolia.infura.io/v3/']
+                  }
+                ]
+              });
+              toast.success("Testnetwork(Mumbai) added to your Metamask!")
+              let accountinfo =await fetch(`https://api-sepolia.etherscan.io/api?module=account&action=balance&address=${localStorage.getItem("walletAddress")}&tag=latest&apikey=YourApiKeyToken`);
+            let accinforesponse= await accountinfo.json();
+            console.log("response",accinforesponse.result);
+            let accinfo = accinforesponse.result;
+            localStorage.setItem("walletbalance",accinfo/1000000000000000000)
+            //   window.location.reload()
+        // setIsOpen(true);
+        // setDis("Connected to Wrong Network,Please connect to Binance Testnet");
+        }else{
+
+        
+        window.ethereum.enable();  
+        
+        const accounts =await web3.eth.getAccounts();
+       // web3.eth.getChainId().then(console.log);
+       // const networkid=await web3.eth.getChainId();
+       // console.log("network id",networkid);
+        await web3.eth.getAccounts().then(async()=>{          
+            console.log("acc Binance",accounts[0])
+            setwalletconnect(accounts[0])
+            window.wallet=accounts[0];
+           
+            localStorage.setItem("walletAddress", accounts[0]);
+            
+            setShowButton(false);
+           //sessionStorage.setItem("wallet", accounts[0]);
+          }).then(async()=>{
+            window.location.reload()
+            //   window.location.reload()
+          })
+        console.log(accounts);
+       
+        }  
     }else{  
         window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', '_blank','noreferrer');
       
@@ -444,6 +517,10 @@ const Header = (props) => {
               localStorage.setItem("EAWalletAddress","");
       localStorage.setItem("EAWalletName", "");
     localStorage.setItem("EAWalletBalance", "");
+    localStorage.setItem("walletAddress","");
+    localStorage.setItem("walletUsed","");
+    localStorage.setItem("walletbalance","");
+    
     handleCopy();
       window.location.reload();
          setShowButton(true)
@@ -705,11 +782,37 @@ const[storereem,setstoreredeem] = useState([]);
                                <svg className='me-2' width="20" height="20" viewBox="0 0 24 24"><path d="M14 9v2h-4v-2c0-1.104.897-2 2-2s2 .896 2 2zm10 3c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-8-1h-1v-2c0-1.656-1.343-3-3-3s-3 1.344-3 3v2h-1v6h8v-6z" fill="currentColor"/></svg>
                                Log In or Sign Up
                                </Link> */}
-                               <Button className='btn btn-blue d-sm-block d-none' onClick={handleShow}>
+
+                               {(localStorage.getItem("walletAddress") === null || localStorage.getItem("walletAddress") === undefined || localStorage.getItem("walletAddress") === "") || localStorage.getItem("walletAddress") === 'undefined' ?
+                                (<>
+                                <Button className='btn btn-blue d-sm-block d-none' onClick={handleShow}>
                                    <svg width="20" height="20" className='me-2 ms-0' viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z"></path></svg>
                                    Connect wallet
                                </Button>
                                &nbsp;
+                                </>):(<>
+
+                                    <Button className='btn btn-blue d-sm-block d-none' onClick={walletCheck}>
+                            <svg width="20" height="20" className='me-2 ms-0' viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z"></path></svg>
+                            {(localStorage.getItem("walletAddress")).substring(0, 4)}...{(localStorage.getItem("walletAddress")).substring((localStorage.getItem("walletAddress")).length -4, (localStorage.getItem("walletAddress")).length)}
+                            </Button>                            
+                            &nbsp;
+                            {localStorage.getItem("walletbalance") === null || localStorage.getItem("walletbalance") === undefined || localStorage.getItem("walletbalance") === "" ?(
+                                <>NAN</>
+                            ):(
+                                <>
+                                {localStorage.getItem("walletUsed") === "Metamask" ?(
+                                <Button className='btn btn-blue d-sm-block d-none'>{localStorage.getItem("walletbalance")? parseFloat(localStorage.getItem("walletbalance")).toFixed(5):'0.0'} ETH</Button>                    
+                                ):(
+                                    <Button className='btn btn-blue d-sm-block d-none'>{parseFloat(localStorage.getItem("walletbalance")).toFixed(5)} ETH</Button>
+                                )}   
+                                                                             
+                                </>
+                            )}                    
+                            &nbsp;&nbsp;
+
+                                </>)}
+                               
                                {/* <a href="https://cificricket.vercel.app/">
                                <Button className='btn btn-blue d-sm-block d-none'>
                                    <svg width="20" height="20" className='me-2 ms-0' viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z"></path></svg>
@@ -920,10 +1023,18 @@ const[storereem,setstoreredeem] = useState([]);
                     <Modal.Title>Account</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("wallet") === "Petra"  ? "Martian" : "Pontem"} Wallet
+                    {localStorage.getItem("walletUsed") === "Metamask" ?
+
+                     (<>
+                <h6 className='mb-2 me-auto'>Connected with Metamask Wallet
+                </h6>
+                     </>):(<>
+                <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("EAWalletName") === "EPetraWallet"  ? "Petra": localStorage.getItem("EAWalletName") === "EMartianWallet"  ? "Martian" : "Pontem"} Wallet
+                </h6>
+                     </>)}
                 
             
-            </h6>
+          
                 {/* <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("wallet") === "Petra" ? (<> */}
                 {/* <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("wallet") === "Petra" ? (<>
                                             <img src={petra} alt="ConnectPop_icon" />
@@ -944,7 +1055,14 @@ const[storereem,setstoreredeem] = useState([]);
                     <div className="account-number mb-3 d-flex align-items-center">
                         <svg width="14" height="14" className='me-2' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#3CC13B"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"></path></svg>
                             {localStorage.getItem("EAWalletAddress") === null || localStorage.getItem("EAWalletAddress") === undefined || localStorage.getItem("EAWalletAddress") === "" || localStorage.getItem("EAWalletAddress") === 'undefined' ?(
-                            <></>
+                            <>
+                              {localStorage.getItem("walletAddress") === null || localStorage.getItem("walletAddress") === undefined || localStorage.getItem("walletAddress") === "" || localStorage.getItem("walletAddress") === 'undefined' ?
+                              (<></>):(<>
+                               {(localStorage.getItem("walletAddress")).substring(0, 4)}...{(localStorage.getItem("walletAddress")).substring((localStorage.getItem("walletAddress")).length -4, (localStorage.getItem("walletAddress")).length)}
+
+                              </>)}
+
+                            </>
                         ):(
                             <>
                             {(localStorage.getItem("EAWalletAddress")).substring(0, 4)}...{(localStorage.getItem("EAWalletAddress")).substring((localStorage.getItem("EAWalletAddress")).length -4, (localStorage.getItem("EAWalletAddress")).length)}
@@ -960,10 +1078,19 @@ const[storereem,setstoreredeem] = useState([]);
                             <svg class="white me-2" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z"></path></svg>
                             Copy Address
                         </a>}
+                        {localStorage.getItem("walletUsed") === "Metamask" ?
+                        (<>
+                        <a className='mb-3 ms-3 text-white d-flex align-items-center btn-link' href={"https://sepolia.etherscan.io/address/" + localStorage.getItem("walletAddress") } target="_blank" rel="noreferer noreferrer">
+                            <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
+                            View on explorer
+                        </a>
+                        </>):(<>
                         <a className='mb-3 ms-3 text-white d-flex align-items-center btn-link' href={"https://explorer.aptoslabs.com/account/" + localStorage.getItem("EAWalletAddress") + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
                             <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
                             View on explorer
                         </a>
+                        </>)}
+                        
                     </div>
 
                     {/* <div className="d-flex mb-2 align-items-center">
@@ -1003,7 +1130,7 @@ const[storereem,setstoreredeem] = useState([]);
                             <svg class="white me-2" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z"></path></svg>
                             Copy Address
                         </a>}
-                        <a className='mb-3 ms-3 text-white d-flex align-items-center btn-link' href={"https://mumbai.polygonscan.com/address/" + localStorage.getItem("walletAddress")} target="_blank" rel="noreferer noreferrer">
+                        <a className='mb-3 ms-3 text-white d-flex align-items-center btn-link' href={"https://explorer.aptoslabs.com/account" + localStorage.getItem("walletAddress") +"?network=testnet"}  target="_blank" rel="noreferer noreferrer">
                             <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
                             View on explorer
                         </a>

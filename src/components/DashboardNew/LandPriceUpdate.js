@@ -8,26 +8,28 @@ import CardImage from '../../assets/images/card-image.jpg';
 import firebase from '../../NFTFolder/firebase';
 import fireDb from '../../NFTFolder/firebase';
 import configfile from '../../NFTFolder/config.json'
-import {abiroyalty} from './Royaltynftcontract'
+import {abi} from './Normalnftcontract'
 import web3 from './web3';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
-import Logo from '../../assets/images/algorand-logo.png';
-import axios from 'axios';
+// import Logo from '../../assets/images/algorand-logo.png';
+import Logo from '../../assets/images/ethereum.png';
 import node from './nodeapi.json';
+import axios from 'axios';
 import {DataContext} from "../../App";
 import { swappet } from './config';
 import { createActivityTable, getuserDetailsbywallet, putByOwner, putByPrice, putBySale } from '../../awsdatafile';
-//import { minAlgoBalance } from '../../NFTFolder/formula';
 
-const NFTDetails = (props) => {
-    useEffect(() => {
-        document.title = "ELEMENT | NFTDetails"
-    }, [])    
+const NFTDetailsNFT = (props) => {    
     const EAWalletbalances = useContext(DataContext);    
+    useEffect(() => {
+        document.title = "DivineDimension | NFTDetails"
+    }, [])
     const [EAWalletbalance, setwalletbalance] = useState();
     console.log("EBalnce",EAWalletbalance)
     const[getIProfileYour,setgetIProfileYour]=useState([""]);  
-    let caddressnew = "0x069918e79642121dcd5e88565efdd16b1ba9421dfcfed66eff3a1c400efcfc3d"   
+    let caddressnew = "0x069918e79642121dcd5e88565efdd16b1ba9421dfcfed66eff3a1c400efcfc3d" 
+    let pooladdressfinal = "0xc78f87c3e587d53bf4821a10472c4ba973ac57815d7901d4d3224347f484cd7f";
+      
     const dbcallProfileYour=async()=>{            
         if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
         }
@@ -49,7 +51,7 @@ const NFTDetails = (props) => {
                     Bio:data.val().Bio,
                     Customurl: data.val().Customurl,
                     Email: data.val().Email,
-                    Imageurl:data.val().Imageurl,
+                    imagePath:data.val().imagePath,
                     Personalsiteurl: data.val().Personalsiteurl,
                     TimeStamp: data.val().TimeStamp,
                     Twittername: data.val().Twittername,
@@ -94,13 +96,16 @@ const NFTDetails = (props) => {
     //     }
     //     ReadBalance();
     // },[])  
+    // const [AssetOpt,setToAssetOpt] = useState(false)     
+    // const [minAlgo, setMinAlgo] = useState("");        
     const[loader, setLoader] = useState(false);
     const handleShowLoad = () => setLoader(true);
     const handleHideLoad = () => setLoader(false);    
     const location = useLocation();
-    const history = useHistory();        
-    const[getIProfile,setgetIProfile]=useState([""]);           
-    //const [getValueIdCreator,setValueIdCreator] = useState([""]);           
+    const history = useHistory(); 
+    const[getIProfile,setgetIProfile]=useState([""]);               
+    
+        
     const dbcallPro=async()=>{                    
             if(location.state === null || location.state === undefined || location.state === "" ){
             }else{
@@ -108,19 +113,18 @@ const NFTDetails = (props) => {
                     let uderprofile = await getuserDetailsbywallet(location.state.allData.ownerAddress);
                     setgetIProfile(uderprofile.data2);
                     //firebase.auth().signInAnonymously().then(async(response)=>{           
-                //     const hasRestaurant = await fireDb.database()
-                //     .ref(`EPuserprofile/${location.state.allData.ownerAddress}`)
-                //     .orderByKey().limitToFirst(1).once('value')
-                //     .then(res => res.exists());
-                //     console.log("NewIdea",hasRestaurant)      
+                    const hasRestaurant = await fireDb.database()
+                    // .ref(`EPuserprofile/${location.state.allData.ownerAddress}`)
+                    // .orderByKey().limitToFirst(1).once('value')
+                    // .then(res => res.exists());                        
                 //     if(hasRestaurant)
-                //     {                     
-                //     let r=[];                               
-                //     //firebase.auth().signInAnonymously().then((response)=>{         
-                //     firebase.database().ref("EPuserprofile").child(location.state.allData.ownerAddress).on("value", (data) => {          
+                //     {                    
+                // let r=[];            
+                // //firebase.auth().signInAnonymously().then((response)=>{         
+                // firebase.database().ref("EPuserprofile").child(location.state.allData.ownerAddress).on("value", (data) => {          
                 //     if (data) {                      
                 //         r.push({                
-                //             Imageurl:data.val().Imageurl,                
+                //             imagePath:data.val().imagePath,                
                 //             Bio:data.val().Bio,
                 //             Customurl: data.val().Customurl,
                 //             Email: data.val().Email,                            
@@ -138,14 +142,14 @@ const NFTDetails = (props) => {
                 //     }
                 //     setgetIProfile(r);
                 //   });  
-                // //})                
+                // //}) 
                 // }else{
-                //     setgetIProfile([""]);      
-                // }
-                //})
-                } catch (error) {                
+                //     setgetIProfile([""]);  
+                // }   
+                //})            
+                } catch (error) {                  
                 } 
-            
+
             }
                        
     }    
@@ -172,7 +176,7 @@ const NFTDetails = (props) => {
         {   
             toast.warning(`please connect Another wallet`,{autoClose:5000})
             handleHideLoad()            
-        }            
+        }                    
         else if(EAWalletbalances === 0 || EAWalletbalances === ""){
             toast.warning(`your wallet balance below 1`,{autoClose:5000})
             handleHideLoad()            
@@ -197,209 +201,184 @@ const NFTDetails = (props) => {
             toast.error("Please Create Your Profile",{autoClose:5000});  
             handleHideLoad()
         }
-        // else if(algobalanceApp  < ((location.state.allData.NFTPrice/1000000)+2)  )
-        // {            
-        //     toast.dismiss()
-        //     toast.error("Your Algo balance is low. Please get more Algos from dispenser..",{autoClose:5000});  
-        //     handleHideLoad()
-        // }
-        else{                
-            //if(parseInt(assetbalanceApp) === 1 || parseInt(assetbalanceApp) === "1"){
+        else{            
+            //if(parseInt(assetbalanceApp) === 1 || parseInt(assetbalanceApp) === "1"){                                
             handleShowLoad()  
             toast.dismiss();            
-            toast.info("NFT Purchase InProgress",{autoClose: 5000});              
-            // let a=location.state.allData.HistoryAddress.concat(localStorage.getItem('EAWalletAddress'));                                                                                  
+            toast.info("NFT Purchase InProgress",{autoClose: 5000});               
             let AssId = location.state.allData.Assetid
-            let PriceId = parseFloat(location.state.allData.nftPrice)
+            let PriceId =parseFloat(location.state.allData.nftPrice)
             try{
-                // let getaaa=new web3.eth.Contract(abiroyalty,location.state.allData.escrowAddress);                        
+                // let getaaa=new web3.eth.Contract(abi,location.state.allData.escrowAddress);                        
                 // await getaaa.methods.buyThing(AssId).send({
                 //     from:localStorage.getItem('EAWalletAddress'), 
                 //     value: web3.utils.toBN(PriceId),
                 //     gas: 210000
-                // // });
+                // });
                 // const response = await window.martian.connect();
                 // const address = response.address;
-                const options = {
-                  max_gas_amount: "10000"
-                }
-                let property_version = 0    
-
-                // let id = "https://explorer.aptoslabs.com/txn/"+"EPolygon";
-                // toast.success(toastDiv(id));      
-                // toast.success(`Asset Buying ${"EPolygon"}`,{autoClose: 8000});              
-          //db change here
-          const payloadclaim = {
-            type: "script_function_payload",
-            function: `${caddressnew}::royalty1final::buy_tokens`, 
-            type_arguments: ["0x1::aptos_coin::AptosCoin"],
-            arguments: [                    
-            location.state.allData.creatorAddress,
-            location.state.allData.ownerAddress,
-            location.state.allData.nftName,         
-            location.state.allData.nftName,     
-            property_version,
-            1,
-            location.state.allData.nftPrice,       
-            parseInt(2)         //percentage pass
-            ]
-          }        
-    
-    
-                
-            // const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
-            // console.log("Req",txn_request2)
-            // const signed_txn2 = await  window.martian.signTransaction(txn_request2)
-            // console.log("signedTx",signed_txn2)
-            // const res2 = await window.martian.submitTransaction(signed_txn2)        
-            // console.log("TransferV",res2)  
-            let transactionHash = await swappet(payloadclaim)
-            console.log("transactionHash", transactionHash); 
-              let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;
+                // const options = {
+                //   max_gas_amount: "10000"
+                // }
+                let property_version = 0
+                let percentageaddresssend = "0x34c412ef3eee4933bdefa14e5a9ecdf2e2a153ddbdb89ec3a1d1c96f536eb655";
+                const payloadclaim = {
+                    type: "script_function_payload",
+                    function: `${caddressnew}::creating6::dispense`,      
+                    type_arguments: ["0x1::aptos_coin::AptosCoin"],
+                    arguments: [
+                      pooladdressfinal,        
+                      location.state.allData.creatorAddress,
+                      location.state.allData.ownerAddress,                     
+                      location.state.allData.nftName,         
+                      location.state.allData.nftName, 
+                      percentageaddresssend,
+                      location.state.allData.nftPrice,    
+                      property_version,        
+                      1
+                    ]
+                  }
+          
+          
+                      
+                //   const txn_request2 =  await window.martian.generateTransaction(address, payloadclaim,options)
+                //   console.log("Req",txn_request2)
+                //   const signed_txn2 = await  window.martian.signTransaction(txn_request2)
+                //   console.log("signedTx",signed_txn2)
+                //   const res2 = await window.martian.submitTransaction(signed_txn2)        
+                //   console.log("TransferV",res2)  
+                //   let id = "https://explorer.aptoslabs.com/txn/"+res2.hash;
+                  
+                let transactionHash = await swappet(payloadclaim)
+                console.log("transactionHash", transactionHash); 
+                  let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;
+                  toast.success(toastDiv(id));      
+                  // toast.success(`Asset Buying ${res2.hash}`,{autoClose: 8000});              
+                  await sleep(10000)  
             
-            toast.success(toastDiv(id));      
-            // toast.success(`Asset Buying ${res2.hash}`,{autoClose: 8000});              
-            await sleep(10000)  
-            await createActivityTable(localStorage.getItem('EAWalletAddress'),"Buy Now",location.state.allData.escrowAddress,transactionHash,"Royalty-NFT")
-            await putByPrice(0,location.state.allData.keyValue)
-            await putByOwner(localStorage.getItem('EAWalletAddress'),location.state.allData.keyValue)
-            await putBySale("no",location.state.allData.keyValue)
-            toast.success(`NFT Purchased Successfully`,{autoClose: 8000});   
-        //   let a=location.state.allData.HistoryAddress.concat(localStorage.getItem('EAWalletAddress'));              
-        //   let dateset=new Date().toDateString();
-        //   if(location.state.allData.NFTType === undefined || location.state.allData.SocialLink === undefined || location.state.allData.NFTChannel === undefined)
-        //   {
-        //     //firebase.auth().signInAnonymously().then((response)=>{                              
-        //         fireDb.database().ref(`EPolygonNFTRS/${location.state.allData.ownerAddress}`).child(location.state.allData.keyId).remove().then(()=>{
-        //         fireDb.database().ref(`EPolygonNFTRBuy/${localStorage.getItem("EAWalletAddress")}`).child(location.state.allData.keyId).set({
-        //             Assetid:location.state.allData.Assetid,Imageurl:location.state.allData.Imageurl,NFTPrice:location.state.allData.NFTPrice,
-        //             escrowAddress:location.state.allData.escrowAddress,keyId:location.state.allData.keyId,
-        //             NFTName:location.state.allData.NFTName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
-        //             ownerAddress:localStorage.getItem('EwalletAddress'),previousoaddress:location.state.allData.ownerAddress,
-        //             TimeStamp:dateset,NFTDescription:location.state.allData.NFTDescription,HistoryAddress:a,
-        //             Appid:location.state.allData.Appid,valid:location.state.allData.valid,
-        //             creatorAddress:location.state.allData.creatorAddress,NFTType:"",
-        //             NFTChannel:"",
-        //             SocialLink:"",
-        //             NFTModel:location.state.allData.NFTModel
-        //               }).then(()=>{                          
-        //                 let refactivity=fireDb.database().ref(`EPolygonactivitytable/${localStorage.getItem('EAWalletAddress')}`);   
-        //                 let refactivityCreator=fireDb.database().ref(`EPolygonactivitytable/${location.state.allData.creatorAddress}`);
-        //                 const dbcreator = refactivityCreator.push().key;                         
-        //                 const db = refactivity.push().key;                         
-        //                 refactivity.child(db).set({
-        //                 Assetid:location.state.allData.Assetid,Imageurl:location.state.allData.Imageurl,NFTPrice:location.state.allData.NFTPrice,
-        //                 escrowAddress:"BuyNFT",keyId:db,
-        //                 NFTName:location.state.allData.NFTName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
-        //                 ownerAddress:localStorage.getItem('EAWalletAddress'),previousoaddress:location.state.allData.ownerAddress, 
-        //                 TimeStamp:dateset,NFTDescription:"EPolygon",HistoryAddress:a,
-        //                 Appid:location.state.allData.Appid,valid:location.state.allData.valid,
-        //                 creatorAddress:location.state.allData.creatorAddress,NFTType:"",
-        //                 NFTChannel:"",
-        //                 SocialLink:"",NFTModel:location.state.allData.NFTModel
-        //                 })
-        //                 .then(()=>{     
-        //                     refactivityCreator.child(dbcreator).set({
-        //                         Assetid:location.state.allData.Assetid,Imageurl:location.state.allData.Imageurl,NFTPrice:location.state.allData.SocialLink,
-        //                         escrowAddress:"Reward-Algos",keyId:dbcreator,
-        //                         NFTName:location.state.allData.NFTName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
-        //                         ownerAddress:localStorage.getItem('EAWalletAddress'),previousoaddress:location.state.allData.ownerAddress, 
-        //                         TimeStamp:dateset,NFTDescription:"EPolygon",HistoryAddress:a,
-        //                         Appid:location.state.allData.Appid,valid:location.state.allData.valid,
-        //                         creatorAddress:location.state.allData.creatorAddress,NFTType:"",
-        //                         NFTChannel:"",
-        //                         SocialLink:"",NFTModel:location.state.allData.NFTModel
-        //                         })
-        //                         .then(()=>{     
-        //                     //toast.dismiss() 
-        //                     toast.success(`NFT Purchased Successfully`,{autoClose: 8000});                            
-        //                     handleHideLoad()
-        //                     done()                            
-        //                     })                      
-        //                 })                          
-        //                 // handleHideLoad()
-        //                 // done()                     
-        //             }) 
+                // let id = "https://explorer.aptoslabs.com/txn/"+res2.hash;
+                // toast.success(toastDiv(id));                              
+                // let "EPolygon"=res2.hash;
+                //toast.success(`Asset Buying ${response.txId}`,{autoClose: 8000}); 
+                
+                await createActivityTable(localStorage.getItem('EAWalletAddress'),"Buy Now",location.state.allData.escrowAddress,transactionHash,"NFT")
+                await putByPrice(0,location.state.allData.keyValue)
+                await putByOwner(localStorage.getItem('EAWalletAddress'),location.state.allData.keyValue)
+                await putBySale("no",location.state.allData.keyValue)
+                toast.success(`NFT Purchased Successfully`,{autoClose: 8000});                            
+                                handleHideLoad()
+                                done() 
+            //db change here
+            // let a=location.state.allData.HistoryAddress.concat(localStorage.getItem('EAWalletAddress'));              
+            // let dateset=new Date().toDateString();
+            // if(location.state.allData.NFTType === undefined || location.state.allData.SocialLink === undefined || location.state.allData.NFTChannel === undefined)
+            // {
+            //     //firebase.auth().signInAnonymously().then((response)=>{                              
+            //         fireDb.database().ref(`EPolygonNFTNS/${location.state.allData.ownerAddress}`).child(location.state.allData.keyId).remove().then(()=>{
+            //         fireDb.database().ref(`EPolygonNFTNBuy/${localStorage.getItem("EAWalletAddress")}`).child(location.state.allData.keyId).set({
+            //             Assetid:location.state.allData.Assetid,imagePath:location.state.allData.imagePath,nftPrice:location.state.allData.nftPrice,
+            //             escrowAddress:location.state.allData.escrowAddress,keyId:location.state.allData.keyId,
+            //             nftName:location.state.allData.nftName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
+            //             ownerAddress:localStorage.getItem('EAWalletAddress'),previousoaddress:location.state.allData.ownerAddress,
+            //             TimeStamp:dateset,nftDescription:location.state.allData.nftDescription,HistoryAddress:a,
+            //             Appid:location.state.allData.Appid,valid:location.state.allData.valid,
+            //             creatorAddress:location.state.allData.creatorAddress,NFTType:"",
+            //             NFTChannel:"",
+            //             SocialLink:"",
+            //             NFTModel:location.state.allData.NFTModel
+            //             }).then(()=>{                          
+            //                 let refactivity=fireDb.database().ref(`EPolygonactivitytable/${localStorage.getItem('EAWalletAddress')}`);   
+            //                 const db = refactivity.push().key;                         
+            //                 refactivity.child(db).set({
+            //                 Assetid:location.state.allData.Assetid,imagePath:location.state.allData.imagePath,nftPrice:location.state.allData.nftPrice,
+            //                 escrowAddress:"BuyNFT",keyId:db,
+            //                 nftName:location.state.allData.nftName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
+            //                 ownerAddress:localStorage.getItem('EAWalletAddress'),previousoaddress:location.state.allData.ownerAddress, 
+            //                 TimeStamp:dateset,nftDescription:"EPolygon",HistoryAddress:a,
+            //                 Appid:location.state.allData.Appid,valid:location.state.allData.valid,
+            //                 creatorAddress:location.state.allData.creatorAddress,NFTType:"",
+            //                 NFTChannel:"",
+            //                 SocialLink:"",NFTModel:location.state.allData.NFTModel
+            //             })
+            //                 .then(()=>{     
+            //                     //toast.dismiss() 
+            //                     toast.success(`NFT Purchased Successfully`,{autoClose: 8000});                            
+            //                     handleHideLoad()
+            //                     done()                        
+            //                 })                                            
+            //                 // handleHideLoad()
+            //                 // done()                        
+            //             }) 
 
-        //             })                                    
-        //     //})
+            //         })                        
+            //         //})
+            //     //})
 
-        //   }else{
-        //     //firebase.auth().signInAnonymously().then((response)=>{                              
-        //         fireDb.database().ref(`EPolygonNFTRS/${location.state.allData.ownerAddress}`).child(location.state.allData.keyId).remove().then(()=>{
-        //         fireDb.database().ref(`EPolygonNFTRBuy/${localStorage.getItem("EAWalletAddress")}`).child(location.state.allData.keyId).set({
-        //             Assetid:location.state.allData.Assetid,Imageurl:location.state.allData.Imageurl,NFTPrice:location.state.allData.NFTPrice,
-        //             escrowAddress:location.state.allData.escrowAddress,keyId:location.state.allData.keyId,
-        //             NFTName:location.state.allData.NFTName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
-        //             ownerAddress:localStorage.getItem('EAWalletAddress'),previousoaddress:location.state.allData.ownerAddress,
-        //             TimeStamp:dateset,NFTDescription:location.state.allData.NFTDescription,HistoryAddress:a,
-        //             Appid:location.state.allData.Appid,valid:location.state.allData.valid,
-        //             creatorAddress:location.state.allData.creatorAddress,NFTType:location.state.allData.NFTType,
-        //             NFTChannel:location.state.allData.NFTChannel,
-        //             SocialLink:location.state.allData.SocialLink,NFTModel:location.state.allData.NFTModel
-        //               }).then(()=>{                                  
-        //                 let refactivity=fireDb.database().ref(`EPolygonactivitytable/${localStorage.getItem('EAWalletAddress')}`);   
-        //                 let refactivityCreator=fireDb.database().ref(`EPolygonactivitytable/${location.state.allData.creatorAddress}`);
-        //                 const dbcreator = refactivityCreator.push().key;                         
-        //                 const db = refactivity.push().key;                         
-        //                 refactivity.child(db).set({
-        //                 Assetid:location.state.allData.Assetid,Imageurl:location.state.allData.Imageurl,NFTPrice:location.state.allData.NFTPrice,
-        //                 escrowAddress:"BuyNFT",keyId:db,
-        //                 NFTName:location.state.allData.NFTName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
-        //                 ownerAddress:localStorage.getItem('EAWalletAddress'),previousoaddress:location.state.allData.ownerAddress, 
-        //                 TimeStamp:dateset,NFTDescription:"EPolygon",HistoryAddress:a,
-        //                 Appid:location.state.allData.Appid,valid:location.state.allData.valid,
-        //                 creatorAddress:location.state.allData.creatorAddress,NFTType:location.state.allData.NFTType,
-        //                 NFTChannel:location.state.allData.NFTChannel,
-        //                 SocialLink:location.state.allData.SocialLink,NFTModel:location.state.allData.NFTModel
-        //             })
-        //                 .then(()=>{  
-        //                     refactivityCreator.child(dbcreator).set({
-        //                         Assetid:location.state.allData.Assetid,Imageurl:location.state.allData.Imageurl,NFTPrice:location.state.allData.SocialLink,
-        //                         escrowAddress:"Reward-Algos",keyId:dbcreator,
-        //                         NFTName:location.state.allData.NFTName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
-        //                         ownerAddress:localStorage.getItem('EAWalletAddress'),previousoaddress:location.state.allData.ownerAddress, 
-        //                         TimeStamp:dateset,NFTDescription:"EPolygon",HistoryAddress:a,
-        //                         Appid:location.state.allData.Appid,valid:location.state.allData.valid,
-        //                         creatorAddress:location.state.allData.creatorAddress,NFTType:"",
-        //                         NFTChannel:"",
-        //                         SocialLink:"",NFTModel:location.state.allData.NFTModel
-        //                         })
-        //                         .then(()=>{     
-        //                     //toast.dismiss()                                                                                    
-        //                     toast.success(`NFT Purchased Successfully`,{autoClose: 8000});                            
-        //                     handleHideLoad()
-        //                     done()                            
-        //                 })                                                
-        //                 // handleHideLoad()
-        //                 // done()                        
-        //             }) 
-        //         })
-        //         })
-        //     //})
-
-        //   }
-
+            // }else{
+            //     //firebase.auth().signInAnonymously().then((response)=>{                              
+            //         fireDb.database().ref(`EPolygonNFTNS/${location.state.allData.ownerAddress}`).child(location.state.allData.keyId).remove().then(()=>{
+            //         fireDb.database().ref(`EPolygonNFTNBuy/${localStorage.getItem("EAWalletAddress")}`).child(location.state.allData.keyId).set({
+            //             Assetid:location.state.allData.Assetid,imagePath:location.state.allData.imagePath,nftPrice:location.state.allData.nftPrice,
+            //             escrowAddress:location.state.allData.escrowAddress,keyId:location.state.allData.keyId,
+            //             nftName:location.state.allData.nftName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
+            //             ownerAddress:localStorage.getItem('EAWalletAddress'),previousoaddress:location.state.allData.ownerAddress,
+            //             TimeStamp:dateset,nftDescription:location.state.allData.nftDescription,HistoryAddress:a,
+            //             Appid:location.state.allData.Appid,valid:location.state.allData.valid,
+            //             creatorAddress:location.state.allData.creatorAddress,NFTType:location.state.allData.NFTType,
+            //             NFTChannel:location.state.allData.NFTChannel,
+            //             SocialLink:location.state.allData.SocialLink,NFTModel:location.state.allData.NFTModel
+            //             }).then(()=>{                                  
+            //                 let refactivity=fireDb.database().ref(`EPolygonactivitytable/${localStorage.getItem('EAWalletAddress')}`);   
+            //                 const db = refactivity.push().key;                         
+            //                 refactivity.child(db).set({
+            //                 Assetid:location.state.allData.Assetid,imagePath:location.state.allData.imagePath,nftPrice:location.state.allData.nftPrice,
+            //                 escrowAddress:"BuyNFT",keyId:db,
+            //                 nftName:location.state.allData.nftName,userSymbol:location.state.allData.userSymbol,Ipfsurl:location.state.allData.Ipfsurl,
+            //                 ownerAddress:localStorage.getItem('EAWalletAddress'),previousoaddress:location.state.allData.ownerAddress, 
+            //                 TimeStamp:dateset,nftDescription:"EPolygon",HistoryAddress:a,
+            //                 Appid:location.state.allData.Appid,valid:location.state.allData.valid,
+            //                 creatorAddress:location.state.allData.creatorAddress,NFTType:location.state.allData.NFTType,
+            //                 NFTChannel:location.state.allData.NFTChannel,
+            //                 SocialLink:location.state.allData.SocialLink,NFTModel:location.state.allData.NFTModel
+            //             })
+            //                 .then(()=>{  
+            //                     //toast.dismiss()                                                                                    
+            //                     toast.success(`NFT Purchased Successfully`,{autoClose: 8000});                            
+            //                     handleHideLoad()
+            //                     done()                            
+            //                 })                                                
+            //                 // handleHideLoad()
+            //                 // done()                        
+            //             }) 
+            //         })
+            //         //})
+            //     //})
+            // }
         }catch (err) {        
             console.error(err);
-            toast.warning(`you are facing error `,{autoClose:5000})               
-        }   
-            }                            
-    }
-    
-    const doneduplicate=async()=>{
-        await sleep(3000);        
-        window.location.reload(false);    
-    }  
+            toast.warning(`you are facing error `,{autoClose:5000})
+            //done2()          
+        }                       
+            }        
+            // else{
+            // toast.dismiss()
+            // toast.warning(`Asset Balance is zero,please try another NFT`,{autoClose:5000})
+            // handleHideLoad()            
+            // }                    
+    }                
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
      }
       const done=async()=>{
-        await sleep(8000);
+        await sleep(7000);
         history.push("/my-NFT")
         window.location.reload(false);    
       } 
+      const doneduplicate=async()=>{
+        await sleep(3000);        
+        window.location.reload(false);    
+        }
 
       const done2=async()=>{
         await sleep(3000);
@@ -414,7 +393,9 @@ const NFTDetails = (props) => {
             <path d="M11.7176 3.97604L1.69366 14L0.046875 12.3532L10.0697 2.32926H1.23596V0H14.0469V12.8109H11.7176V3.97604Z" fill="#FDBD01"/>
             </svg></p></a></p>  
         </div>
-        );        
+        );
+        
+
     return (
         <Layout>
             <Container>
@@ -425,14 +406,16 @@ const NFTDetails = (props) => {
                         {location.state === null || location.state === "" || location.state === undefined ? ( 
                             <img src={CardImage} alt="img" className='img-fluid rounded-16' />
                         ):(
-                            <img src={location.state.allData.imagePath} alt="img" className='img-fluid' style={{height:"20%",width:'50%'}} />
+                            <img src={location.state.allData.imagePath} alt="img" className='img-fluid' 
+                            // style={{height:"20%",width:'50%'}}
+                             />
                         )}
                             
                         </Card>
                     </Col>
                     <Col md={8}>
+                        
                         <Card className='card-dash border-0 d-block'>                            
-                            &nbsp;                            
                             {location.state === null || location.state === "" || location.state === undefined ? ( 
                                 <>
                                 <h2 className='subheading mb-0'>{configfile.nullvalue}</h2>
@@ -440,24 +423,24 @@ const NFTDetails = (props) => {
                                 </>
                             ):(
                                 <>
-                                <h6 className='subheading mb-0'>NFT Name :  <strong>{location.state.allData.nftName} </strong></h6>
-                                <p>{location.state.allData.nftDescription}</p>                                
+                                <h6 className='subheading mb-0'>Land Name :  <strong>{location.state.allData.name} </strong></h6>
+                                <p>{location.state.allData.description}</p>                                
                                 </>
-                             )}                                                        
-                            {location.state === null || location.state === "" || location.state === undefined ? ( 
-                                <>
-                                <h2 className='d-flex mb-3 align-items-center'>
-                                <img src={Logo} alt="logo" className='me-2 avatar-pic' />
-                                <p>{configfile.nullvalue}</p>                                
-                                </h2>                                
-                                </>
-                            ):(
-                                <h3 className='d-flex mb-3 align-items-center'>
+                             )} 
+                                {location.state === null || location.state === "" || location.state === undefined ? ( 
+                                    <>
+                                    <h2 className='d-flex mb-3 align-items-center'>
                                     <img src={Logo} alt="logo" className='me-2 avatar-pic' />
-                                    {(location.state.allData.nftPrice/100000000)}    
-                                </h3>                                                                                 
-                            )}                                                            
-                            <ButtonLoad loading={loader} className='btn btn-blue' onClick={()=>{BuyNFT()}}>Buy NFT</ButtonLoad>                            
+                                    <p>{configfile.nullvalue}</p>                                
+                                    </h2>                                
+                                    </>
+                                ):(
+                                    <h3 className='d-flex mb-3 align-items-center'>
+                                        <img src={Logo} alt="logo" className='me-2 avatar-pic' />
+                                        {(location.state.allData.price/100000000)}    
+                                    </h3>                                                                                 
+                                )}                                                                                                                                                       
+                                <ButtonLoad loading={loader} className='btn btn-blue' onClick={()=>{BuyNFT()}}>Buy NFT</ButtonLoad>                                
                         </Card>
                     </Col>
                 </Row>
@@ -471,14 +454,14 @@ const NFTDetails = (props) => {
                                 {location.state === null || location.state === "" || location.state === undefined ? ( 
                                     <strong>{configfile.nullvalue}</strong>
                                 ):(
-                                    <a href={`https://explorer.aptoslabs.com/account/${location.state.allData.escrowAddress}?network=testnet`} target="_blank" rel="noopener noreferrer">                                                                    
-                                    <strong>{location.state.allData.escrowAddress.slice(0,6)}....{location.state.allData.escrowAddress.slice(52,58)}</strong>
+                                    <a href={`https://explorer.aptoslabs.com/account/${location.state.allData.walletAddress}?network=testnet`} target="_blank" rel="noopener noreferrer">                                                                    
+                                    <strong>{location.state.allData.walletAddress.slice(0,6)}....{location.state.allData.walletAddress.slice(52,58)}</strong>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi ms-2 bi-box-arrow-up-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
                                             <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
                                     </svg>
                                     </a>
-                                )}                                                                
+                                )}                                                 
                             </div>
                             {/* <div className='d-flex mb-2 align-items-center justify-content-between'>
                                 <h6 className='subheading mb-0'>Token ID :</h6>
@@ -501,8 +484,8 @@ const NFTDetails = (props) => {
                                 {location.state === null || location.state === "" || location.state === undefined ? ( 
                                     <strong>{configfile.nullvalue}</strong>
                                 ):(
-                                    <a href={`https://explorer.aptoslabs.com/account/${location.state.allData.creatorAddress}?network=testnet`} target="_blank" rel="noopener noreferrer">                                
-                                    <strong>{location.state.allData.creatorAddress.slice(0,6)}....{location.state.allData.creatorAddress.slice(52,58)}</strong>
+                                    <a href={`https://explorer.aptoslabs.com/account/${location.state.allData.ownerAddress}?network=testnet`} target="_blank" rel="noopener noreferrer">                                
+                                    <strong>{location.state.allData.ownerAddress.slice(0,6)}....{location.state.allData.ownerAddress.slice(52,58)}</strong>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi ms-2 bi-box-arrow-up-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
                                             <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
@@ -526,10 +509,10 @@ const NFTDetails = (props) => {
                             </div>
                         </Card>
                     </Col>
-                    <Col md={8}>
+                    {/* <Col md={8}>
                         <Card className='card-dash mb-4 d-block border-0'>
                             <div className='d-flex flex-wrap flex-lg-nowrap create-art'>
-                            {getIProfile === "" || getIProfile === null || getIProfile === undefined  || getIProfile === "" || getIProfile=== null || getIProfile=== undefined ? (
+                            {getIProfile === "" || getIProfile === null || getIProfile === undefined  || getIProfile === "" || getIProfile === null || getIProfile === undefined ? (
                                   <img src="https://bscstation.finance/images/logo-defaul.png" alt="art" className='me-3' />
                             ):(
                                 <>
@@ -558,13 +541,13 @@ const NFTDetails = (props) => {
                                         <strong>{configfile.nullvalue}</strong>
                                     ):(
                                         <>
-                                        {getIProfile.profileURL  === "" || getIProfile.profileURL  === null || getIProfile.profileURL  === undefined  || getIProfile === "" || getIProfile === null || getIProfile === undefined ? (
+                                        {getIProfile.profileURL === "" || getIProfile.profileURL === null || getIProfile.profileURL === undefined  || getIProfile === "" || getIProfile === null || getIProfile === undefined ? (
                                             <>                                            
-                                            <strong>{getIProfile.profileURL }</strong>                                           
+                                            <strong>{getIProfile.profileURL}</strong>                                            
                                             </>
                                         ):(                                        
                                         <>
-                                            <strong>{getIProfile.profileURL }</strong>
+                                            <strong>{getIProfile.profileURL}</strong>
                                         </>                                        
                                         )}
                                         </>                                        
@@ -574,7 +557,7 @@ const NFTDetails = (props) => {
                                         <>
                                         {(location.state  === null || location.state  === "" || location.state === " " || location.state === undefined || location.state === '') ? (
 
-                                            <a  href={"https://explorer.aptoslabs.com/account/" + configfile.nullvalue + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
+                                            <a  href={"https://explorer.aptoslabs.com/account/" + configfile.nullvalue+"?network=testnet"} target="_blank" rel="noreferer noreferrer">
                                             <strong>{configfile.nullvalue}.... </strong>
                                             &nbsp;
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi ms-2 bi-box-arrow-up-right" viewBox="0 0 16 16">
@@ -590,18 +573,18 @@ const NFTDetails = (props) => {
                                                 <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
                                                 <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
                                                 </svg>
-                                        </a>                                                              
+                                        </a>                                                                                
                                         )}                                        
                                         </>                                    
                                     </p>                                    
                                 </div>
                             </div>
                         </Card>
-                    </Col>
-                </Row>
+                    </Col> */}
+                </Row>                              
             </Container>
         </Layout>
     )
 }
 
-export default NFTDetails;
+export default NFTDetailsNFT;
