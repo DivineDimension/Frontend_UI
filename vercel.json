@@ -55,6 +55,36 @@
             "source": "/platform/v1/visitinfo",
             "destination": "https://testapi1.stasisonline.in/platform/v1/visitinfo"
         }
+        ,
+        {
+            "source": "/platform/v1/avatar",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/avatar"
+        }
+        ,
+        {
+            "source": "/platform/v1/avatar/allavatar/:match*/:match2*",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/avatar/allavatar/:match*/:match2*"
+        }
+        ,
+        {
+            "source": "/platform/v1/avatar/:match*/:match1*",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/avatar/:match*/:match1*"
+        }
+        ,
+        {
+            "source": "/platform/v1/land/:match*",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/land/:match*"
+        }
+        ,
+        {
+            "source": "/platform/v1/land",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/land"
+        }
+        ,
+        {
+            "source": "/platform/v1/landowner",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/landowner"
+        }
         
     ]
    
