@@ -773,7 +773,7 @@ export const getallNFt = async() =>{
   let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
     //Get method start
     
-      let response2 = await fetch(`/platform/v1/nftAll`, 
+      let response2 = await fetch(`/platform/v1/nftdetails`, 
       {
         headers: {
           'x-api-key': `${key}`    

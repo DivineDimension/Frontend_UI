@@ -6,7 +6,7 @@ import makeAnimated from 'react-select/animated';
 import { Container, Tab, Tabs } from 'react-bootstrap';
 
 // import AnalyticChart from '../Sections/AnalyticCharts';
-//import TopLiquidity from '../Snippets/TopLiquidity';
+import TopLiquidity from '../DashboardNew/snippets/TopLiquidity';
 import TopTokens from '../Snippets/TopTokens';
 
 const animatedComponents = makeAnimated();
@@ -77,7 +77,7 @@ function AnalyticsPage() {
                             <TopTokens />
                         </Tab> */}
                     {/* </Tabs> */}
-                    {/* <TopLiquidity /> */}
+                    <TopLiquidity />
                     
                     
                     {/* <div>
