@@ -8,7 +8,7 @@ import {
 //import Account from '../../assets/images/icons/account.png';
 import Analytics from '../../assets/images/icons/analytics.png';
 import Auction from '../../assets/images/icons/auction.png';
-import Faucet from '../../assets/images/icons/faucet.png';
+import launchpadicon from '../../assets/images/launchpad.png';
 import GenerateDid from '../../assets/images/icons/generate-did.png';
 import GenesisMarket from '../../assets/images/icons/genesis-market.png';
 import shop from '../../assets/images/shop.png';
@@ -162,7 +162,7 @@ const Sidebar = ({activeClass, handleLink}) => {
                             <li><Link to="/upcoming"><img src={Particiapte} alt="Particiapte" /> Badges</Link></li>
                             <li><Link to="/viewtoken"><img src={inventory} alt="Auction" />Inventory</Link></li>
                             <li><Link to="/viewtoken"><img src={refund} alt="Auction" />Claim</Link></li>
-                            <li><Link to="/avatar"><img src={avatar} alt="Auction" />Avatar</Link></li>
+                            <li><Link to="/nft-avatar"><img src={avatar} alt="Auction" />Avatar</Link></li>
                             <li><Link to="/create-artists"><img src={settings} alt="Auction" />Settings</Link></li>
                         </Dropdown.Menu>
                     )}
@@ -236,7 +236,31 @@ const Sidebar = ({activeClass, handleLink}) => {
                     )}                             
                   
                 </Dropdown>
-            </li>    
+            </li>
+            
+            <li>
+                <Dropdown>
+                    {device > 1199 && activeClass ? (
+                        <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
+                            <img src={launchpadicon} alt="CBDC Hub" />
+                        </Dropdown.Toggle>
+                    ) : (                            
+                        <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
+                            
+                          <Link Link to="/nft-launchpad">  <img    src={launchpadicon} alt="CBDC Hub"  ></img>Launchpad</Link>
+                             
+                        </Dropdown.Toggle>
+                    )}     
+                     {/* {device > 1199 && activeClass ? null : (
+                        <Dropdown.Menu show={location === "/nft-launchpad" || location === "/Mint-NFT" || location === "/createclub" || location === "/upcoming" || location ===  "/viewtoken" || location ==="/create-artists" ? true : false} as="ul" className={`list-unstyled position-relative mb-0 p-0 ${location === "/createteam" || location === "/createorg" || location === "/createclub" || location === "/createtoken" || location === "/viewtoken" ? 'd-block' : ''}`} style={{minWidth: 'auto'}}>                                
+                           
+                            <li><Link to="/upcoming"><img src={MyNFT} alt="Kyc" /> Experiences </Link></li>
+                            <li><Link to="/Mint-NFT"><img src={asst} alt="GenerateDid" /> Assets</Link></li>
+                             </Dropdown.Menu>
+                    )}                   
+                   */}
+                </Dropdown>
+            </li>     
             <li>
                 <Dropdown>
                     {device > 1199 && activeClass ? (
@@ -260,6 +284,7 @@ const Sidebar = ({activeClass, handleLink}) => {
                   
                 </Dropdown>
             </li> 
+            
             <li>
                 <Dropdown>
                     {device > 1199 && activeClass ? (

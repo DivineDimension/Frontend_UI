@@ -46,6 +46,8 @@ import MyNFTCopy2 from "./components/DashboardNew/MyNFTCopy2";
 import TopCollectionsFractional from "./components/DashboardNew/TopCollectionsFractional";
 import NFTDetailsFra from "./components/DashboardNew/NFTDetailsFra";
 import TopCollectionsNFTN from "./components/DashboardNew/TopCollectionsNFTN";
+import LaunchPadNew from "./components/DashboardNew/Launchpadnew";
+import AvatarNew from "./components/DashboardNew/LaunchpadAvatar";
 import TopCollectionsAuction from "./components/DashboardNew/TopCollectionsAuction"
 import NFTDetailsNFT from "./components/DashboardNew/NFTDetailsNFT";
 import NFTDetailsAuction from "./components/DashboardNew/NFTDetailsAuction";
@@ -316,6 +318,12 @@ function App() {
         </Route>
         <Route path="/price-update">
           <LandUpdateApp />
+        </Route>
+        <Route path="/nft-launchpad">
+          <LaunchPadNew />
+        </Route>
+        <Route path="/nft-avatar">
+          <AvatarNew />
         </Route>
         <Route path="/home">
           <HomePage />                    

@@ -84,6 +84,15 @@
         {
             "source": "/platform/v1/landowner",
             "destination": "https://testapi1.stasisonline.in/platform/v1/landowner"
+        },
+        {
+            "source": "/platform/v1/avatar",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/avatar"
+        }
+        ,
+        {
+            "source": "/platform/v1/avatar/allavatar/:status*/:type*",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/avatar/allavatar/:status*/:type*"
         }
         
     ]

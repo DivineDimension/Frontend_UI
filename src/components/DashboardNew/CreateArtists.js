@@ -328,7 +328,7 @@ const CreateArtists = () => {
                 <Link to="/upcoming">Badges</Link>
                 <Link to="/viewtoken">Inventory</Link>
                 <Link to="/viewtoken">Claim</Link>
-                <Link to="/avatar">Avatar</Link>
+                <Link to="/nft-avatar">Avatar</Link>
                 <Link className='active' to="/create-artists">Settings</Link>
             </div>
             <Container>

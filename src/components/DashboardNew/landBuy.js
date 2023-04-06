@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import configfile from '../../NFTFolder/config.json'
 import {DataContext} from "../../App";
 import { swappet } from './config';
-import { createActivityTable, getuserDetailsbywallet, putByPrice, putBySale, updateLandByOnwer, updateLandByPrice } from '../../awsdatafile';
+import { createActivityTable, getuserDetailsbywallet, putByPrice, putBySale, updateAvatarStatus, updateLandByOnwer, updateLandByPrice } from '../../awsdatafile';
 import { landAbi ,dimeTokenAbi} from '../../abi&contractfiles/abi';
 import { landAddress,dimeTokenAddress } from '../../abi&contractfiles/contractaddress';
 
@@ -109,7 +109,7 @@ const CreateTab =({x})=>{
         //     toast.warning(`Insufficient balance to NFT Updating Price `,{autoClose:5000})
         //     handleHideLoad()            
         // }
-        if(localStorage.getItem('walletAddress') === null || localStorage.getItem('walletAddress') === "" || localStorage.getItem('walletAddress') === undefined || localStorage.getItem('walletAddress') === " "){
+        if(localStorage.getItem('EAWalletAddress') === null || localStorage.getItem('EAWalletAddress') === "" || localStorage.getItem('EAWalletAddress') === undefined || localStorage.getItem('EAWalletAddress') === " "){
             toast.warning(`please connect your wallet`,{autoClose:5000})
             handleHideLoad()            
         }        
@@ -123,21 +123,32 @@ const CreateTab =({x})=>{
         handleShowLoad()             
         toast.info("Updating The Price of NFT",{autoClose:5000});                         
         try {  
+
+            const transaction = {
+                type: "entry_function_payload",
+                function: "0x4190e063d709ba9c4ffb7ccdc7c64b6e2ffd77f884afbdb46bb683e00f6b6007::NftLaunchpad1::dispense",
+                arguments: ["0xc02622b215e72aa3dc4bd74b5e39b33f4c4967ae26e698e45b6f70fc639b666",b.walletAddress,b.walletAddress,b.name,b.name,"0x64da516a577afd007a7aba4c7dba7dd19bbae5dd9e16a435f6b3df024c12d270",100000000,0,1],
+                type_arguments: ["0x1::aptos_coin::AptosCoin"],
+              };
             
-            let amountmul=(parseFloat(x.price)*2)/100;
-            console.log("AmountLog",amountmul);
-            const accounts = await web3.eth.getAccounts();
-            const landcontract = new web3.eth.Contract(landAbi, landAddress);
-            let hash =  await landcontract.methods.buynow(x.assetId).send({from:accounts[0],value:web3.utils.toBN(amountmul)});
-            console.log("hash",hash.transactionHash)
-            let transaction2Hash=hash.transactionHash
+            // let amountmul=(parseFloat(x.price)*2)/100;
+            // console.log("AmountLog",amountmul);
+            // const accounts = await web3.eth.getAccounts();
+            // const landcontract = new web3.eth.Contract(landAbi, landAddress);
+            // let hash =  await landcontract.methods.buynow(x.assetId).send({from:accounts[0],value:web3.utils.toBN(amountmul)});
+            // console.log("hash",hash.transactionHash)
+            // let transaction2Hash=hash.transactionHash
 
          
               
-              //await storeDbUpdate(valuess,address,caddress,Prices);
-              let calc=(parseFloat(getprices)*100000000)
-              let id = "https://sepolia.etherscan.io/tx"+transaction2Hash;
+            //   //await storeDbUpdate(valuess,address,caddress,Prices);
+            //   let calc=(parseFloat(getprices)*100000000)
+            //   let id = "https://sepolia.etherscan.io/tx"+transaction2Hash;
               //let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash;
+              let transaction2Hash = await swappet(transaction)
+              console.log("transactionHash", transaction2Hash); 
+              //   let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;        
+              let id = "https://explorer.aptoslabs.com/txn/"+transaction2Hash+"?network=testnet";
               toast.success(toastDiv(id));
               await sleep(12000)       
             //   await storeDbUpdate(valuess,address,caddressnew,calc,"AptosNFTR","AptosNFTRS");        
@@ -190,8 +201,8 @@ const CreateTab =({x})=>{
             //     })                        
             // })  
             try{
-                await updateLandByOnwer(localStorage.getItem("walletAddress"),x.assetId);
-                await updateLandByPrice("0",x.assetId);
+                await updateAvatarStatus(localStorage.getItem("EAWalletAddress"),b.name);
+                // await updateLandByPrice("0",x.assetId);
                 // await createActivityTable(localStorage.getItem('EAWalletAddress'),"Update price", pooladdressfinal,transaction2Hash,"Royalty-NFT")
                 toast.success(`Land purchaed Successfully`,{autoClose: 5000});            
                     //await saledb()
@@ -254,25 +265,26 @@ const CreateTab =({x})=>{
                                         <br />                    
                         {/* {x.price === "" || x.price === null || x.price === undefined || x.price === 0 ?(
                         <>                                             */}
-                        <h6 className='mb-2'>Price : {x.price? (x.price/1000000000000000000):"0"}</h6><h5 className='d-flex mb-3 align-items-center'>
-                            {/* <img src={userprofile.bgvImagePath} alt="logo" className='me-2 avatar-pic' />                         */}
+                        {/* <img src={userprofile.bgvImagePath} alt="logo" className='me-2 avatar-pic' />   */}
+                        <h6 className='mb-2'>Price : 1 Aptos</h6><h5 className='d-flex mb-3 align-items-center'>
+                                                   
                         {/* <div className="input-group-max d-flex align-items-center text-nowrap px-3 input-group-max-lg w-100"> */}
                         {/* <input type="number" placeholder='Enter Price' className='form-control' value={((getprices))} onChange={event => setprices((event.target.value))} /> */}
                         {/* </div> */}
                         </h5> 
-                        {dbalance === "" || dbalance === null || dbalance === undefined || dbalance === 0 ||dbalance === "0" ? (<>
+                        {/* {dbalance === "" || dbalance === null || dbalance === undefined || dbalance === 0 ||dbalance === "0" ? (<>
                             <ButtonLoad  variant="blue" className='w-100' >Dont have Dime Token</ButtonLoad>   
                         
                         </>):(<>
                             {allowances === "" || allowances === null || allowances === undefined || allowances === 0 || allowances === "0"  ? (<>
                             <ButtonLoad loading={loader} variant="blue" className='w-100' onClick={()=>{approve()}}>Approve</ButtonLoad>                                        
 
-                        </>):(<>
+                        </>):(<> */}
                             <ButtonLoad loading={loader} variant="blue" className='w-100' onClick={()=>{setpricedb(x)}}>Buy Land </ButtonLoad>                                        
-
+{/* 
                         </>)}                                    
 
-                        </>)}
+                        </>)} */}
                         {/* </>
                     ):(
                         <>
