@@ -81,7 +81,7 @@ const View = () => {
                 <Link className='active' to="/upcoming">Badges</Link>
                 <Link to="/viewtoken">Inventory</Link>
                 <Link to="/viewtoken">Claim</Link>
-                <Link to="/avatar">Avatar</Link>
+                <Link to="/nft-avatar">Avatar</Link>
                 <Link to="/create-artists">Settings</Link>
             </div>
         <div className="justify-content-center">  
