@@ -122,6 +122,7 @@ const ImageExploreTab = ({x})=>{
                                             <h6 className='mb-2'>Ends In:
                                             {/* <img src={Logo} alt="logo" className='me-2 avatar-pic' /> */}
                                             {x.EndDate}</h6> 
+                                            <a href='https://divinedimension.itch.io/bigtemple' target="_blank" rel="noreferrer">View</a>
                                         {/* {x.NFTPrice === "" || x.NFTPrice === null || x.NFTPrice === undefined ?(
                                             <>                                                                                        
                                             <Button variant="blue" className='w-100' s>Buy NFT</Button>                                        

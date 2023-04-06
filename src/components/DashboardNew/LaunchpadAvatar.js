@@ -6,7 +6,7 @@ import firebase from '../../NFTFolder/firebase';
 import { Link ,useHistory} from 'react-router-dom';
 import GNFTTradingCardTab from './GNFTTradingCardTab';
 import LandUpdate from './landPrice';
-import LandBuy from './landBuy';
+import LandBuy from './AvatarBuy';
 import ButtonLoad from 'react-bootstrap-button-loader';
 import GNFTPhotographyTab from './GNFTPhotographyTab';
 import GNFTSportsTab from './GNFTSportsTab';

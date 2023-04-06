@@ -93,7 +93,22 @@
         {
             "source": "/platform/v1/avatar/allavatar/:status*/:type*",
             "destination": "https://testapi1.stasisonline.in/platform/v1/avatar/allavatar/:status*/:type*"
+        },
+        {
+            "source": "/platform/v1/landauction/:type*",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/landauction/:type*"
         }
+        ,
+        {
+            "source": "/platform/v1/landauction",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/landauction"
+        }
+        ,
+        {
+            "source": "/platform/v1/nftAll",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftAll"
+        }
+        
         
     ]
    
