@@ -6,7 +6,7 @@ import firebase from '../../NFTFolder/firebase';
 import { Link ,useHistory} from 'react-router-dom';
 import GNFTTradingCardTab from './GNFTTradingCardTab';
 import LandUpdate from './landPrice';
-import LandBuy from './landBuy';
+import LandBuy from './landBuynew';
 import ButtonLoad from 'react-bootstrap-button-loader';
 import GNFTPhotographyTab from './GNFTPhotographyTab';
 import GNFTSportsTab from './GNFTSportsTab';
@@ -24,7 +24,7 @@ import plus from '../../assets/images/plusicon.png';
 import minus from '../../assets/images/minusicon.png';
 import { async } from 'q';
 import web3 from '../../web3';
-import { getallLand, getallLandbywallet } from '../../awsdatafile';
+import { getallAvatarSale, getallLand, getallLandbywallet, getallLandSale } from '../../awsdatafile';
 import { landAbi } from '../../abi&contractfiles/abi';
 import { landAddress } from '../../abi&contractfiles/contractaddress';
 const TopCollectionsNFTN = () => {
@@ -69,11 +69,11 @@ const TopCollectionsNFTN = () => {
 
     }
     else{
-        let ownedland = await getallLandbywallet(localStorage.getItem("walletAddress"));
-        console.log("onwedland",ownedland)
+        let ownedland = await getallLandSale("yes");
+        console.log("getallLandSale",ownedland)
         setOwnedLand(ownedland.data2);
-        let allLand = await getallLand();
-        console.log("onwedland",ownedland)
+        let allLand = await getallLandSale("no");
+        console.log("onwedland",allLand)
         setAllLand(allLand.data2);
     }
     
@@ -92,7 +92,7 @@ const TopCollectionsNFTN = () => {
         <Layout>
             <div className='sidebar-inner d-none d-xl-flex align-items-start flex-wrap'>
             <Link to="/map">Map</Link>
-                <Link to="/create-land">Create Land</Link>
+                {/* <Link to="/create-land">Create Land</Link> */}
             </div>
             
             <Container>
@@ -270,7 +270,7 @@ const TopCollectionsNFTN = () => {
                          {allLand.map((r,i)=>{
                             return(
                                 <>
-                               {r.price === 0|| r.price === "0" || r.price ==="" || r.price ==="undefined"|| r.price === null ?
+                               {r.status ==="yes" ?
                                (<>
                                
                                </>):(<>
@@ -319,7 +319,7 @@ const TopCollectionsNFTN = () => {
 
                             ) }                             */}
                         </Tab>
-                        <Tab eventKey="Ownedland" title="Owned Land">
+                        <Tab eventKey="Auction" title="Land Auction">
                             <div className='d-flex justify-content-end mb-3'>
                             <Dropdown>
                                 <Dropdown.Toggle variant='dark' className='noarrow' id="dropdown-basic">
@@ -370,7 +370,7 @@ const TopCollectionsNFTN = () => {
                 
                                 <>
 
-                               {r.price === 0|| r.price === "0" || r.price ==="" || r.price ==="undefined"|| r.price === null ?
+                               {r.status === "no" ?
                                (<>
                                 <LandUpdate x={r}/>
                                </>):(<>

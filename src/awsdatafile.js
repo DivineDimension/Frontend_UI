@@ -724,3 +724,63 @@ export const updateAvatarStatus = async(buyer,name) =>{
             console.error("done2",error);
         });
 }
+
+export const getallLandSale = async(sale) =>{
+   
+  let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
+    //Get method start
+    
+      let response2 = await fetch(`/platform/v1/landauction/${sale}`, 
+      {
+        headers: {
+          'x-api-key': `${key}`    
+        },
+    })
+    //console.log(response2);
+      const data2 = await response2.json();
+    console.log("getallLandSale", data2)
+    return {data2};
+}
+
+export const updateAuctionDetails = async(amount,id) =>{
+   
+  let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
+   
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+   let datas = {
+    "bidAmount":amount, 
+    "assetId":id
+      }
+      const options2 = {
+          method: 'PUT',
+          url: '/platform/v1/landauction',
+          headers: {
+            'x-api-key': `${key}`    
+          },
+          data: datas
+        };
+        
+        axios.request(options2).then(function (response2) {
+         console.log("response",response2);
+        //  window.location.reload();
+        }).catch(function (error) {
+            console.error("done2",error);
+        });
+}
+
+export const getallNFt = async() =>{
+   
+  let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
+    //Get method start
+    
+      let response2 = await fetch(`/platform/v1/nftAll`, 
+      {
+        headers: {
+          'x-api-key': `${key}`    
+        },
+    })
+    //console.log(response2);
+      const data2 = await response2.json();
+    console.log("getallLandSale", data2)
+    return {data2};
+}
