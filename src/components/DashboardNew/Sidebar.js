@@ -6,7 +6,7 @@ import {
   } from "react-router-dom";
 
 //import Account from '../../assets/images/icons/account.png';
-import Analytics from '../../assets/images/icons/analytics.png';
+import tourism from '../../assets/images/tourism.png';
 import Auction from '../../assets/images/icons/auction.png';
 import launchpadicon from '../../assets/images/launchpad.png';
 import GenerateDid from '../../assets/images/icons/generate-did.png';
@@ -203,6 +203,24 @@ const Sidebar = ({activeClass, handleLink}) => {
                         <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
                             
                             <Link to="/map"><img src={pin} alt="CBDC Hub"  ></img>Map</Link>
+                             
+                        </Dropdown.Toggle>
+                    )} 
+                                                
+                                         
+                  
+                </Dropdown>
+            </li> 
+            <li>
+                <Dropdown>
+                    {device > 1199 && activeClass ? (
+                        <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
+                            <img src={tourism} alt="CBDC Hub" />
+                        </Dropdown.Toggle>
+                    ) : (                            
+                        <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
+                            
+                            <Link to="/land"><img src={tourism} alt="CBDC Hub"  ></img>Virtual Tourism</Link>
                              
                         </Dropdown.Toggle>
                     )} 

@@ -696,6 +696,38 @@ export const getallAvatarSale = async() =>{
     console.log("Api inside", data2)
     return {data2};
 }
+export const getallLaunchpadYes = async() =>{
+   
+  let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
+    //Get method start
+    
+      let response2 = await fetch(`/platform/v1/avatar/allavatar/yes/launchpad`, 
+      {
+        headers: {
+          'x-api-key': `${key}`    
+        },
+    })
+    //console.log(response2);
+      const data2 = await response2.json();
+    console.log("Api inside", data2)
+    return {data2};
+}
+export const getallAvatarYes = async() =>{
+   
+  let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
+    //Get method start
+    
+      let response2 = await fetch(`/platform/v1/avatar/allavatar/yes/avatar`, 
+      {
+        headers: {
+          'x-api-key': `${key}`    
+        },
+    })
+    //console.log(response2);
+      const data2 = await response2.json();
+    console.log("Api inside", data2)
+    return {data2};
+}
 
 export const updateAvatarStatus = async(buyer,name) =>{
    

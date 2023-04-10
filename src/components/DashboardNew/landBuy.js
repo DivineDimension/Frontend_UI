@@ -280,7 +280,7 @@ const CreateTab =({x})=>{
                             <ButtonLoad loading={loader} variant="blue" className='w-100' onClick={()=>{approve()}}>Approve</ButtonLoad>                                        
 
                         </>):(<> */}
-                            <ButtonLoad loading={loader} variant="blue" className='w-100' onClick={()=>{setpricedb(x)}}>Buy Land </ButtonLoad>                                        
+                            <ButtonLoad loading={loader} variant="blue" className='w-100' onClick={()=>{setpricedb(x)}}>Buy </ButtonLoad>                                        
 {/* 
                         </>)}                                    
 
