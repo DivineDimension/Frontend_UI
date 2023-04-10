@@ -15,6 +15,10 @@ import Compress from "react-image-file-resizer";
 import SaleTab from './SaleTab';
 import OwnTab from './OwnTab';
 import CreateTabTab from './CreateTabTab';
+import CreateTablanchpad from './CreateTabTabLaunchpad';
+
+import CreateTabavatar from './CreateTabTabAvatar';
+
 //import Logo from '../../assets/images/logocifihomepage.png'
 import Logo from '../../assets/images/cover.png'
 import backcoverimage from '../../assets/images/backcoverimage.png'
@@ -706,7 +710,17 @@ const MyNFT = () => {
                             <Row>                            
                                      <CreateTabTab/>                                                 
                             </Row>                            
-                        </Tab>                        
+                        </Tab>   
+                        <Tab eventKey="Launchpad-NFT" title="Launchpad-NFT">                            
+                            <Row>                            
+                                     <CreateTablanchpad/>                                                 
+                            </Row>                            
+                        </Tab> 
+                        <Tab eventKey="My-Avatars" title="My-Avatars">                            
+                            <Row>                            
+                                     <CreateTabavatar/>                                                 
+                            </Row>                            
+                        </Tab>                     
                         
                         
                         {/* <Tab eventKey="Fractional-Claim" title="Fractional-Claim">
