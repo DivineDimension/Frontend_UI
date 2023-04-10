@@ -88,14 +88,14 @@ const CreateTab =({x})=>{
         let amountmul=(parseFloat(getprices)*1000000000000000000); 
             
 
-        let amt ;
-        if(b.bidAmount > 0){
-            amt = b.bidAmount;
-        }
-        else{
-            amt = b.price;
-        }
-        console.log("amountmul",parseInt(amountmul),parseInt(amt))
+        // let amt ;
+        // if(b.bidAmount > 0){
+        //     amt = b.bidAmount;
+        // }
+        // else{
+        //     amt = b.price;
+        // }
+        // console.log("amountmul",parseInt(amountmul),parseInt(amt))
         if(getprices === null || getprices === undefined || getprices === "" ){
             toast.warning(`please enter price`,{autoClose:5000})
             handleHideLoad()            
@@ -105,11 +105,11 @@ const CreateTab =({x})=>{
             handleHideLoad()            
         }
         // // else if(getprices === "0" || parseInt(getprices) === 0){
-        else if(parseInt(amountmul) < parseInt(amt)){
+        // else if(parseInt(amountmul) < parseInt(amt)){
 
-            toast.warning(`please enter above Higgestprice price`,{autoClose:5000})
-            handleHideLoad()            
-        }
+        //     toast.warning(`please enter above Higgestprice price`,{autoClose:5000})
+        //     handleHideLoad()            
+        // }
         // else if(getprices === "00" || getprices === "000" || getprices === "0000" || getprices === "00000" || getprices === "000000" || getprices === "0000000"){
         //     toast.warning(`you are entered zeros`,{autoClose:5000})
         //     handleHideLoad()            
@@ -141,7 +141,7 @@ const CreateTab =({x})=>{
             console.log("AmountLog",amountmul);
             const accounts = await web3.eth.getAccounts();
             const landcontract = new web3.eth.Contract(landAbi, landAddress);
-            let hash =  await landcontract.methods.placeBid(b.assetId,web3.utils.toBN(amountmul)).send({from:accounts[0]});
+            let hash =  await landcontract.methods.putForSale([b.assetId],[web3.utils.toBN(amountmul)]).send({from:accounts[0]});
             console.log("hash",hash.transactionHash)
             let transaction2Hash=hash.transactionHash
 
@@ -203,7 +203,8 @@ const CreateTab =({x})=>{
             //     })                        
             // })  
             try{
-                await updateAuctionDetails(amountmul.toString(),b.assetId);
+                // await updateAuctionDetails(amountmul.toString(),b.assetId);
+                await updateLandByPrice(amountmul.toString(),b.assetId);
                 // await createActivityTable(localStorage.getItem('EAWalletAddress'),"Update price", pooladdressfinal,transaction2Hash,"Royalty-NFT")
                 toast.success(`Bidded Successfully`,{autoClose: 5000});            
                     //await saledb()
@@ -276,10 +277,11 @@ const CreateTab =({x})=>{
                         {/* <h6 className='mb-2'>Price: {x.price ? (x.price/1000000000000000000) : "0.0"}</h6> */}
                         {/* <h5 className='d-flex mb-3 align-items-center'> */}
                             {/* <img src={userprofile.bgvImagePath} alt="logo" className='me-2 avatar-pic' />                         */}
-                        {/* <div className="input-group-max d-flex align-items-center text-nowrap px-3 input-group-max-lg w-100">
+                        <div className="input-group-max d-flex align-items-center text-nowrap px-3 input-group-max-lg w-100">
                         <input type="number" placeholder='Enter Price' className='form-control' value={((getprices))} onChange={event => setprices((event.target.value))} />
                         </div>
-                        </h5>  */}
+                        {/* </h5>  */}
+                        <br/>
 
                         {/* {dbalance === "" || dbalance === null || dbalance === undefined || dbalance === 0 ||dbalance === "0" ? (<>
                             <ButtonLoad  variant="blue" className='w-100' >Dont have Dime Token</ButtonLoad>   
@@ -294,7 +296,7 @@ const CreateTab =({x})=>{
                         </>)}                                    
 
                         </>)} */}
-                        {/* <ButtonLoad loading={loader} variant="blue" className='w-100' onClick={()=>{setpricedb(x)}}>Update Price and Sale</ButtonLoad>                                         */}
+                        <ButtonLoad loading={loader} variant="blue" className='w-100' onClick={()=>{setpricedb(x)}}>Update Price and Resale</ButtonLoad>                                        
                         {/* </>
                     ):(
                         <>

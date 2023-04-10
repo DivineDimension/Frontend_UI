@@ -9,12 +9,12 @@ import GNFTPetTab from './GNFTPetTab';
 import GNFTPhotographyTab from './GNFTPhotographyTab';
 import GNFTSportsTab from './GNFTSportsTab';
 import GNFTExploreTab from './GNFTExploreTab';
-import islm from '../../assets/images/isl.png';
-import bud from '../../assets/images/bud.png';
-import scan from '../../assets/images/scan.png';
-import mus from '../../assets/images/mus.png';
-import chr from '../../assets/images/chr.png';
-import hin from '../../assets/images/hin.png';
+import islm from '../../assets/images/mesmerizing-shot-famous-historic-taj-mahal-agra-india.jpg';
+import bud from '../../assets/images/Aachen Cathedral.jpg';
+import scan from '../../assets/images/Stupa_Borobudur.jpg';
+import mus from '../../assets/images/Humayun’s Tomb.jpg';
+import chr from '../../assets/images/brihadisvara.jpeg';
+import hin from '../../assets/images/Fatehpur Sikri.jpg';
 
 
 const TopCollectionsNFTN = () => {
@@ -119,25 +119,14 @@ const TopCollectionsNFTN = () => {
                                                 </Card>                                              
                                                              
                                 </Col>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                                {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={hin} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
-                              
-                                </Row>
-                                <Row>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
-                            <Card className='card-dash p-3 d-block border-0'>  
-                                 <img src={chr} className='img-fluid'
-                                                // width={100} height={100}
-                                                ></img>  
-                                                </Card>                                              
-                                                             
-                                </Col>
+                                </Col> */}
                                 <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={mus} className='img-fluid'
@@ -146,7 +135,19 @@ const TopCollectionsNFTN = () => {
                                                 </Card>                                              
                                                              
                                 </Col>
+                              
                                 </Row>
+                                {/* <Row> */}
+                                {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                            <Card className='card-dash p-3 d-block border-0'>  
+                                 <img src={chr} className='img-fluid'
+                                                // width={100} height={100}
+                                                ></img>  
+                                                </Card>                                              
+                                                             
+                                </Col> */}
+                                
+                                {/* </Row> */}
                                
                             {/* {getImgreffalgosale === null || getImgreffalgosale === "" || getImgreffalgosale === undefined || getImgreffalgosale[0] === null || getImgreffalgosale[0] === "" || getImgreffalgosale[0] === undefined || filterdata()[0] === null || filterdata()[0] === "" || filterdata()[0] === undefined ? (
                                 <>
@@ -229,27 +230,29 @@ const TopCollectionsNFTN = () => {
                             </Dropdown>
                             </div>
                             <Row>
-                            <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                            {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={islm} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                                </Col> */}
+                                {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={bud} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
+                                </Col> */}
                                 <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
-                                 <img src={scan} className='img-fluid'
+                                 <img src={chr} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
+                                                <br/>
+                                                <a href='https://divinedimension.itch.io/bigtemple' target="_blank" rel="noreferrer">View</a>
                                                 </Card>                                              
                                                              
                                 </Col>
@@ -264,22 +267,22 @@ const TopCollectionsNFTN = () => {
                               
                                 </Row>
                                 <Row>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                                {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={chr} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                                </Col> */}
+                                {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={mus} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
+                                </Col> */}
                                 </Row>
                                
                             {/* {getImgreffalgosale === null || getImgreffalgosale === "" || getImgreffalgosale === undefined || getImgreffalgosale[0] === null || getImgreffalgosale[0] === "" || getImgreffalgosale[0] === undefined || filterdata()[0] === null || filterdata()[0] === "" || filterdata()[0] === undefined ? (

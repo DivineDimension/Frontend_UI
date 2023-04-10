@@ -120,7 +120,13 @@ function Header() {
     
     const copyCheck = () =>
     {
-        navigator.clipboard.writeText(localStorage.getItem("walletAddress"));
+        if(localStorage.getItem("walletUsed") === "Metamask"){
+            navigator.clipboard.writeText(localStorage.getItem("walletAddress"));
+        }
+        else{
+            navigator.clipboard.writeText(localStorage.getItem("EAWalletAddress"));
+        }
+        
         handleCopied() 
     }
 
