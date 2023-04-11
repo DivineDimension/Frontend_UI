@@ -329,7 +329,7 @@ useEffect(()=>{getmethd()},[])
             </div>
 
             <div className="pagination-footer d-flex align-items-center justify-content-between">
-                <p>showing {startingpage+1}-{startingpage + 4} from {parseFloat(dbvalues.length/4).toFixed(0)} Page</p>
+                {/* <p>showing {startingpage+1}-{startingpage + 4} from {parseFloat(dbvalues.length/4).toFixed(0)} Page</p> */}
 
                 <div className="d-flex pagination align-items-center">
                     {/* <Button variant='arrow'  onClick={()=>{setpostcall()}}>
