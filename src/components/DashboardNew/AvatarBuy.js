@@ -262,8 +262,9 @@ const CreateTab =({x})=>{
                                             )}                                            
                                         </span>
                                         </p>
-                                        <br />                    
-                        {/* {x.price === "" || x.price === null || x.price === undefined || x.price === 0 ?(
+                                        <br />  
+
+                        {/* {x.price === "" || xhh.price === null || x.price === undefined || x.price === 0 ?(
                         <>                                             */}
                         {/* <img src={userprofile.bgvImagePath} alt="logo" className='me-2 avatar-pic' />   */}
                         {/* <h6 className='mb-2'>Price : 1 Aptos</h6> */}
