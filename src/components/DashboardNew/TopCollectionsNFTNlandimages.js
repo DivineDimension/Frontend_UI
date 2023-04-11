@@ -267,7 +267,7 @@ const TopCollectionsNFTN = () => {
                                                                                       
                                             {/* </h6></span></h4>                                         */}
                                         {/* <h6 className='mb-2'>{x.Description}</h6> */}
-                                     <center><a href='https://divinedimension.itch.io/bigtemple' target="_blank" rel="noreferrer">View</a>
+                                     <center><a href='https://divinedimension.itch.io/bigtempleavatar' target="_blank" rel="noreferrer">View</a>
                                         </center>   
                                             {/* <a href='https://divinedimension.itch.io/bigtemple' target="_blank" rel="noreferrer">View</a> */}
                                         {/* {x.NFTPrice === "" || x.NFTPrice === null || x.NFTPrice === undefined ?(
