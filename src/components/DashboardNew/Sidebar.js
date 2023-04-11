@@ -12,7 +12,7 @@ import launchpadicon from '../../assets/images/launchpad.png';
 import GenerateDid from '../../assets/images/icons/generate-did.png';
 import GenesisMarket from '../../assets/images/icons/genesis-market.png';
 import shop from '../../assets/images/shop.png';
-import game from '../../assets/images/play.jpg';
+import stats from '../../assets/images/stats.png';
 import map from '../../assets/images/map.png';
 import asst from '../../assets/images/asst.jpg';
 import earn from '../../assets/images/earn.jpg';
@@ -221,6 +221,24 @@ const Sidebar = ({activeClass, handleLink}) => {
                         <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
                             
                             <Link to="/land"><img src={tourism} alt="CBDC Hub"  ></img>Virtual Tourism</Link>
+                             
+                        </Dropdown.Toggle>
+                    )} 
+                                                
+                                         
+                  
+                </Dropdown>
+            </li> 
+            <li>
+                <Dropdown>
+                    {device > 1199 && activeClass ? (
+                        <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
+                            <img src={stats} alt="CBDC Hub" />
+                        </Dropdown.Toggle>
+                    ) : (                            
+                        <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
+                            
+                            <Link to="/analytics"><img src={stats} alt="CBDC Hub"  ></img>Stats</Link>
                              
                         </Dropdown.Toggle>
                     )} 
