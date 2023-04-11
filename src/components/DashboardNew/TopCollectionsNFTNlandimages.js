@@ -9,12 +9,18 @@ import GNFTPetTab from './GNFTPetTab';
 import GNFTPhotographyTab from './GNFTPhotographyTab';
 import GNFTSportsTab from './GNFTSportsTab';
 import GNFTExploreTab from './GNFTExploreTab';
-import islm from '../../assets/images/isl.png';
-import bud from '../../assets/images/bud.png';
-import scan from '../../assets/images/scan.png';
-import mus from '../../assets/images/mus.png';
-import chr from '../../assets/images/chr.png';
-import hin from '../../assets/images/hin.png';
+import islm from '../../assets/images/mesmerizing-shot-famous-historic-taj-mahal-agra-india.jpg';
+import bud from '../../assets/images/Aachen Cathedral.jpg';
+import scan from '../../assets/images/Stupa_Borobudur.jpg';
+import mus from '../../assets/images/Humayun’s Tomb.jpg';
+// import chr from '../../assets/images/brihadisvara.jpeg';
+import chr from '../../assets/images/brTemple.png';
+import hin from '../../assets/images/Fatehpur Sikri.jpg';
+import w1 from '../../assets/images/wi1.jpeg';
+import w2 from '../../assets/images/wi2.jpeg';
+import w3 from '../../assets/images/wi3.jpeg';
+import w4 from '../../assets/images/wi4.jpeg';
+import w5 from '../../assets/images/wi5.jpeg';
 
 
 const TopCollectionsNFTN = () => {
@@ -97,7 +103,7 @@ const TopCollectionsNFTN = () => {
                             <Row>
                             <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
-                                 <img src={islm} className='img-fluid'
+                                 <img src={w1} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
@@ -105,7 +111,7 @@ const TopCollectionsNFTN = () => {
                                 </Col>
                                 <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
-                                 <img src={bud} className='img-fluid'
+                                 <img src={w2} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
@@ -113,7 +119,7 @@ const TopCollectionsNFTN = () => {
                                 </Col>
                                 <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
-                                 <img src={scan} className='img-fluid'
+                                 <img src={w3} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
@@ -121,7 +127,15 @@ const TopCollectionsNFTN = () => {
                                 </Col>
                                 <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
-                                 <img src={hin} className='img-fluid'
+                                 <img src={w5} className='img-fluid'
+                                                // width={100} height={100}
+                                                ></img>  
+                                                </Card>                                              
+                                                             
+                                </Col>
+                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                            <Card className='card-dash p-3 d-block border-0'>  
+                                 <img src={w4} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
@@ -129,24 +143,17 @@ const TopCollectionsNFTN = () => {
                                 </Col>
                               
                                 </Row>
-                                <Row>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                                {/* <Row> */}
+                                {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={chr} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
-                            <Card className='card-dash p-3 d-block border-0'>  
-                                 <img src={mus} className='img-fluid'
-                                                // width={100} height={100}
-                                                ></img>  
-                                                </Card>                                              
-                                                             
-                                </Col>
-                                </Row>
+                                </Col> */}
+                                
+                                {/* </Row> */}
                                
                             {/* {getImgreffalgosale === null || getImgreffalgosale === "" || getImgreffalgosale === undefined || getImgreffalgosale[0] === null || getImgreffalgosale[0] === "" || getImgreffalgosale[0] === undefined || filterdata()[0] === null || filterdata()[0] === "" || filterdata()[0] === undefined ? (
                                 <>
@@ -229,57 +236,109 @@ const TopCollectionsNFTN = () => {
                             </Dropdown>
                             </div>
                             <Row>
-                            <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                            {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={islm} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                                </Col> */}
+                                {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={bud} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
-                            <Card className='card-dash p-3 d-block border-0'>  
-                                 <img src={scan} className='img-fluid'
-                                                // width={100} height={100}
-                                                ></img>  
-                                                </Card>                                              
-                                                             
-                                </Col>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
-                            <Card className='card-dash p-3 d-block border-0'>  
-                                 <img src={hin} className='img-fluid'
-                                                // width={100} height={100}
-                                                ></img>  
-                                                </Card>                                              
-                                                             
-                                </Col>
+                                </Col> */}
+                                  <Col xxl={6} md={6} sm={6} xs={24} className='mb-2'>
+                                    <Card className='card-dash p-3 d-block border-0'>  
+                                    <div>
+                                                                        
+                                        </div>
+                                        <br/>                                                                    
+                                        <div className='card-img text-center mb-2'>                                            
+                                                <img src={chr} alt="image" className='img-fluid' />                                            
+                                        </div>
+                                        <div className='d-flex mb-2 justify-content-between flex-wrap align-items-center'>                                        
+                                        </div>                                        
+                                        {/* <h4 className='mb-2'>{x.Name} <br /><span className='text-success'><h6> */}
+                                                                                      
+                                            {/* </h6></span></h4>                                         */}
+                                        {/* <h6 className='mb-2'>{x.Description}</h6> */}
+                                     <center><a href='https://divinedimension.itch.io/bigtemple' target="_blank" rel="noreferrer">View</a>
+                                        </center>   
+                                            {/* <a href='https://divinedimension.itch.io/bigtemple' target="_blank" rel="noreferrer">View</a> */}
+                                        {/* {x.NFTPrice === "" || x.NFTPrice === null || x.NFTPrice === undefined ?(
+                                            <>                                                                                        
+                                            <Button variant="blue" className='w-100' s>Buy NFT</Button>                                        
+                                            </>
+                                        ):(
+                                            <Link to={{
+                                                pathname: "/NFTn-details",            
+                                                state:{allData:x}                                                
+                                            }}>
+                                            <Button variant="blue" className='w-100'>Buy NFT</Button>
+                                            </Link>
+                                        )}  */}
+                                        
+                                    </Card>
+                                    
+                                    </Col>
+                                    <Col xxl={6} md={6} sm={6} xs={24} className='mb-2'>
+                                    <Card className='card-dash p-3 d-block border-0'>  
+                                    <div>
+                                                                        
+                                        </div>
+                                        <br/>                                                                    
+                                        <div className='card-img text-center mb-2'>                                            
+                                                <img src={hin} alt="image" className='img-fluid' />                                            
+                                        </div>
+                                        <div className='d-flex mb-2 justify-content-between flex-wrap align-items-center'>                                        
+                                        </div>                                        
+                                        {/* <h4 className='mb-2'>{x.Name} <br /><span className='text-success'><h6> */}
+                                                                                      
+                                            {/* </h6></span></h4>                                         */}
+                                        {/* <h6 className='mb-2'>{x.Description}</h6> */}
+                                       
+                                            {/* <a href='https://divinedimension.itch.io/bigtemple' target="_blank" rel="noreferrer">View</a> */}
+                                        {/* {x.NFTPrice === "" || x.NFTPrice === null || x.NFTPrice === undefined ?(
+                                            <>                                                                                        
+                                            <Button variant="blue" className='w-100' s>Buy NFT</Button>                                        
+                                            </>
+                                        ):(
+                                            <Link to={{
+                                                pathname: "/NFTn-details",            
+                                                state:{allData:x}                                                
+                                            }}>
+                                            <Button variant="blue" className='w-100'>Buy NFT</Button>
+                                            </Link>
+                                        )}  */}
+                                        
+                                    </Card>
+                                    
+                                    </Col>
+                               
                               
                                 </Row>
                                 <Row>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                                {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={chr} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
-                                <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
+                                </Col> */}
+                                {/* <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'>  
                                  <img src={mus} className='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>  
                                                 </Card>                                              
                                                              
-                                </Col>
+                                </Col> */}
                                 </Row>
                                
                             {/* {getImgreffalgosale === null || getImgreffalgosale === "" || getImgreffalgosale === undefined || getImgreffalgosale[0] === null || getImgreffalgosale[0] === "" || getImgreffalgosale[0] === undefined || filterdata()[0] === null || filterdata()[0] === "" || filterdata()[0] === undefined ? (

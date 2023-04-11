@@ -138,19 +138,19 @@ const CreateTab =({x})=>{
             let hash =  await landcontract.methods.buynow(x.assetId).send({from:accounts[0]});
             console.log("hash",hash.transactionHash)
             let transaction2Hash=hash.transactionHash
-
-         
+            let id = "https://sepolia.etherscan.io/tx"+transaction2Hash;
+            toast.success(toastDiv(id));
+            
               
             //   //await storeDbUpdate(valuess,address,caddress,Prices);
             //   let calc=(parseFloat(getprices)*100000000)
-              let id = "https://sepolia.etherscan.io/tx"+transaction2Hash;
+            
               //let id = "https://explorer.aptoslabs.com/txn/"+res2CS.hash;
             //   let transaction2Hash = await swappet(transaction)
             //   console.log("transactionHash", transaction2Hash); 
                 // let id = "https://explorer.aptoslabs.com/txn/"+transactionHash;        
             //   let id = "https://explorer.aptoslabs.com/txn/"+transaction2Hash+"?network=testnet";
-              toast.success(toastDiv(id));
-              await sleep(12000)       
+                   
             //   await storeDbUpdate(valuess,address,caddressnew,calc,"AptosNFTR","AptosNFTRS");        
             // let getaaaa=new web3.eth.Contract(abiroyalty,b.EscrowAddress);
             // const accounts = await  web3.eth.getAccounts();
@@ -201,7 +201,9 @@ const CreateTab =({x})=>{
             //     })                        
             // })  
             try{
-                await updateAvatarStatus(localStorage.getItem("walletAddress"),b.name);
+                await updateLandByPrice("0",b.assetId);
+                await updateLandByOnwer(localStorage.getItem("walletAddress"),b.assetId);
+                await sleep(12000)  
                 // await updateLandByPrice("0",x.assetId);
                 // await createActivityTable(localStorage.getItem('EAWalletAddress'),"Update price", pooladdressfinal,transaction2Hash,"Royalty-NFT")
                 toast.success(`Land purchaed Successfully`,{autoClose: 5000});            

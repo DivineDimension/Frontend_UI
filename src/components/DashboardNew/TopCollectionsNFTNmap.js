@@ -277,7 +277,7 @@ const TopCollectionsNFTN = () => {
                          {allLand.map((r,i)=>{
                             return(
                                 <>
-                               {r.status ==="yes" ?
+                               {r.price ==="0" || r.price === 0 ?
                                (<>
                                
                                </>):(<>
@@ -507,7 +507,7 @@ const TopCollectionsNFTN = () => {
                 
                                 <>
 
-                               {r.status === "yes" ?
+                               {r.price === "0" || r.price === 0?
                                (<>
                                 <LandownSale x={r}/>
                                </>):(<>
