@@ -173,7 +173,10 @@ useEffect(()=>{getmethd()},[])
             <div className="table-group-outer table-group-lg">
                 <div className="table-group-head">
                     <div className="table-group-tr">
-                        <div className="table-group-th">Name</div>
+                        <div className="table-group-th">Name</div> 
+                        
+                        {/* th-head */}
+                       
                         <div className="table-group-th"></div>
                         {/* <div className="table-group-th"></div> */}
                         <div className="table-group-th">
@@ -189,10 +192,14 @@ useEffect(()=>{getmethd()},[])
                                 </Dropdown.Menu> */}
                             {/* </Dropdown> */}
                         </div>
-                       
-                        <div className="table-group-th"></div>
+                        <div className="table-group-th">ownerAddress </div>
+                        {/* <div className="table-group-th"></div> */}
                         <div className="table-group-th">Type </div>
-                        <div className="table-group-th">price</div>
+                        <div className="table-group-th">socialLink </div>
+                        <div className="table-group-th"></div>
+                        <div className="table-group-th">createdTime </div>
+
+                        {/* <div className="table-group-th">price</div> */}
                         {/* <div className="table-group-th">POOL</div> */}
                         {/* <div className="table-group-th"></div> */}
                         {/* <div className="table-group-th text-end">fees (yearly)</div> */}
@@ -236,15 +243,16 @@ useEffect(()=>{getmethd()},[])
                             <div className=" text-gray-AA" >
                             {/* <img src="https://c.tenor.com/FBeNVFjn-EkAAAAS/ben-redblock-loading.gif"/> */}
                             
-<div className="table-group-tr">
+<div className="table-group-tr"> 
 <div className="table-group-td">
     <div className="d-flex align-items-center td-cell">
+    <img src={pageSize.imagePath} alt='icon'className='me-2 avatar-pic' />
         {/* <img src={checklogo(pageSize.AssetName1,pageSize.AssetId1)} alt='icon' /> */}
         {/* <img src={checklogo(pageSize.AssetName2,pageSize.AssetId2)} alt='icon' /> */}
         <span className=' text-truncate'>{pageSize.nftName ? pageSize.nftName:""}</span>
     </div>
 </div>
-<div className="table-group-td"></div>
+<div className="table-group-td"></div>  
 
 {/* <div className="table-group-td"></div> */}
 {/* {(pageSize.AssetName1=== "ALGO" || pageSize.AssetName2 ==="ALGO") ? 
@@ -258,11 +266,43 @@ useEffect(()=>{getmethd()},[])
  (<>
  <div className="table-group-td">{parseFloat(pageSize.tvl/1000000).toFixed(3)}</div>
  </>)} */}
- <div className="table-group-td">{pageSize.creatorAddress ? (pageSize.creatorAddress).slice(0,5) :""} ...{pageSize.creatorAddress ? (pageSize.creatorAddress).slice(10,15) :""}</div>
+ {/* <div className="table-group-td">{pageSize.creatorAddress ? (pageSize.creatorAddress).slice(0,5) :""} ...{pageSize.creatorAddress ? (pageSize.creatorAddress).slice(10,15) :""}<a className='mb-3 ms-3 text-white d-flex align-items-center btn-link' href={"https://explorer.aptoslabs.com/account/" + pageSize.creatorAddress + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
+                            <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
+                            View on explorer
+                        </a> </div> */}
+<div className="table-group-td">
+  <a href={"https://explorer.aptoslabs.com/account/" + pageSize.creatorAddress + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
+    {pageSize.creatorAddress ? (pageSize.creatorAddress).slice(0,5) : ""} ...{pageSize.creatorAddress ? (pageSize.creatorAddress).slice(10,15) : ""}
+    {/* <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path>
+    </svg> */}
+   
+  </a>
+</div>
+
+{/* 
+ <div className="table-group-td">{pageSize.ownerAddress ? (pageSize.ownerAddress).slice(0,5) :""} ...{pageSize.ownerAddress ? (pageSize.ownerAddress).slice(10,15) :""}<a className='mb-3 ms-3 text-white d-flex align-items-center btn-link' href={"https://explorer.aptoslabs.com/account/" + pageSize.ownerAddress  + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
+                            <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
+                            View on explorer
+                        </a></div> */}
+
+<div className="table-group-td">
+  <a href={"https://explorer.aptoslabs.com/account/" + pageSize.ownerAddress + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
+    {pageSize.ownerAddress ? (pageSize.ownerAddress).slice(0,5) : ""} ...{pageSize.ownerAddress ? (pageSize.ownerAddress).slice(10,15) : ""}
+    {/* <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path>
+    </svg> */}
+   
+  </a>
+</div>
 {/* <div className="table-group-td">{parseFloat(pageSize.tvl/1000000).toFixed(3)}</div> */}
-<div className="table-group-td"></div>
+{/* <div className="table-group-td"></div> */}
 <div className="table-group-td">{pageSize.nftType  ? pageSize.nftType:"" }</div>
-<div className="table-group-td">{pageSize.nftPrice?pageSize.nftPrice:"0.0"}</div>
+{/* <div className="table-group-td"></div> */}
+<div classname="table-group-td">{pageSize.socialLink ? pageSize.socialLink:""}</div>
+<div className="table-group-td"></div>
+<div classname="table-group-td">{pageSize.createdTime ? pageSize.createdTime:""}</div>
+{/* <div className="table-group-td">{pageSize.nftPrice?pageSize.nftPrice:"0.0"}</div> */}
 {/* <div className="table-group-td text-truncate">ELEMENT POOL {(pageSize.asetName1)}-{pageSize.asetName2}</div> */}
 {/* <div className="table-group-td"> */}
     {/* <div className="d-flex align-items-center">
@@ -315,8 +355,7 @@ useEffect(()=>{getmethd()},[])
                     </Button> */}
                 </div>
             </div>
-         
-           
+            
 
 
         </div>
