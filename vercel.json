@@ -108,6 +108,11 @@
             "source": "/platform/v1/nftAll",
             "destination": "https://testapi1.stasisonline.in/platform/v1/nftAll"
         }
+        ,
+        {
+            "source": "/platform/v1/launchpad",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/launchpad"
+        }
         
         
     ]

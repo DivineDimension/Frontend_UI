@@ -711,11 +711,11 @@ const MyNFT = () => {
                                      <CreateTabTab/>                                                 
                             </Row>                            
                         </Tab>   
-                        <Tab eventKey="Launchpad-NFT" title="Launchpad-NFT">                            
+                        {/* <Tab eventKey="Launchpad-NFT" title="Launchpad-NFT">                            
                             <Row>                            
                                      <CreateTablanchpad/>                                                 
                             </Row>                            
-                        </Tab> 
+                        </Tab>  */}
                         <Tab eventKey="My-Avatars" title="My-Avatars">                            
                             <Row>                            
                                      <CreateTabavatar/>                                                 

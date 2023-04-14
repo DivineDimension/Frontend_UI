@@ -20,7 +20,7 @@ import LauchpadApp from "./components/DashboardNew/Launchpad";
 import Home from './components/HomePageswap';
 import SinglesideAmm from './components/HomePageswap';
 import Analytics from './components/Dashboard/Analytics';
-//import FaucetApp from './components/DashboardNew/Faucet';
+import LaunchpadApp from './components/DashboardNew/Launchpad';
 import TopCollectionsNFTNplay from './components/DashboardNew/TopCollectionsNFTNplay';
 import TopCollectionsNFTNmap from './components/DashboardNew/TopCollectionsNFTNmap';
 import TopCollectionsNFTNavatarimages from './components/DashboardNew/TopCollectionsNFTNavatarimages';
@@ -50,6 +50,7 @@ import LaunchPadNew from "./components/DashboardNew/Launchpadnew";
 import AvatarNew from "./components/DashboardNew/LaunchpadAvatar";
 import TopCollectionsAuction from "./components/DashboardNew/TopCollectionsAuction"
 import NFTDetailsNFT from "./components/DashboardNew/NFTDetailsNFT";
+// import NFTDetailsLanchpad from "./components/DashboardNew/NFTDetailsNFTLaunchpad";
 import NFTDetailsAuction from "./components/DashboardNew/NFTDetailsAuction";
 //import Liquidity from "./components/DashboardNew/liquidity";
 import DashboardNFT from "./components/DashboardNew/DashboardNFT";
@@ -208,7 +209,10 @@ function App() {
         </Route>                        
         <Route path="/NFTn-details">
           <NFTDetailsNFT />
-        </Route>          
+        </Route>  
+        {/* <Route path="/NFTn-Lanchpad">
+          <NFTDetailsLanchpad />
+        </Route>          */}
         <Route path="/Erc1155-details">
           <NFTDetailsERC1155 />
         </Route>                 
@@ -325,6 +329,10 @@ function App() {
         <Route path="/nft-avatar">
           <AvatarNew />
         </Route>
+        <Route path="/launchpad">
+          <LaunchpadApp />
+        </Route>
+        
         <Route path="/home">
           <HomePage />                    
         </Route>  
