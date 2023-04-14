@@ -816,3 +816,39 @@ export const getallNFt = async() =>{
     console.log("getallLandSale", data2)
     return {data2};
 }
+
+//create launchpad
+export const createLaunchpad = async(name,descr,email,starttime,endtime,rewards,walletaddrr,imagepath,price) =>{
+
+  let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
+  axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+  let datas = {
+      "name": name,
+      "description":descr,
+      "email":email,
+      "startTime":starttime,
+      "endTime":endtime,
+      "totalSale":rewards,
+      "walletAddress":walletaddrr,
+      "imagePath":imagepath,
+      "price":price,
+      "approvalStatus":"No"
+      }
+
+const options2 = {
+  method: 'POST',
+  url: '/platform/v1/launchpad',
+  headers: {
+    'x-api-key': `${key}`    
+  },
+  data: datas
+};
+
+axios.request(options2).then(function (response2) {
+ console.log("response",response2);
+//  window.location.reload();
+}).catch(function (error) {
+    console.error("done2",error);
+});
+  
+}
