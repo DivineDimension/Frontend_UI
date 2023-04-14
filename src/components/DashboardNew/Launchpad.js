@@ -5,8 +5,8 @@ import {
     Link
   } from "react-router-dom";
 
-//import PostCard from './snippets/PostCard';
-//import PostCardNew from './snippets/PostCardNew';
+import PostCard from './snippets/PostCard';
+// import PostCardNew from './snippets/PostCardNew';
 //import PostCardElem from './snippets/PostCardElem';
 //import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import launchpadDetails from './snippets/launchpad.json'
@@ -20,7 +20,7 @@ function Launchpad() {
             <Container>
                 <Row className='mb-5'>
                     <Col lg={4} className='mb-4'>
-                        {/* <PostCard /> */}
+                        <PostCard />
                     </Col>
                     {/* <Col lg={4} className='mb-4'>
                         <PostCardNew />

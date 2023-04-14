@@ -20,13 +20,18 @@ import map6 from '../../assets/images/map6.png';
 import map7 from '../../assets/images/map7.png';
 import map8 from '../../assets/images/map8.png';
 import landmap from '../../assets/images/landmap.png';
-import plus from '../../assets/images/plusicon.png';
-import minus from '../../assets/images/minusicon.png';
+import u2 from '../../assets/images/u2.png';
+import w5 from '../../assets/images/wi5.jpeg';
+import Image from '../../assets/images/peacock.png';
+import t18 from '../../assets/images/t8.png';
 import { async } from 'q';
 import web3 from '../../web3';
 import { getallAvatar, getallLand, getallLandbywallet } from '../../awsdatafile';
 import { landAbi } from '../../abi&contractfiles/abi';
 import { landAddress } from '../../abi&contractfiles/contractaddress';
+
+import PostCard from './snippets/PostCard';
+import PostCardduplicate from './snippets/PostCardduplicate';
 const TopCollectionsNFTN = () => {
     useEffect(() => {
         document.title = "DivineDimension | Map"
@@ -45,6 +50,8 @@ const TopCollectionsNFTN = () => {
     const [getprices,setprices]=useState("") 
     const[getImgreffalgosalePhotography,setgetImgreffalgosalePhotography]=useState([]);
     const[ownedLand,setOwnedLand]=useState([]);  
+    const[upComing,setupComing]=useState([]);
+    const[completed,setcompleted]=useState([]);
     console.log("onwedland",ownedLand)  
     const[allLand,setAllLand]=useState([]); 
 
@@ -53,6 +60,48 @@ const TopCollectionsNFTN = () => {
 
     
    const getlandbywallet = async() =>{
+
+    let upcoming = [
+        {
+         name:"Cultural Adventurer NFT",
+         startTime:"1681800472",
+         endTime:"1688398664",
+         deployerAddr:"0x98c76c6286e9373f775ca68bd671df9adef7867ac8cd24167f571a6f060bcd66",
+         ownerAddr:"0xdf47ac52cd9e0e78b95ae6ce91c09e4ea512cb034231e8ef315f75dbf1de2ec9",
+         totalSale:150,
+         imgurl:t18,
+         price:"1.5"
+        } ,
+        {
+            name:"Cultural NFT",
+            startTime:"1681800472",
+            endTime:"1688398664",
+            deployerAddr:"0x98c76c6286e9373f775ca68bd671df9adef7867ac8cd24167f571a6f060bcd66",
+            ownerAddr:"0xdf47ac52cd9e0e78b95ae6ce91c09e4ea512cb034231e8ef315f75dbf1de2ec9",
+            totalSale:1000,
+            imgurl:w5,
+            price:"3"
+        } 
+
+        
+    ]
+    setupComing(upcoming);
+
+    let comple = [
+        {
+         name:"World Voyager",
+         startTime:"1677957800",
+         endTime:"1681257845",
+         deployerAddr:"0x98c76c6286e9373f775ca68bd671df9adef7867ac8cd24167f571a6f060bcd66",
+         ownerAddr:"0xdf47ac52cd9e0e78b95ae6ce91c09e4ea512cb034231e8ef315f75dbf1de2ec9",
+         totalSale:1000,
+         imgurl:u2,
+         price:"2"
+        } 
+
+        
+    ]
+    setcompleted(comple);
     if(localStorage.getItem("EAWalletAddress") === null || localStorage.getItem("EAWalletAddress") === ""|| localStorage.getItem("EAWalletAddress") === undefined){
 
     }
@@ -60,9 +109,33 @@ const TopCollectionsNFTN = () => {
         // let ownedland = await getallLandbywallet(localStorage.getItem("walletAddress"));
         // console.log("onwedland",ownedland)
         // setOwnedLand(ownedland.data2);
-        let allLand = await getallAvatar();
-        console.log("allLand",allLand.data2)
-        setAllLand(allLand.data2);
+        let k = [
+               {
+                name:"Divine Explorer NFT",
+                startTime:"1681368652",
+                endTime:"1686398664",
+                deployerAddr:"0x98c76c6286e9373f775ca68bd671df9adef7867ac8cd24167f571a6f060bcd66",
+                ownerAddr:"0xdf47ac52cd9e0e78b95ae6ce91c09e4ea512cb034231e8ef315f75dbf1de2ec9",
+                totalSale:100,
+                imgurl:Image,
+                price:"0.1"
+               } 
+            //    {
+            //     name:"Cultural Adventurer NFT",
+            //     startTime:"1686398664",
+            //     endTime:"1686398664",
+            //     deployerAddr:"0x98c76c6286e9373f775ca68bd671df9adef7867ac8cd24167f571a6f060bcd66",
+            //     ownerAddr:"0xdf47ac52cd9e0e78b95ae6ce91c09e4ea512cb034231e8ef315f75dbf1de2ec9",
+            //     totalSale:250,
+            //     imgurl:t18,
+            //     price:"0.02"
+            //    } 
+            ]
+           
+        // let allLand = await getallAvatar();
+        // console.log("allLand",allLand.data2)
+        // setAllLand(allLand.data2);
+        setAllLand(k);
     }
     
    }
@@ -161,7 +234,7 @@ const TopCollectionsNFTN = () => {
                    
                         </Tab> */}
 
-                        <Tab eventKey="Launchpad" title="Launchpad">
+                        <Tab eventKey="Launchpad" title="Upcoming">
                             <div className='d-flex justify-content-end mb-3'>
                             <Dropdown>
                                 <Dropdown.Toggle variant='dark' className='noarrow' id="dropdown-basic">
@@ -202,6 +275,83 @@ const TopCollectionsNFTN = () => {
                                 </Dropdown.Menu>
                             </Dropdown>
                             </div>
+                            <h3>Upcoming</h3>
+                            
+                            <Row>
+                         
+                            {upComing === "" || upComing === null || upComing === undefined || upComing === "undefined" ? 
+                         (<></>):(<>
+                         {upComing.map((r,i)=>{
+                            return(
+                                <>
+                               {/* {r.status === "yes" ?
+                               (<>
+                               
+                               </>):(<> */}
+                               
+                                {/* <LandBuy x={r}/> */}
+                                <PostCardduplicate x ={r}></PostCardduplicate>
+                               {/* </>)} */}
+                               </>)})}
+                               </>)}
+                              
+                              
+                            
+                            </Row>
+                           
+                        
+                              
+                              
+                          
+                          
+
+
+                           
+                        </Tab>
+                        <Tab eventKey="Live" title="Live">
+                            <div className='d-flex justify-content-end mb-3'>
+                            <Dropdown>
+                                <Dropdown.Toggle variant='dark' className='noarrow' id="dropdown-basic">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi ms-0 me-2 bi-sort-down-alt" viewBox="0 0 16 16">
+                                        <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
+                                    </svg> Sort
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu className='list-unstyled' align="end">
+                                    <Form.Check 
+                                        type='radio'
+                                        id="sort 4"
+                                        label="View All"
+                                        name="sort"
+                                        onChange={()=>{setrecent("View All")}}
+                                    />
+                                    <Form.Check 
+                                        type='radio'
+                                        id="sort 1"
+                                        label="24 hours"
+                                        name="sort"
+                                        onChange={()=>{setrecent("Recently added")}}
+                                    />
+                                    <Form.Check 
+                                        type='radio'
+                                        id="sort 2"
+                                        name="sort"
+                                        label="Price low - high"
+                                        onChange={()=>{setrecent("Low to High")}}
+                                    />
+                                    <Form.Check 
+                                        type='radio'
+                                        id="sort 3"
+                                        name="sort"
+                                        label="Price high - low"
+                                        onChange={()=>{setrecent("High to Low")}}
+                                    />
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            </div>
+                          
+                            <h3>Live</h3>
+                            
                             <Row>
                          
                             {allLand === "" || allLand === null || allLand === undefined || allLand === "undefined" ? 
@@ -209,13 +359,14 @@ const TopCollectionsNFTN = () => {
                          {allLand.map((r,i)=>{
                             return(
                                 <>
-                               {r.status === "yes" ?
+                               {/* {r.status === "yes" ?
                                (<>
                                
-                               </>):(<>
+                               </>):(<> */}
                                
-                                <LandBuy x={r}/>
-                               </>)}
+                                {/* <LandBuy x={r}/> */}
+                                <PostCard x ={r}></PostCard>
+                               {/* </>)} */}
                                </>)})}
                                </>)}
                               
@@ -240,24 +391,83 @@ const TopCollectionsNFTN = () => {
                             </>
                             )}                   */}
                             </Row>
+                            <br/>
+                            
+                          
 
-                            {/* {getImgreffalgosale.length <= 10 ? (
-                                <></>
-                            ):(
-                                <div className='pagination justify-content-end d-flex align-items-center'>                                
-                                <Button variant='page' onClick={()=>{decrementSize()}}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" class="bi m-0 bi-chevron-left" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </Button>
-                                <Button variant='page' onClick={()=>{setPageSize(pageSize+4)}}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" class="bi m-0 bi-chevron-right" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                                    </svg>
-                                </Button>
+
+                           
+                        </Tab>
+                        <Tab eventKey="Completed" title="Completed">
+                            <div className='d-flex justify-content-end mb-3'>
+                            <Dropdown>
+                                <Dropdown.Toggle variant='dark' className='noarrow' id="dropdown-basic">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi ms-0 me-2 bi-sort-down-alt" viewBox="0 0 16 16">
+                                        <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
+                                    </svg> Sort
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu className='list-unstyled' align="end">
+                                    <Form.Check 
+                                        type='radio'
+                                        id="sort 4"
+                                        label="View All"
+                                        name="sort"
+                                        onChange={()=>{setrecent("View All")}}
+                                    />
+                                    <Form.Check 
+                                        type='radio'
+                                        id="sort 1"
+                                        label="24 hours"
+                                        name="sort"
+                                        onChange={()=>{setrecent("Recently added")}}
+                                    />
+                                    <Form.Check 
+                                        type='radio'
+                                        id="sort 2"
+                                        name="sort"
+                                        label="Price low - high"
+                                        onChange={()=>{setrecent("Low to High")}}
+                                    />
+                                    <Form.Check 
+                                        type='radio'
+                                        id="sort 3"
+                                        name="sort"
+                                        label="Price high - low"
+                                        onChange={()=>{setrecent("High to Low")}}
+                                    />
+                                </Dropdown.Menu>
+                            </Dropdown>
                             </div>
+                         
+                            <h3>Completed</h3>
+                            
+                            <Row>
+                         
+                            {completed === "" || completed === null || completed === undefined || completed === "undefined" ? 
+                         (<></>):(<>
+                         {completed.map((r,i)=>{
+                            return(
+                                <>
+                               {/* {r.status === "yes" ?
+                               (<>
+                               
+                               </>):(<> */}
+                               
+                                {/* <LandBuy x={r}/> */}
+                                <PostCardduplicate x ={r}></PostCardduplicate>
+                               {/* </>)} */}
+                               </>)})}
+                               </>)}
+                              
+                              
+                            
+                            </Row>
+                            <br/>
+                          
 
-                            ) }                             */}
+
+                           
                         </Tab>
                     
                       
