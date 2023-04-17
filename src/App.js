@@ -21,6 +21,7 @@ import Home from './components/HomePageswap';
 import SinglesideAmm from './components/HomePageswap';
 import Analytics from './components/Dashboard/Analytics';
 import LaunchpadApp from './components/DashboardNew/Launchpad';
+import LaunchPadApply from './components/DashboardNew/Launchpadapply';
 import TopCollectionsNFTNplay from './components/DashboardNew/TopCollectionsNFTNplay';
 import TopCollectionsNFTNmap from './components/DashboardNew/TopCollectionsNFTNmap';
 import TopCollectionsNFTNavatarimages from './components/DashboardNew/TopCollectionsNFTNavatarimages';
@@ -325,6 +326,9 @@ function App() {
         </Route>
         <Route path="/nft-launchpad">
           <LaunchPadNew />
+        </Route>
+        <Route path="/nft-launchpadapply">
+          <LaunchPadApply />
         </Route>
         <Route path="/nft-avatar">
           <AvatarNew />

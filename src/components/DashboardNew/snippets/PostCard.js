@@ -76,12 +76,14 @@ const PostCard = ({x}) => {
 
     const handleAssetFalse = () => setToAssetOpt(false);
     const handleAssetTrue = () => setToAssetOpt(true);
-    const [Img,setImg] = useState("")    
+    const [Img1,setImg1] = useState("")    
     const [Imgname,setImgname] = useState("") 
     const[loader, setLoader] = useState(false);
     const handleShowLoad = () => setLoader(true);
     const handleHideLoad = () => setLoader(false); 
 
+
+    console.log("image",Img1)
     // let appID_global = launchpadDetails['app1']['appID'];
     let escrow_global = "LMCGCWB7LOFIQBIKO663W4OOOQQCNWQGU23HCMLYXX3S35OXS47XLXLTXQ";
     // let elementID_global = launchpadDetails['app1']['elemAssetID'];
@@ -94,6 +96,63 @@ const port = '';
 const token = {
    'X-API-Key': 'pOD5BAUCxq7InVPjo0sO01B0Vq4d7pD1ask5Ix43'
 }
+
+const captureFile1 =async(event) => {
+    event.stopPropagation()
+    event.preventDefault()
+    const file = event.target.files[0]
+    setImgname(file.name)
+    setFile(file)
+    const MIN_FILE_SIZE = 1024 // 1KB
+    const MAX_FILE_SIZE = 500120 // 500KB
+    let fileSizeKiloBytes = file.size 
+    let c=0;
+    if(fileSizeKiloBytes < MIN_FILE_SIZE){
+      toast.dismiss();
+      toast.error("File size is less than minimum limit",{autoClose:3000});          
+      c=c+1;
+      handleHideLoad()                               
+      await sleep(4000);
+      window.location.reload(false)
+    }
+    if(fileSizeKiloBytes > MAX_FILE_SIZE){
+      toast.dismiss();
+      toast.error("File size is greater than maximum limit",{autoClose:3000});      
+      c=c+1;
+      handleHideLoad()  
+      await sleep(4000);                             
+      window.location.reload(false)
+    }        
+    if(c===0){
+    let reader = new window.FileReader()
+    try{
+    Compress.imageFileResizer(file, 500, 500, 'JPEG', 200, 0,
+    uri => {          
+        setImg1(uri)
+        // console.log("uri",uri);          
+    },
+    'base64'
+    );
+    
+    reader.readAsArrayBuffer(file)        
+    }catch (err) {      
+    }
+    }else{
+      toast.dismiss();
+      toast.error("Support file size: 1 kb to 500 kb ",{autoClose:3000});                
+      handleHideLoad()                               
+      await sleep(4000);
+      window.location.reload(false)
+      
+    }
+    
+}; 
+
+
+const clearImage = () =>{
+    setImg1("")
+    console.log("clearing")
+  }
 
 
 useEffect(()=>{getmydeposit()},[]);
@@ -138,88 +197,13 @@ const gettotaldeposit = async() =>{
 
 // useEffect(async() =>{await fetch()},[goal, startdt, enddt, total])
 
-useEffect(() => {
-     first()
-}, []);
+
 
 // function sleep(ms) {
 //     return new Promise(resolve => setTimeout(resolve, ms));
 //  }
 
-const first = async () => {
-    let k = {
-        name:"Divine Explorer NFT",
-        startTime:"1681368652",
-        endTime:1686398664,
-        deployerAddr:"0x98c76c6286e9373f775ca68bd671df9adef7867ac8cd24167f571a6f060bcd66",
-        ownerAddr:"0xdf47ac52cd9e0e78b95ae6ce91c09e4ea512cb034231e8ef315f75dbf1de2ec9",
-        totalSale:100,
-        imgurl:Image,
-        price:"0.1"
-       } 
 
-    var us= k.endTime;
-    var ff=new Date(us);
-    
-setdate(ff.toDateString());
-var hours = ff.getHours();
-  var minutes = ff.getMinutes();
-  var ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;
-  settime( hours + ':' + minutes + ' ' + ampm);
-//settime(lock);
-var countDowndate   =us * 1000;
-
-// var countDownDate = new Date().getTime() + (lock * 1000) ;
-//alert(time);
-    var x = setInterval(function() {
-       var now = new Date().getTime();
-      var distance = countDowndate - now ;
-      console.log("countDowndate",countDowndate,distance);
-    //    //console.log("-------------------now", distance);
-     //  //console.log(now);
-      // Time calculations for days, hours, minutes and seconds
-     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-    //    //console.log("date e", day);
-    //    //console.log("hour e", hour);
-    //    //console.log("min e", minutes);
-    //    //console.log("sec e", seconds);
-
-      // Output the result in an element with id="demo"
-     // document.getElementById("demo").innerHTML = hours + "h "
-     // + minutes + "m " + seconds + "s ";
-    setTime4(days);
-    setTim1(hours);
-    setTim2(minutes);
-    setTim3(seconds);
-
-
-    
-    
-    
-    
-      // If the count down is over, write some text 
-      if (distance < 0) {
-            clearInterval(x);
-            setlock(false);
-
-           //  //console.log('CountDown Finished');
-        }
-        else{
-         setlock(true);
-        }
-
-    
-      
-    }, 1000);
-
-}
 
 // const fetch = async () => {
 // let index = parseInt(appID_global); //current app id need to be entered
@@ -260,63 +244,10 @@ const convertEpochToDateTime = (epoch) => {
     return dateTimeStr;
   };
 
-  const captureFile =async(event) => {
-    event.stopPropagation()
-    event.preventDefault()
-    const file = event.target.files[0]
-    setImgname(file.name)
-    setFile(file)
-    const MIN_FILE_SIZE = 1024 // 1KB
-    const MAX_FILE_SIZE = 500120 // 500KB
-    let fileSizeKiloBytes = file.size 
-    let c=0;
-    if(fileSizeKiloBytes < MIN_FILE_SIZE){
-      toast.dismiss();
-      toast.error("File size is less than minimum limit",{autoClose:3000});          
-      c=c+1;
-      handleHideLoad()                               
-      await sleep(4000);
-      window.location.reload(false)
-    }
-    if(fileSizeKiloBytes > MAX_FILE_SIZE){
-      toast.dismiss();
-      toast.error("File size is greater than maximum limit",{autoClose:3000});      
-      c=c+1;
-      handleHideLoad()  
-      await sleep(4000);                             
-      window.location.reload(false)
-    }        
-    if(c===0){
-    let reader = new window.FileReader()
-    try{
-    Compress.imageFileResizer(file, 500, 500, 'JPEG', 200, 0,
-    uri => {          
-        setImg(uri)          
-    },
-    'base64'
-    );
-    reader.readAsArrayBuffer(file)        
-    }catch (err) {      
-    }
-    }else{
-      toast.dismiss();
-      toast.error("Support file size: 1 kb to 500 kb ",{autoClose:3000});                
-      handleHideLoad()                               
-      await sleep(4000);
-      window.location.reload(false)
-      
-    }
-    
-}; 
-
-
-const clearImage = () =>{
-    setImg("")
-  }
 
 
   const participate = async() =>{
-    if(Img === "" || Img === null || Img === undefined){            
+    if(Img1 === "" || Img1 === null || Img1 === undefined){            
         toast.warning(`please Upload Image`,{autoClose:5000})
         handleHideLoad()
     }
@@ -441,6 +372,83 @@ const clearImage = () =>{
    </div>
   );
 
+  const first = async () => {
+    let k = {
+        name:"Divine Explorer NFT",
+        startTime:"1681368652",
+        endTime:1686398664,
+        deployerAddr:"0x98c76c6286e9373f775ca68bd671df9adef7867ac8cd24167f571a6f060bcd66",
+        ownerAddr:"0xdf47ac52cd9e0e78b95ae6ce91c09e4ea512cb034231e8ef315f75dbf1de2ec9",
+        totalSale:100,
+        imgurl:Image,
+        price:"0.1"
+       } 
+
+    var us= k.endTime;
+    var ff=new Date(us);
+    
+setdate(ff.toDateString());
+var hours = ff.getHours();
+  var minutes = ff.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  settime( hours + ':' + minutes + ' ' + ampm);
+//settime(lock);
+var countDowndate   =us * 1000;
+
+// var countDownDate = new Date().getTime() + (lock * 1000) ;
+//alert(time);
+    var x = setInterval(function() {
+       var now = new Date().getTime();
+      var distance = countDowndate - now ;
+    //   console.log("countDowndate",countDowndate,distance);
+    //    //console.log("-------------------now", distance);
+     //  //console.log(now);
+      // Time calculations for days, hours, minutes and seconds
+     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+    //    //console.log("date e", day);
+    //    //console.log("hour e", hour);
+    //    //console.log("min e", minutes);
+    //    //console.log("sec e", seconds);
+
+      // Output the result in an element with id="demo"
+     // document.getElementById("demo").innerHTML = hours + "h "
+     // + minutes + "m " + seconds + "s ";
+    setTime4(days);
+    setTim1(hours);
+    setTim2(minutes);
+    setTim3(seconds);
+
+
+    
+    
+    
+    
+      // If the count down is over, write some text 
+      if (distance < 0) {
+            clearInterval(x);
+            setlock(false);
+
+           //  //console.log('CountDown Finished');
+        }
+        else{
+         setlock(true);
+        }
+
+    
+      
+    }, 1000);
+
+}
+useEffect(() => {
+    first()
+}, []);
     return (
         
         <>
@@ -601,9 +609,9 @@ const clearImage = () =>{
                     <label>Image</label>
                     <div className='upload-box text-center'>
 
-{Img === null || Img === "" || Img === undefined ?(
+{Img1 === null || Img1 === "" || Img1 === undefined ?(
   <>
-  <input id="upload" type="file" hidden onChange = {captureFile}/>
+  <input id="upload" type="file" hidden onChange = {captureFile1}/>
   <label htmlFor='upload'>
       <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi mb-3 bi-upload" viewBox="0 0 16 16">
           <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
@@ -615,7 +623,7 @@ const clearImage = () =>{
   </>
 ):(
   <>
-  <input id="upload" type="file" hidden onChange = {captureFile}/>
+  <input id="upload" type="file" hidden onChange = {captureFile1}/>
   <label htmlFor='Image Uploaded' className='p-2' >                                                                        
   <Button variant='link' className='p-0 text-white btn-closeimg' onClick={()=>{clearImage()}}>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -629,7 +637,7 @@ const clearImage = () =>{
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
       </svg>
   </Button> 
-  <img src={Img} alt="Img" className='img-fluid w-100 rounded-16' />            
+  <img  key={Date.now()} src={Img1} alt="Img" className='img-fluid w-100 rounded-16' />            
   </label>
   </>
 )}
