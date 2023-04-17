@@ -138,88 +138,88 @@ const gettotaldeposit = async() =>{
 
 // useEffect(async() =>{await fetch()},[goal, startdt, enddt, total])
 
-useEffect(() => {
-     first()
-}, []);
+// useEffect(() => {
+//      first()
+// }, []);
 
 // function sleep(ms) {
 //     return new Promise(resolve => setTimeout(resolve, ms));
 //  }
 
-const first = async () => {
-    let k = {
-        name:"Divine Explorer NFT",
-        startTime:"1681368652",
-        endTime:1686398664,
-        deployerAddr:"0x98c76c6286e9373f775ca68bd671df9adef7867ac8cd24167f571a6f060bcd66",
-        ownerAddr:"0xdf47ac52cd9e0e78b95ae6ce91c09e4ea512cb034231e8ef315f75dbf1de2ec9",
-        totalSale:100,
-        imgurl:Image,
-        price:"0.1"
-       } 
+// const first = async () => {
+//     let k = {
+//         name:"Divine Explorer NFT",
+//         startTime:"1681368652",
+//         endTime:1686398664,
+//         deployerAddr:"0x98c76c6286e9373f775ca68bd671df9adef7867ac8cd24167f571a6f060bcd66",
+//         ownerAddr:"0xdf47ac52cd9e0e78b95ae6ce91c09e4ea512cb034231e8ef315f75dbf1de2ec9",
+//         totalSale:100,
+//         imgurl:Image,
+//         price:"0.1"
+//        } 
 
-    var us= k.endTime;
-    var ff=new Date(us);
+//     var us= k.endTime;
+//     var ff=new Date(us);
     
-setdate(ff.toDateString());
-var hours = ff.getHours();
-  var minutes = ff.getMinutes();
-  var ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;
-  settime( hours + ':' + minutes + ' ' + ampm);
-//settime(lock);
-var countDowndate   =us * 1000;
+// setdate(ff.toDateString());
+// var hours = ff.getHours();
+//   var minutes = ff.getMinutes();
+//   var ampm = hours >= 12 ? 'pm' : 'am';
+//   hours = hours % 12;
+//   hours = hours ? hours : 12; // the hour '0' should be '12'
+//   minutes = minutes < 10 ? '0'+minutes : minutes;
+//   settime( hours + ':' + minutes + ' ' + ampm);
+// //settime(lock);
+// var countDowndate   =us * 1000;
 
-// var countDownDate = new Date().getTime() + (lock * 1000) ;
-//alert(time);
-    var x = setInterval(function() {
-       var now = new Date().getTime();
-      var distance = countDowndate - now ;
-      console.log("countDowndate",countDowndate,distance);
-    //    //console.log("-------------------now", distance);
-     //  //console.log(now);
-      // Time calculations for days, hours, minutes and seconds
-     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+// // var countDownDate = new Date().getTime() + (lock * 1000) ;
+// //alert(time);
+//     var x = setInterval(function() {
+//        var now = new Date().getTime();
+//       var distance = countDowndate - now ;
+//       console.log("countDowndate",countDowndate,distance);
+//     //    //console.log("-------------------now", distance);
+//      //  //console.log(now);
+//       // Time calculations for days, hours, minutes and seconds
+//      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//       var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
         
-    //    //console.log("date e", day);
-    //    //console.log("hour e", hour);
-    //    //console.log("min e", minutes);
-    //    //console.log("sec e", seconds);
+//     //    //console.log("date e", day);
+//     //    //console.log("hour e", hour);
+//     //    //console.log("min e", minutes);
+//     //    //console.log("sec e", seconds);
 
-      // Output the result in an element with id="demo"
-     // document.getElementById("demo").innerHTML = hours + "h "
-     // + minutes + "m " + seconds + "s ";
-    setTime4(days);
-    setTim1(hours);
-    setTim2(minutes);
-    setTim3(seconds);
+//       // Output the result in an element with id="demo"
+//      // document.getElementById("demo").innerHTML = hours + "h "
+//      // + minutes + "m " + seconds + "s ";
+//     setTime4(days);
+//     setTim1(hours);
+//     setTim2(minutes);
+//     setTim3(seconds);
 
 
     
     
     
     
-      // If the count down is over, write some text 
-      if (distance < 0) {
-            clearInterval(x);
-            setlock(false);
+//       // If the count down is over, write some text 
+//       if (distance < 0) {
+//             clearInterval(x);
+//             setlock(false);
 
-           //  //console.log('CountDown Finished');
-        }
-        else{
-         setlock(true);
-        }
+//            //  //console.log('CountDown Finished');
+//         }
+//         else{
+//          setlock(true);
+//         }
 
     
       
-    }, 1000);
+//     }, 1000);
 
-}
+// }
 
 // const fetch = async () => {
 // let index = parseInt(appID_global); //current app id need to be entered
@@ -445,39 +445,7 @@ const clearImage = () =>{
         
         <>
 {/* <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/></> */}
-                   <Modal show={showDonate} centered onHide={handleCloseDonate}>
-                {/* <Modal.Header class="btn-close btn-close-white" closeButton /> */}
-                <Modal.Body>
-                    <Button className='modal-close' onClick={handleCloseDonate} variant='reset'>
-                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g opacity="1">
-                            <path d="M17.5004 32.0832C9.44597 32.0832 2.91699 25.5542 2.91699 17.4998C2.91699 9.44546 9.44597 2.9165 17.5004 2.9165C25.5548 2.9165 32.0837 9.44546 32.0837 17.4998C32.0837 25.5542 25.5548 32.0832 17.5004 32.0832ZM17.5004 29.1665C20.5946 29.1665 23.562 27.9373 25.75 25.7494C27.9379 23.5615 29.1671 20.594 29.1671 17.4998C29.1671 14.4056 27.9379 11.4382 25.75 9.25026C23.562 7.06233 20.5946 5.83317 17.5004 5.83317C14.4062 5.83317 11.4387 7.06233 9.25076 9.25026C7.06283 11.4382 5.83367 14.4056 5.83367 17.4998C5.83367 20.594 7.06283 23.5615 9.25076 25.7494C11.4387 27.9373 14.4062 29.1665 17.5004 29.1665ZM17.5004 15.4378L21.6245 11.3121L23.6881 13.3757L19.5625 17.4998L23.6881 21.624L21.6245 23.6875L17.5004 19.5619L13.3762 23.6875L11.3126 21.624L15.4383 17.4998L11.3126 13.3757L13.3762 11.3121L17.5004 15.4378Z" fill="white"/>
-                            </g>
-                        </svg>
-                    </Button>
-                    <div className="pb-4 px-3">
                   
-                        <img 
-                        // src={SLogo} 
-                        width="80" className="mx-auto mb-1 d-block" alt="icon" />
-                        <h5 className="mb-1 text-center">Element</h5>
-                        <p className="mb-4 pb-3 text-center"></p>
-
-                        <Form className='form-area'>
-                        <Form.Group className="mb-4" controlId="formBasicPassword">
-                            <center><Form.Label><h3>Sale</h3></Form.Label></center> <br/>
-                            <center><Form.Label><p>Spendable Algo Balance:&nbsp;{(parseFloat(minAlgo)/1000000).toFixed(2) === 'NaN' ?<>0.00</> :(parseFloat(minAlgo)/1000000).toFixed(2)} ALGO</p></Form.Label></center> <br/>
-                            <Form.Control type="text" placeholder="Enter Amount" value={value} onChange={(e) => setValue(e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'))}/>
-                        </Form.Group>
-                            <Button variant="grad" size="lg" className='w-100' 
-                            // onClick={()=>Donate(value)}
-                            >
-                                Participate
-                            </Button>
-                        </Form>
-                    </div>
-                </Modal.Body>
-            </Modal>
             <div className="post-card">
                 <div className="post-card-image">
                     <img src={x.imgurl} alt="post img" />

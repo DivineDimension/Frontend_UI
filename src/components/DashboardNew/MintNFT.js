@@ -762,6 +762,7 @@ const MintNFT = () => {
 
                                     <div className='upload-box text-center'>
 
+
                                       {Img === null || Img === "" || Img === undefined ?(
                                         <>
                                         <input id="upload" type="file" hidden onChange = {captureFile}/>
