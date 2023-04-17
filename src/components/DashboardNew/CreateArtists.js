@@ -6,7 +6,7 @@ import ButtonLoad from 'react-bootstrap-button-loader';
 import { ToastContainer, Zoom, toast} from 'react-toastify';
 import firebase from '../../NFTFolder/firebase';
 import Compress from "react-image-file-resizer";
-import { createprofile } from '../../awsdatafile';
+import { createActivityTable, createprofile } from '../../awsdatafile';
 
 
 const CreateArtists = () => {
@@ -160,7 +160,8 @@ const CreateArtists = () => {
             //     done()
             // });  
             try{
-                await createprofile(localStorage.getItem('EAWalletAddress'),"",UserName,Twitter,SocialUrl, Bio, Img,"",Email)
+                await createprofile(localStorage.getItem('EAWalletAddress'),"",UserName,Twitter,SocialUrl, Bio, Img,"",Email);
+                await createActivityTable(localStorage.getItem('EAWalletAddress'),"Profile create","","","Avatar")
                 handleHideLoad()                
                 toast.dismiss()
                 toast.success(`Updated Details of The Artist`,{autoClose:5000})

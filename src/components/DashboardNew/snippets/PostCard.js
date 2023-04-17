@@ -301,6 +301,7 @@ const convertEpochToDateTime = (epoch) => {
                   let id = "https://explorer.aptoslabs.com/txn/"+transaction2Hash+"?network=testnet";
                   toast.success(toastDiv(id));
                   await sleep(12000)  
+                  await createActivityTable(localStorage.getItem('EAWalletAddress'),"Launchpad",nftName,transaction2Hash,"Launchpad")
                 // const transaction2 =  {
                 //   function: "0x3::token::create_token_script",
                 //   type_arguments: [],

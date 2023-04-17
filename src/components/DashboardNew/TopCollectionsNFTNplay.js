@@ -11,6 +11,7 @@ import GNFTSportsTab from './GNFTSportsTab';
 import ImageExploreTab from './imageExploreTab';
 import { getApprovedImages } from '../../firebaseuploadconfig';
 import { Link } from 'react-router-dom';
+import { createUserVisits } from '../../awsdatafile';
 
 const TopCollectionsNFTN = () => {
     useEffect(() => {
@@ -33,6 +34,12 @@ const TopCollectionsNFTN = () => {
         let getimages = await getApprovedImages();
         console.log("approved images",getimages)
         setApprovedImages(getimages);
+
+        if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
+
+        }else{
+            let uv = await createUserVisits(localStorage.getItem("EAWalletAddress"),"Aptos",localStorage.getItem("EAWalletName"),"Play Event");
+        }
     }
    
      

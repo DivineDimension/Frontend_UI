@@ -26,7 +26,7 @@ import Image from '../../assets/images/peacock.png';
 import t18 from '../../assets/images/t8.png';
 import { async } from 'q';
 import web3 from '../../web3';
-import { createLaunchpad, getallAvatar, getallLand, getallLandbywallet } from '../../awsdatafile';
+import { createLaunchpad, createUserVisits, getallAvatar, getallLand, getallLandbywallet } from '../../awsdatafile';
 import { landAbi } from '../../abi&contractfiles/abi';
 import Compress from "react-image-file-resizer";
 import { landAddress } from '../../abi&contractfiles/contractaddress';
@@ -150,6 +150,11 @@ const TopCollectionsNFTN = () => {
         // console.log("allLand",allLand.data2)
         // setAllLand(allLand.data2);
         setAllLand(k);
+    }
+    if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
+
+    }else{
+        let uv = await createUserVisits(localStorage.getItem("EAWalletAddress"),"Aptos",localStorage.getItem("EAWalletName"),"Launchpad");
     }
     
    }

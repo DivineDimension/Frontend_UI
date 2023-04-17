@@ -226,13 +226,17 @@ export const uservisist = async() =>{
       console.log("Api inside", data2)
       return {data2};
     }
-export const createUserVisits = async(ipAddress,algoaddre,networkType,wallettype,pagename) =>{
+export const createUserVisits = async(algoaddre,networkType,wallettype,pagename) =>{
+
+  const res = await fetch('https://geolocation-db.com/json/')
+  // console.log("ipv4",await res.json())
+  let k = (await res.json()).IPv4;
+  console.log("ipv4",k)
 
     let key = "BvXlBA50Iw58XBSBZltS2H5P9IwS76f9hojA6aE5";
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     let datas = {
-
-        "ipAddress":ipAddress,
+        "ipAddress":(k).toString(),
         "algoAddress":algoaddre,
         "networkType":networkType,
         "walletType":wallettype,

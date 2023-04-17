@@ -10,7 +10,7 @@ import GNFTPhotographyTab from './GNFTPhotographyTab';
 import GNFTSportsTab from './GNFTSportsTab';
 import GNFTExploreTab from './GNFTExploreTab';
 import { Link } from 'react-router-dom';
-import { getNFTDetailsByTypeSale } from '../../awsdatafile';
+import { createUserVisits, getNFTDetailsByTypeSale } from '../../awsdatafile';
 
 const TopCollectionsNFTN = () => {
     useEffect(() => {
@@ -32,6 +32,11 @@ const TopCollectionsNFTN = () => {
         let req = [];
         let slaenft = await getNFTDetailsByTypeSale("NFT","yes")
         setgetImgreffalgosale(slaenft.data2);
+        if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
+
+        }else{
+            let uv = await createUserVisits(localStorage.getItem("EAWalletAddress"),"Aptos",localStorage.getItem("EAWalletName"),"Shop");
+        }
         //firebase.auth().signInAnonymously().then((response)=>{      
         //   firebase.database().ref("EPolygonNFTNS").on("value", (data) => {
         //     if (data) {

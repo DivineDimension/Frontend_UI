@@ -20,7 +20,7 @@ import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 
 
 import { useHistory } from "react-router-dom";
-import { getallNFt } from '../../../awsdatafile';
+import { createUserVisits, getallNFt } from '../../../awsdatafile';
 // import {calltokenForUsers,callapiforuserslist,numberofpairs} from '../apicallfunction';
 // import moment from 'moment';
 // import MyAlgoConnect from "@randlabs/myalgo-connect";
@@ -117,7 +117,11 @@ const getmethd = async() =>{
   let k = await getallNFt();
   console.log("k",k.data2);
   setaprice(k.data2)
+  if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
 
+  }else{
+      let uv = await createUserVisits(localStorage.getItem("EAWalletAddress"),"Aptos",localStorage.getItem("EAWalletName"),"Stats");
+  }
 }
 
 useEffect(()=>{getmethd()},[])
