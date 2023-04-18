@@ -22,7 +22,7 @@ import CreateTabavatar from './CreateTabTabAvatar';
 //import Logo from '../../assets/images/logocifihomepage.png'
 import Logo from '../../assets/images/cover.png'
 import backcoverimage from '../../assets/images/backcoverimage.png'
-import { getActivityByWallet, getuserDetailsbywallet, putbgImagebywallet, uservisist } from '../../awsdatafile';
+import { createUserVisits, getActivityByWallet, getuserDetailsbywallet, putbgImagebywallet, uservisist } from '../../awsdatafile';
 //const algosdk = require('algosdk'); 
 
 const MyNFT = () => {    
@@ -48,12 +48,17 @@ const MyNFT = () => {
     const[getIProfile,setgetIProfile]=useState([""]);     
     console.log("UserP",getImgreffalgoActivity)   
     
-    // useEffect(()=>{calluser()},[]);
-    // const calluser = async()=>{
-    //     let uv = await uservisist();
-    //     await getuserDetailsbywallet();
-    //     console.log("uv",uv)
-    // }
+    useEffect(()=>{calluser()},[]);
+    const calluser = async()=>{
+        if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
+
+        }else{
+            let uv = await createUserVisits(localStorage.getItem("EAWalletAddress"),"Aptos",localStorage.getItem("EAWalletName"),"Avatar");
+        }
+      
+        // await getuserDetailsbywallet();
+        // console.log("uv",uv)
+    }
     
     const dbCallAddress=async()=>{            
         let r=[];

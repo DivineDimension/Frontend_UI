@@ -21,6 +21,7 @@ import w2 from '../../assets/images/wi2.jpeg';
 import w3 from '../../assets/images/wi3.jpeg';
 import w4 from '../../assets/images/wi4.jpeg';
 import w5 from '../../assets/images/wi5.jpeg';
+import { createUserVisits } from '../../awsdatafile';
 
 
 const TopCollectionsNFTN = () => {
@@ -39,7 +40,14 @@ const TopCollectionsNFTN = () => {
     const[getImgreffalgosaleTradingCards,setgetImgreffalgosaleTradingCards]=useState([]);    
 
 
-   
+   useEffect(()=>{getip()},[])
+   const getip = async() =>{
+    if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
+
+    }else{
+        let uv = await createUserVisits(localStorage.getItem("EAWalletAddress"),"Aptos",localStorage.getItem("EAWalletName"),"Virtual Tourism");
+    }
+   }
      
 
 

@@ -26,7 +26,7 @@ import plus from '../../assets/images/plusicon.png';
 import minus from '../../assets/images/minusicon.png';
 import { async } from 'q';
 import web3 from '../../web3';
-import { getallAvatarSale, getallLand, getallLandbywallet, getallLandSale } from '../../awsdatafile';
+import { createUserVisits, getallAvatarSale, getallLand, getallLandbywallet, getallLandSale } from '../../awsdatafile';
 import { landAbi } from '../../abi&contractfiles/abi';
 import { landAddress } from '../../abi&contractfiles/contractaddress';
 const TopCollectionsNFTN = () => {
@@ -82,6 +82,11 @@ const TopCollectionsNFTN = () => {
         setAllLand(allLand.data2);
         let purchasedland = await getallLandbywallet(localStorage.getItem("walletAddress"));
         setpurchasedLand(purchasedland.data2)
+    }
+    if(localStorage.getItem("walletAddress")  === null || localStorage.getItem("walletAddress")  === "" || localStorage.getItem("walletAddress")  === " " || localStorage.getItem("walletAddress") === undefined || localStorage.getItem("walletAddress") === ''){
+
+    }else{
+        let uv = await createUserVisits(localStorage.getItem("walletAddress"),"Sepolia","Metamask","Map");
     }
     
    }

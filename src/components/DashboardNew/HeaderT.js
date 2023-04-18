@@ -20,6 +20,7 @@ import { ToastContainer, Zoom, toast} from 'react-toastify';
 import axios from 'axios';
 import {DataContext} from "../../App";
 import { async } from 'q';
+import { createUserVisits } from '../../awsdatafile';
 //import { async } from 'q';
 //import { AppId,escrowProgram } from "../swapConfig";
 
@@ -127,8 +128,13 @@ const Header = (props) => {
                 console.log("get",get)
                 let response = await window.martian.connect();
                 localStorage.setItem("EAWalletAddress",response.address)
+                console.log("response",response.address)
+                let k = response.address
+                await createUserVisits(response.address,"Aptos","Martian","Connect Wallet")
+                await sleep(2000);
                 console.log(response); // { address: string, address: string }
                 await ReadBalance();
+               
                 window.location.reload(false);
                 
             } catch (err) {
@@ -159,9 +165,13 @@ const Header = (props) => {
                 const get = getpetraWallet();
                 console.log("get",get)
                 let response1 = await window.petra.connect();
+                await sleep(2000);
+                await createUserVisits(response1.address,"Aptos","Petra","Connect Wallet")
                 localStorage.setItem("EAWalletAddress",response1.address)
+               
                 console.log(response1); // { address: string, address: string }
                 await ReadBalance();
+               
                 window.location.reload(false);
 
           } catch (error) {
@@ -194,9 +204,14 @@ const Header = (props) => {
             console.log("get",get)
             let response2 = await window.pontem.connect();
             localStorage.setItem("EAWalletAddress",response2.address)
+            console.log(response2.address)
+            await sleep(3000);
+            await createUserVisits(response2.address,"Aptos","Phontem","Connect Wallet")
+            
             console.log(response2); // { address: string, address: string }
-            await ReadBalance();
-            window.location.reload(false);
+            // await ReadBalance();
+            
+            // window.location.reload(false);
 
       } catch (error) {
         console.log(error);
@@ -352,6 +367,8 @@ const Header = (props) => {
             console.log("response",accinforesponse.result);
             let accinfo = accinforesponse.result;
             localStorage.setItem("walletbalance",accinfo/1000000000000000000)
+            await createUserVisits(localStorage.getItem("walletAddress"),"Sepolia","Metamask","Connect Wallet")
+            await sleep(2000);
             //   window.location.reload()
         // setIsOpen(true);
         // setDis("Connected to Wrong Network,Please connect to Binance Testnet");
@@ -370,7 +387,8 @@ const Header = (props) => {
             window.wallet=accounts[0];
            
             localStorage.setItem("walletAddress", accounts[0]);
-            
+            await createUserVisits(accounts[0],"Sepolia","Metamask","Connect Wallet")
+            await sleep(2000);
             setShowButton(false);
            //sessionStorage.setItem("wallet", accounts[0]);
           }).then(async()=>{
@@ -384,6 +402,7 @@ const Header = (props) => {
         window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', '_blank','noreferrer');
       
       }
+      
     }
 
   
@@ -638,7 +657,7 @@ const Header = (props) => {
         let s1 = await k1.json();      
         localStorage.setItem('EAWalletBalance',(s1['data']['coin']['value']/100000000))
         setwalletbalance((s1['data']['coin']['value']/100000000))
-        window.location.reload(false)                                
+        // window.location.reload(false)                                
         setShowButton(false);
       }
 

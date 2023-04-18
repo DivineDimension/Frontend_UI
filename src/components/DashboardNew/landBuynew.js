@@ -203,6 +203,7 @@ const CreateTab =({x})=>{
             try{
                 await updateLandByPrice("0",b.assetId);
                 await updateLandByOnwer(localStorage.getItem("walletAddress"),b.assetId);
+                await createActivityTable(localStorage.getItem('walletAddress'),"Land Buy",b.assetId,transaction2Hash,"Map")
                 await sleep(12000)  
                 // await updateLandByPrice("0",x.assetId);
                 // await createActivityTable(localStorage.getItem('EAWalletAddress'),"Update price", pooladdressfinal,transaction2Hash,"Royalty-NFT")
