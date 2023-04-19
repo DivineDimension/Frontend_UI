@@ -7,6 +7,8 @@ import { Container, Tab, Tabs } from 'react-bootstrap';
 
 // import AnalyticChart from '../Sections/AnalyticCharts';
 import TopLiquidity from '../DashboardNew/snippets/TopLiquidity';
+
+import NFTLaunchpadStats from '../DashboardNew/snippets/NFTLaunchpadStats';
 import TopTokens from '../Snippets/TopTokens';
 
 const animatedComponents = makeAnimated();
@@ -78,6 +80,7 @@ function AnalyticsPage() {
                         </Tab> */}
                     {/* </Tabs> */}
                     <TopLiquidity />
+                    <NFTLaunchpadStats />
                     
                     
                     {/* <div>

@@ -48,6 +48,8 @@ import TopCollectionsFractional from "./components/DashboardNew/TopCollectionsFr
 import NFTDetailsFra from "./components/DashboardNew/NFTDetailsFra";
 import TopCollectionsNFTN from "./components/DashboardNew/TopCollectionsNFTN";
 import LaunchPadNew from "./components/DashboardNew/Launchpadnew";
+import LaunchPadNFT from "./components/DashboardNew/LaunchpadNFT";
+import PostCardNFT from "./components/DashboardNew/snippets/PostCardNFTLaunchpadlink";
 import AvatarNew from "./components/DashboardNew/LaunchpadAvatar";
 import TopCollectionsAuction from "./components/DashboardNew/TopCollectionsAuction"
 import NFTDetailsNFT from "./components/DashboardNew/NFTDetailsNFT";
@@ -326,6 +328,12 @@ function App() {
         </Route>
         <Route path="/nft-launchpad">
           <LaunchPadNew />
+        </Route>
+        <Route path="/launchpadNFT">
+          <LaunchPadNFT />
+        </Route>
+        <Route path="/nftLaunches">
+          <PostCardNFT />
         </Route>
         <Route path="/nft-launchpadapply">
           <LaunchPadApply />

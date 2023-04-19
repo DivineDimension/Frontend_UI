@@ -113,6 +113,11 @@
             "source": "/platform/v1/launchpad",
             "destination": "https://testapi1.stasisonline.in/platform/v1/launchpad"
         }
+        ,
+        {
+            "source": "/platform/v1/nftlaunchpad",
+            "destination": "https://testapi1.stasisonline.in/platform/v1/nftlaunchpad"
+        }
         
         
     ]
