@@ -20,7 +20,7 @@ import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 
 
 import { useHistory } from "react-router-dom";
-import { createUserVisits, getallNFt } from '../../../awsdatafile';
+import { createUserVisits, getallNFt, getallrecordTxnLaunchpad } from '../../../awsdatafile';
 // import {calltokenForUsers,callapiforuserslist,numberofpairs} from '../apicallfunction';
 // import moment from 'moment';
 // import MyAlgoConnect from "@randlabs/myalgo-connect";
@@ -50,7 +50,7 @@ import { createUserVisits, getallNFt } from '../../../awsdatafile';
 let data = "escrowProgram";
 const TopLiquidity = () => {
   useEffect(() => {
-    document.title = "Divine | Analytics"
+    document.title = "Divine | Stats"
 }, [])
     let history=useHistory();
     const[dbvalues,setdbvalue] = useState([])
@@ -114,14 +114,14 @@ const TopLiquidity = () => {
   
 const getmethd = async() =>{
 
-  let k = await getallNFt();
+  let k = await getallrecordTxnLaunchpad();
   console.log("k",k.data2);
   setaprice(k.data2)
-  if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
+//   if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
 
-  }else{
-      let uv = await createUserVisits(localStorage.getItem("EAWalletAddress"),"Aptos",localStorage.getItem("EAWalletName"),"Stats");
-  }
+//   }else{
+//       let uv = await createUserVisits(localStorage.getItem("EAWalletAddress"),"Aptos",localStorage.getItem("EAWalletName"),"Stats");
+//   }
 }
 
 useEffect(()=>{getmethd()},[])
@@ -168,7 +168,7 @@ useEffect(()=>{getmethd()},[])
 
           {/* <center><h6>Before Add Liquidity go to Swap Page and do App Opt-In</h6></center> */}
           {/* <br></br> */}
-            <h2 className="h3 text-uppercase mb-40">NFT Stats</h2>
+            <h2 className="h3 text-uppercase mb-40">Launchpad Stats</h2>
            
            
            
@@ -177,7 +177,7 @@ useEffect(()=>{getmethd()},[])
             <div className="table-group-outer table-group-lg">
                 <div className="table-group-head">
                     <div className="table-group-tr">
-                        <div className="table-group-th">Name</div> 
+                        <div className="table-group-th">NFT Name</div> 
                         
                         {/* th-head */}
                        
@@ -186,7 +186,7 @@ useEffect(()=>{getmethd()},[])
                         <div className="table-group-th">
                             {/* <Dropdown>
                                 <Dropdown.Toggle variant="reset" id="dropdown-basic"> */}
-                                    Creator Address
+                                    Buyer Address
                                 {/* </Dropdown.Toggle> */}
 
                                 {/* <Dropdown.Menu>
@@ -196,12 +196,12 @@ useEffect(()=>{getmethd()},[])
                                 </Dropdown.Menu> */}
                             {/* </Dropdown> */}
                         </div>
-                        <div className="table-group-th">ownerAddress </div>
+                        <div className="table-group-th">Price</div>
+                        <div className="table-group-th">Time</div>
+                        {/* <div className="table-group-th">Type </div> */}
+                        <div className="table-group-th">Phase </div>
                         {/* <div className="table-group-th"></div> */}
-                        <div className="table-group-th">Type </div>
-                        <div className="table-group-th">socialLink </div>
-                        {/* <div className="table-group-th"></div> */}
-                        <div className="table-group-th">createdTime </div>
+                        <div className="table-group-th"> Txn Hash </div>
 
                         {/* <div className="table-group-th">price</div> */}
                         {/* <div className="table-group-th">POOL</div> */}
@@ -250,10 +250,10 @@ useEffect(()=>{getmethd()},[])
 <div className="table-group-tr"> 
 <div className="table-group-td">
     <div className="d-flex align-items-center td-cell">
-    <img src={pageSize.imagePath} alt='icon'className='me-2 avatar-pic' />
+    <img src={pageSize.imageUrl} alt='icon'className='me-2 avatar-pic' />
         {/* <img src={checklogo(pageSize.AssetName1,pageSize.AssetId1)} alt='icon' /> */}
         {/* <img src={checklogo(pageSize.AssetName2,pageSize.AssetId2)} alt='icon' /> */}
-        <span className=' text-truncate'>{pageSize.nftName ? pageSize.nftName:""}</span>
+        <span className=' text-truncate'>{pageSize.name ? pageSize.name:""}</span>
     </div>
 </div>
 <div className="table-group-td"></div>  
@@ -275,8 +275,8 @@ useEffect(()=>{getmethd()},[])
                             View on explorer
                         </a> </div> */}
 <div className="table-group-td">
-  <a href={"https://explorer.aptoslabs.com/account/" + pageSize.creatorAddress + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
-    {pageSize.creatorAddress ? (pageSize.creatorAddress).slice(0,5) : ""} ...{pageSize.creatorAddress ? (pageSize.creatorAddress).slice(10,15) : ""}
+  <a href={"https://explorer.aptoslabs.com/account/" + pageSize.buyerAddress + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
+    {pageSize.buyerAddress ? (pageSize.buyerAddress).slice(0,5) : ""} ...{pageSize.buyerAddress ? (pageSize.buyerAddress).slice(10,15) : ""}
     {/* <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
       <path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path>
     </svg> */}
@@ -285,18 +285,19 @@ useEffect(()=>{getmethd()},[])
 </div>
 
 
-<div className="table-group-td">
-  <a href={"https://explorer.aptoslabs.com/account/" + pageSize.ownerAddress + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
-    {pageSize.ownerAddress ? (pageSize.ownerAddress).slice(0,5) : ""} ...{pageSize.ownerAddress ? (pageSize.ownerAddress).slice(10,15) : ""} 
-  </a>
-</div>
+
 {/* <div className="table-group-td">{parseFloat(pageSize.tvl/1000000).toFixed(3)}</div> */}
 {/* <div className="table-group-td"></div> */}
-<div className="table-group-td">{pageSize.nftType  ? pageSize.nftType:"" }</div>
+<div className="table-group-td">{pageSize.price  ? pageSize.price:"" }</div>
 {/* <div className="table-group-td"></div> */}
-<div classname="table-group-td">{pageSize.socialLink ? pageSize.socialLink:""}</div>
+<div classname="table-group-td">{pageSize.txnTime ? pageSize.txnTime:""}</div>
 {/* <div className="table-group-td"></div> */}
-<div classname="table-group-td">{pageSize.createdTime ? pageSize.createdTime:""}</div>
+<div classname="table-group-td">{pageSize.phase ? pageSize.phase:""}</div>
+<div className="table-group-td">
+  <a href={"https://explorer.aptoslabs.com/txn/" + pageSize.txnHash + "?network=testnet"} target="_blank" rel="noreferer noreferrer">
+    {pageSize.txnHash ? (pageSize.txnHash).slice(0,5) : ""} ...{pageSize.txnHash ? (pageSize.txnHash).slice(10,15) : ""} 
+  </a>
+</div>
 {/* <div className="table-group-td">{pageSize.nftPrice?pageSize.nftPrice:"0.0"}</div> */}
 {/* <div className="table-group-td text-truncate">ELEMENT POOL {(pageSize.asetName1)}-{pageSize.asetName2}</div> */}
 {/* <div className="table-group-td"></div> */}

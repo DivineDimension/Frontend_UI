@@ -7,7 +7,7 @@ import {
 
 //import Account from '../../assets/images/icons/account.png';
 import tourism from '../../assets/images/tourism.png';
-import Auction from '../../assets/images/icons/auction.png';
+import nfticon from '../../assets/images/nft.png';
 import launchpadicon from '../../assets/images/launchpad.png';
 import GenerateDid from '../../assets/images/icons/generate-did.png';
 import GenesisMarket from '../../assets/images/icons/genesis-market.png';
@@ -296,7 +296,30 @@ const Sidebar = ({activeClass, handleLink}) => {
                     )}                   
                    */}
                 </Dropdown>
-            </li>     
+            </li>  
+            <li>
+                <Dropdown>
+                    {device > 1199 && activeClass ? (
+                        <Dropdown.Toggle onClick={handleSide} variant='transparent' className="noarrow" id="dropdown-basic">
+                            <img src={nfticon} alt="CBDC Hub" />
+                        </Dropdown.Toggle>
+                    ) : (                            
+                        <Dropdown.Toggle variant='transparent' className="noarrow" id="dropdown-basic">
+                            
+                          <Link Link to="/launchpadNFT">  <img    src={nfticon} alt="CBDC Hub"  ></img>NFT Launchpad</Link>
+                             
+                        </Dropdown.Toggle>
+                    )}     
+                     {/* {device > 1199 && activeClass ? null : (
+                        <Dropdown.Menu show={location === "/nft-launchpad" || location === "/Mint-NFT" || location === "/createclub" || location === "/upcoming" || location ===  "/viewtoken" || location ==="/create-artists" ? true : false} as="ul" className={`list-unstyled position-relative mb-0 p-0 ${location === "/createteam" || location === "/createorg" || location === "/createclub" || location === "/createtoken" || location === "/viewtoken" ? 'd-block' : ''}`} style={{minWidth: 'auto'}}>                                
+                           
+                            <li><Link to="/upcoming"><img src={MyNFT} alt="Kyc" /> Experiences </Link></li>
+                            <li><Link to="/Mint-NFT"><img src={asst} alt="GenerateDid" /> Assets</Link></li>
+                             </Dropdown.Menu>
+                    )}                   
+                   */}
+                </Dropdown>
+            </li>      
             <li>
                 <Dropdown>
                     {device > 1199 && activeClass ? (
