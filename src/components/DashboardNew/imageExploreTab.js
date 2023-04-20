@@ -92,7 +92,7 @@ const ImageExploreTab = ({x})=>{
                                         <img src={Logo}  alt="logo" className='me-2 avatar-pic' />                                            
                                         ):(
                                             <>
-                                            {getIProfile1[0].Imageurl === null || getIProfile1[0].Imageurl === undefined || getIProfile1[0].Imageurl === ""  ? (
+                                            {getIProfile1.imagePath === null || getIProfile1.imagePath === undefined || getIProfile1.imagePath === ""  ? (
                                                 <img src={Logo}  alt="logo" className='me-2 avatar-pic' />                                                
                                             ):(
                                                 
@@ -100,7 +100,7 @@ const ImageExploreTab = ({x})=>{
                                                     pathname: "/my-NFTcopy",            
                                                     state:{allData:x}                                                
                                                 }}>
-                                                <img src={getIProfile1[0].Imageurl}  alt="logo" className='me-2 avatar-pic' />                                                
+                                                <img src={getIProfile1.imagePath}  alt="logo" className='me-2 avatar-pic' />                                                
                                                 </Link>
                                             )}                                            
                                             </>
@@ -108,21 +108,21 @@ const ImageExploreTab = ({x})=>{
                                         </div>
                                         <br/>                                                                    
                                         <div className='card-img text-center mb-2'>                                            
-                                                <img src={x.ImagePath} alt="image" className='img-fluid' />                                            
+                                                <img src={x.imagePath} alt="image" className='img-fluid' />                                            
                                         </div>
                                         <div className='d-flex mb-2 justify-content-between flex-wrap align-items-center'>                                        
                                         </div>                                        
-                                        <h4 className='mb-2'>{x.Name} <br /><span className='text-success'><h6>
+                                        <h4 className='mb-2'>{x.name} <br /><span className='text-success'><h6>
                                                                                       
                                             </h6></span></h4>                                        
-                                        <h6 className='mb-2'>{x.Description}</h6>
+                                        <h6 className='mb-2'>{x.description}</h6>
                                         <h6 >Rewards:
                                             {/* <img src={Logo} alt="logo" className='me-2 avatar-pic' /> */}
-                                            {x.Rewards}</h6> 
+                                            {x.rewards}</h6> 
                                             <h6 className='mb-2'>Ends In:
                                             {/* <img src={Logo} alt="logo" className='me-2 avatar-pic' /> */}
-                                            {x.EndDate}</h6> 
-                                            <a href='https://divinedimension.itch.io/bigtemple' target="_blank" rel="noreferrer">View</a>
+                                            {x.endTime}</h6> 
+                                            {/* <a href='https://divinedimension.itch.io/bigtemple' target="_blank" rel="noreferrer">View</a> */}
                                         {/* {x.NFTPrice === "" || x.NFTPrice === null || x.NFTPrice === undefined ?(
                                             <>                                                                                        
                                             <Button variant="blue" className='w-100' s>Buy NFT</Button>                                        

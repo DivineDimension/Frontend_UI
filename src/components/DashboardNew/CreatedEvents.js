@@ -17,6 +17,7 @@ import chr from '../../assets/images/chr.png';
 import hin from '../../assets/images/hin.png';
 import { getCreatedEvents } from '../../firebaseuploadconfig';
 import { Link } from 'react-router-dom';
+import { getEventbywallet } from '../../awsdatafile';
 
 
 const TopCollectionsNFTN = () => {
@@ -40,8 +41,9 @@ const TopCollectionsNFTN = () => {
         if(localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === ''){
         }
         else{
-           let createdevent =  await getCreatedEvents();
-           setCreatedEvent(createdevent)
+           let createdevent =  await getEventbywallet(localStorage.getItem("EAWalletAddress"));
+
+           setCreatedEvent(createdevent.data2)
            console.log("events",createdevent)
         }
     }
@@ -111,25 +113,28 @@ const TopCollectionsNFTN = () => {
                             </Dropdown>
                             </div>
                             <Row>
-                                {createdEvent[0]? (<>
-                                {createdEvent.map((r)=>{
+                                {createdEvent === null || createdEvent === "" || createdEvent === undefined? (<>
+                               
+                                    
+                                </>):(<>
+                                    {createdEvent.map((r)=>{
                                     return(
                                         
                                         <Col xxl={3} md={4} sm={6} xs={12} className='mb-4'>
                             <Card className='card-dash p-3 d-block border-0'> 
-                           <center> <h6 ><span className='text-info'>{r.Name}</span></h6></center>
+                           <center> <h6 ><span className='text-info'>{r.name}</span></h6></center>
                            <br/>
                             <div className='card-img text-center mb-2'>                                            
-                                                <img src={r.ImagePath} alt="image" className='img-fluid' />                                            
+                                                <img src={r.imagePath} alt="image" className='img-fluid' />                                            
                                         </div> 
 
-                                        <h6 className='mb-2 text-primary'>{r.Description}</h6>
-                                        {r.approved == "true"?(<>
+                                        <h6 className='mb-2 text-primary'>{r.description}</h6>
+                                        {r.approvalStatus == "yes"?(<>
                                             <h6 className='mb-2 text-secondary'>Approved successfully</h6>
                                         </>):(<>
                                             <h6 className='mb-2 text-secondary'>Approval is Pending</h6>
                                         </>)}
-                                        Event Start at<h6 className='mb-2 text-warning'> {r.StartDate}</h6>and Ends in<h6 className='mb-2 text-warning'>  {r.EndDate}</h6>
+                                        Event Start at<h6 className='mb-2 text-warning'> {r.startTime}</h6>and Ends in<h6 className='mb-2 text-warning'>  {r.endTime}</h6>
                                  {/* <img src={r.ImagePath} classDescription='img-fluid'
                                                 // width={100} height={100}
                                                 ></img>   */}
@@ -138,8 +143,7 @@ const TopCollectionsNFTN = () => {
                                 </Col>
                                     )
                                 })}
-                                    
-                                </>):(<></>)}
+                                </>)}
                            
                                
                               
