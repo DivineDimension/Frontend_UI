@@ -212,6 +212,35 @@ const NFTDetails = (props) => {
             let AssId = location.state.allData.Assetid
             let PriceId = parseFloat(location.state.allData.nftPrice)
             try{
+
+                try{
+                    let k = await fetch(`https://fullnode.testnet.aptoslabs.com/v1/accounts/${localStorage.getItem('EAWalletAddress')}/resource/0x3::token::TokenStore`)
+                      // console.log("fetch",await k.json())
+                      let dt = await k.json();
+                      console.log("dt",dt.data.tokens)
+                      
+                    } catch (err){
+                      console.log("No",err)
+                      
+              const transaction ={
+                function:"0x3::token::opt_in_direct_transfer",
+                type_arguments:[],
+                arguments:[true],
+                type:"entry_function_payload"
+              }
+              try {
+                const options = {
+                  max_gas_amount: "100000"
+              }
+              let transactionHash = await swappet(transaction)
+                console.log("transactionHash", transactionHash); 
+              
+              
+               
+              } catch (error) {
+              }
+                    
+                    }
                 // let getaaa=new web3.eth.Contract(abiroyalty,location.state.allData.escrowAddress);                        
                 // await getaaa.methods.buyThing(AssId).send({
                 //     from:localStorage.getItem('EAWalletAddress'), 

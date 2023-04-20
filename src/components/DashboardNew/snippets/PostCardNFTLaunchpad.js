@@ -478,13 +478,19 @@ useEffect(() => {
 
                 <div className="post-card-footer d-flex align-items-end justify-content-between">
                     <div>
-                    <Link to={{
+                        {localStorage.getItem("EAWalletAddress")  === null || localStorage.getItem("EAWalletAddress")  === "" || localStorage.getItem("EAWalletAddress")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("EAWalletAddress") === '' ?
+                        (<>
+                                            <Button disabled={true}>Participate</Button><br/><br/>
+                        </>):(<>
+                            <Link to={{
                                                     pathname: "/nftLaunches",            
                                                     state:{allData:x}                                                
                                                 }}>
                     <Button  >Participate</Button><br/><br/>
                     </Link>
-                    {/* <Button variant='grad' onClick={minBal}>check</Button><br/><br/> */}
+                        </>)}
+                  
+
 
                     {/* {localStorage.getItem("walletAddress") === creator ? (<><Button variant='grad' onClick={handleAddress}>ADD ADDRESS</Button><br/><br/></>):(<></>)} */}
                         

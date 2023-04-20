@@ -9,6 +9,7 @@ import fireDb from '../NFTFolder/firebase'
 import launchpadDetails from '../components/DashboardNew/snippets/launchpad.json'
 import {DataContext} from "../App";
 import { createevent } from "../firebaseuploadconfig";
+import { createActivityTable, createevents } from "../awsdatafile";
 const axios = require('axios');
 
 const CreateClub = () => {  
@@ -201,19 +202,20 @@ const CreateClub = () => {
             // const CryptoJS = require("crypto-js");              
             // let encrypted = CryptoJS.AES.encrypt(PasswordEny,PasswordEny).toString();
             console.log("EnyPassword");
-         let k =   await createevent(Name,description,startingDate,endingDate,rewards,Email,Img,today);
+         let k =   await createevents(Name,description,Email,startingDate,endingDate,rewards,localStorage.getItem("EAWalletAddress"),Img);
+         await createActivityTable(localStorage.getItem("EAWalletAddress"),"Create Event","","","Event")
          console.log("k",k)
-         if(k === 1){
+        //  if(k === 1){
           toast.success(" Event Created successful",{autoClose: 5000});                 
                             handleHideLoad() 
                             await sleep(5000)
                             history.push('/created_events') 
-         }
-         else{
-          toast.dismiss()
-          toast.warning(`Your Profile Already Create`,{autoClose: 5000});            
-          handleHideLoad()                                                                                                                                                 
-          }
+        //  }
+        //  else{
+        //   toast.dismiss()
+        //   toast.warning(`Your Profile Already Create`,{autoClose: 5000});            
+        //   handleHideLoad()                                                                                                                                                 
+        //   }
             //asset optin end here
               //fireDb.auth().signInAnonymously().then((response)=>{      
                 // let ref2=fireDb.database().ref(`organizationclub/${localStorage.getItem('EAWalletAddress')}`);            
