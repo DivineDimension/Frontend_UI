@@ -14,6 +14,11 @@ import MyAlgoLogo from '../../assets/images/martian_logo.jpg';
 
 import Sidebar from './Sidebar';
 import web3 from './web3';
+import Web3 from "web3";
+import WalletLink from 'walletlink';
+// import { LOCAL_STORAGE_ADDRESSES_KEY } from 'walletlink/dist/relay/WalletLinkRelayAbstract';
+
+
 import { ToastContainer, Zoom, toast} from 'react-toastify';
 // import node from './nodeapi.json';
 // import { uservisit } from '../../firedbstore';
@@ -25,6 +30,11 @@ import { createUserVisits } from '../../awsdatafile';
 //import { AppId,escrowProgram } from "../swapConfig";
 
 const Header = (props) => {
+    const [web3, setWeb3] = useState(null);
+  //const [address, setAddress] = useState(null);
+
+    const [amount, setAmount] = useState("");
+  const [address, setAddress] = useState("");
     const EAWalletbalances = useContext(DataContext);
     console.log("BalanceEE",EAWalletbalances)
     const [show, setShow] = useState(false);
@@ -219,6 +229,60 @@ const Header = (props) => {
     }
 };
 
+const connectTrustWallet= async () =>  {
+    localStorage.setItem("EAWalletName", "ETrustWallet");
+    if (window.ethereum) {
+      try {
+        // Request account access
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        const web3 = new Web3(window.ethereum);
+
+        // Set the network to Sepolia Testnet
+        await web3.eth.net
+          .isListening()
+          .then(() => console.log("web3 is connected"))
+          .catch((e) => console.log("Wow. Something went wrong"));
+
+        const networkId = "15001"; // Sepolia Testnet ID
+        await web3.eth.net.getId().then((netId) => {
+          if (netId !== networkId) {
+            console.log("Wrong network");
+          }
+        });
+
+        const accounts = await web3.eth.getAccounts();
+        setAddress(accounts[0]);
+        return web3;
+      } catch (error) {
+        console.error("User denied account access", error);
+      }
+    } else {
+      console.error("Trust Wallet not found");
+    }
+  }
+
+  const connectWalletcoinbase = async () => {
+    localStorage.setItem("EAWalletName", "ECoinbaseWallet");
+    try {
+        const walletLink = new WalletLink({
+            appName: 'My DApp',
+            appLogoUrl: 'https://example.com/logo.png',
+            rpcUrl: 'https://sepolia-testnet.g.alchemy.com/v2/Qk7z3afphA5Oj7aR',
+        });
+
+        const ethereum = walletLink.makeWeb3Provider('https://sepolia-testnet.g.alchemy.com/v2/Qk7z3afphA5Oj7aR', 1);
+        await ethereum.enable();
+
+        const web3 = new Web3(ethereum);
+        const accounts = await web3.eth.getAccounts();
+        setAddress(accounts[0]);
+        console.log(accounts[0]);
+        setWeb3(web3);
+    } catch (error) {
+        console.log(error);
+        // { code: 4001, message: "User rejected the request."}
+    }
+};
 
 
     // const connectWalletphantom = async () => {
@@ -1010,14 +1074,14 @@ const[storereem,setstoreredeem] = useState([]);
                                 <span className='text-white'>MetaMask</span>
                                 <img src={metamask} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
                             </Button>
-                            {/* <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
-                                <span className='text-white'>Martian-Wallet</span>
+                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletcoinbase}>
+                                <span className='text-white'>Coinbase Wallet</span>
                                 <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
                             </Button>
-                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectWalletmartian}>
-                                <span className='text-white'>Martian-Wallet</span>
+                            <Button variant='gray' className='d-flex mb-2 p-3 justify-content-between w-100 align-items-center' onClick={connectTrustWallet}>
+                                <span className='text-white'>Trust Wallet</span>
                                 <img src={MyAlgoLogo} style={{width:'25px',height:'25px'}} alt="My Algo Wallet" />
-                            </Button> */}
+                            </Button>
                         </Tab>
                     </Tabs>
                 </Modal.Body>
@@ -1042,10 +1106,10 @@ const[storereem,setstoreredeem] = useState([]);
                     <Modal.Title>Account</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {localStorage.getItem("walletUsed") === "Metamask" ?
+                    {localStorage.getItem("walletUsed") === "Metamask" ? localStorage.getItem("walletUsed") === ""
 
                      (<>
-                <h6 className='mb-2 me-auto'>Connected with Metamask Wallet
+                <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("EAWalletName") === "ETrustWallet" ? "Trust": localStorage.getItem("EAWalletName") === "ECoinbaseWallet" ? "Coinbase" : "Metamask"} Wallet
                 </h6>
                      </>):(<>
                 <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("EAWalletName") === "EPetraWallet"  ? "Petra": localStorage.getItem("EAWalletName") === "EMartianWallet"  ? "Martian" : "Pontem"} Wallet
