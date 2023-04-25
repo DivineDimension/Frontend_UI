@@ -230,7 +230,9 @@ const Header = (props) => {
 };
 
 const connectTrustWallet= async () =>  {
+    // const accounts =await web3.eth.getAccounts();
     localStorage.setItem("EAWalletName", "ETrustWallet");
+ 
     if (window.ethereum) {
       try {
         // Request account access
@@ -249,9 +251,18 @@ const connectTrustWallet= async () =>  {
             console.log("Wrong network");
           }
         });
-
+        // localStorage.setItem("walletbalance",accinfo/1000000000000000000)
+        // await createUserVisits(localStorage.getItem("walletAddress"),"Sepolia","Metamask","Connect Wallet")
+        // await sleep(2000);
         const accounts = await web3.eth.getAccounts();
         setAddress(accounts[0]);
+        window.wallet=accounts[0];
+           
+        localStorage.setItem("EAWalletAddress", accounts[0]);
+        
+        await createUserVisits(accounts[0],"Sepolia","Trust","Connect Wallet")
+        console.log(accounts[0]);
+        await sleep(2000);
         return web3;
       } catch (error) {
         console.error("User denied account access", error);
@@ -276,7 +287,13 @@ const connectTrustWallet= async () =>  {
         const web3 = new Web3(ethereum);
         const accounts = await web3.eth.getAccounts();
         setAddress(accounts[0]);
-        console.log(accounts[0]);
+        window.wallet=accounts[0];
+           
+        localStorage.setItem("EAWalletAddress", accounts[0]);
+        
+        await createUserVisits(accounts[0],"Sepolia","Coinbase","Connect Wallet")
+        await sleep(2000);
+       
         setWeb3(web3);
     } catch (error) {
         console.log(error);
@@ -1106,7 +1123,7 @@ const[storereem,setstoreredeem] = useState([]);
                     <Modal.Title>Account</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {localStorage.getItem("walletUsed") === "Metamask" ? localStorage.getItem("walletUsed") === ""
+                    {localStorage.getItem("walletUsed") === "Metamask" ? 
 
                      (<>
                 <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("EAWalletName") === "ETrustWallet" ? "Trust": localStorage.getItem("EAWalletName") === "ECoinbaseWallet" ? "Coinbase" : "Metamask"} Wallet
