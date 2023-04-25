@@ -261,7 +261,7 @@ const connectTrustWallet= async () =>  {
         localStorage.setItem("EAWalletAddress", accounts[0]);
         
         await createUserVisits(accounts[0],"Sepolia","Trust","Connect Wallet")
-        console.log(accounts[0]);
+        console.log("addr",accounts[0]);
         await sleep(2000);
         return web3;
       } catch (error) {
@@ -292,6 +292,7 @@ const connectTrustWallet= async () =>  {
         localStorage.setItem("EAWalletAddress", accounts[0]);
         
         await createUserVisits(accounts[0],"Sepolia","Coinbase","Connect Wallet")
+        console.log("addr",accounts[0]);
         await sleep(2000);
        
         setWeb3(web3);
@@ -1133,7 +1134,8 @@ const[storereem,setstoreredeem] = useState([]);
                 </h6>
                      </>)}
                 
-            
+                     {/* <div id="wallet-address"></div> */}
+
           
                 {/* <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("wallet") === "Petra" ? (<> */}
                 {/* <h6 className='mb-2 me-auto'>Connected with {localStorage.getItem("wallet") === "Petra" ? (<>
